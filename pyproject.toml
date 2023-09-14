@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hardshell"
-version = "0.1.0"
+version = "0.1.1"
 description = "Harden your operating system against vulnerabilities"
 license = "MIT"
 authors = ["Tom Burge <tom@tomburge.org>"]
@@ -34,6 +34,10 @@ pytest-cov = "^4.1.0"
 [tool.poetry_bumpversion.file."hardshell/__init__.py"]
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
+
+[tool.poetry_bumpversion.file."tests/hardshell.py"]
+search = 'assert __version__ == "{current_version}"'
+replace = 'assert __version__ == "{new_version}"'
 
 [build-system]
 requires = ["poetry-core"]
