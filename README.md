@@ -7,7 +7,7 @@ Branches:
 
 Main:
 
-![Codecov branch](https://img.shields.io/codecov/c/github/tomburge/hardshell/release)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/tomburge/hardshell/main.yaml)
+![Codecov branch](https://img.shields.io/codecov/c/github/tomburge/hardshell/main)![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/tomburge/hardshell/tests.yaml)
 
 Release:
 
