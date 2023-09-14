@@ -35,6 +35,10 @@ pytest-cov = "^4.1.0"
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
+[tool.poetry_bumpversion.file."tests/hardshell.py"]
+search = 'assert __version__ == "{current_version}"'
+replace = 'assert __version__ == "{new_version}"'
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
