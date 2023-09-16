@@ -3,10 +3,11 @@ import os
 import platform
 import shutil
 import site
+import time
+from importlib.metadata import distribution
 from pathlib import Path
 from typing import Callable, Dict, Union
-from importlib.metadata import distribution
-import time
+
 import click
 import toml
 
@@ -165,7 +166,9 @@ def init_config(os_info, admin, cmode="deploy"):
         win_dir = r"C:\\Program Files\\hardshell"
         lin_dir = r"/etc/hardshell/hardshell.toml"
     else:
-        win_dir = os.path.expandvars(r"C:\\Users\\%USERNAME%\\AppData\\Local\\hardshell")
+        win_dir = os.path.expandvars(
+            r"C:\\Users\\%USERNAME%\\AppData\\Local\\hardshell"
+        )
         lin_dir = f"/home/{os.environ.get('USER', 'user')}/.hardshell"
 
     click.echo(f"{user_type} detected...")

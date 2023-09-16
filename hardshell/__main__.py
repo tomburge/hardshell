@@ -4,7 +4,7 @@
 import click
 
 from hardshell import __version__
-from hardshell.utils.core import init_config, detect_admin, detect_os
+from hardshell.utils.core import detect_admin, detect_os, init_config
 from hardshell.utils.startup import init
 
 
