@@ -1,26 +1,55 @@
+#########################################################################################
+# Imports
+#########################################################################################
 import click
 
 from hardshell import __version__
+from hardshell.utils.core import init_config, detect_admin, detect_os
+from hardshell.utils.startup import init
 
 
+# Package Version
 @click.version_option(version=__version__)
+
+
+# Base Group
 @click.group()
 def cli():
     pass
 
 
-@click.command()
+# System Group
+@cli.group(name="system")
+def system_cli():
+    pass
+
+
+# Audit Command
+@system_cli.command()
 def audit():
-    click.echo("audit")
+    init(mode="audit")
 
 
-@click.command()
+# Harden Command
+@system_cli.command()
+@click.confirmation_option()
 def harden():
-    click.echo("harden")
+    init(mode="harden")
 
 
-cli.add_command(audit)
-cli.add_command(harden)
+# Config Group
+@cli.group()
+def config():
+    pass
+
+
+@config.command()
+@click.confirmation_option()
+def generate():
+    os_info = detect_os()
+    admin = detect_admin()
+    mode = "generate"
+    init_config(os_info, admin, mode)
 
 
 def main():

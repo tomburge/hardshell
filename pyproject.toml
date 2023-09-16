@@ -14,14 +14,14 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 keywords = ["hardshell", "harden", "os", "security"]
-# packages = []
 
 [tool.poetry.scripts]
 hardshell = "hardshell.__main__:main"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 click = "^8.1.7"
+toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4"

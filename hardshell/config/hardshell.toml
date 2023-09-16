@@ -1,0 +1,45 @@
+#################################################
+# Global Configuration
+#################################################
+[global]
+
+
+#################################################
+# Filesystems Configuration
+#################################################
+[filesystems]
+type = "fs"
+locations = [
+    "/etc/modprobe.d/*.conf",
+    "/lib/modprobe.d/*.conf",
+    "/run/modprobe.d/*.conf",
+    "/usr/local/lib/modprobe.d/*.conf",
+]
+
+[filesystems.cramfs]
+name = "cramfs"
+disable = true
+
+[filesystems.freevxfs]
+name = "freevxfs"
+disable = true
+
+[filesystems.hfs]
+name = "hfs"
+disable = true
+
+[filesystems.hfsplus]
+name = "hfsplus"
+disable = true
+
+[filesystems.jffs2]
+name = "jffs2"
+disable = true
+
+[filesystems.squashfs]
+name = "squashfs"
+disable = true
+
+[filesystems.udf]
+name = "udf"
+disable = true
