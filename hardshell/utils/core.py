@@ -1,15 +1,38 @@
 import ctypes
 import os
 import platform
-import shutil
-import site
-import time
-from importlib.metadata import distribution
 from pathlib import Path
 from typing import Callable, Dict, Union
 
-import click
-import toml
+from hardshell import __name__, __version__
+
+
+def get_banner():
+    """
+    Gets the startup banner.
+
+    Returns:
+        list: str
+
+    Example Usage:
+        banner = get_banner()
+        print(banner)  # Prints startup banner
+    """
+    banner = []
+    banner.append("  " + "#" * 80)
+    banner.append("  " + f"# {__name__} {__version__}")
+    banner.append("  " + "# " + "-" * 15)
+    banner.append(
+        "  "
+        + f"# {__name__} comes with ABSOLUTELY NO WARRANTY. This is free software, and"
+    )
+    banner.append(
+        "  " + "# you are welcome to redistribute it under the terms of the MIT License."
+    )
+    banner.append("  " + "# See the LICENSE file for details about using this software.")
+    banner.append("  " + "#" * 80)
+    banner.append("\n")
+    return banner
 
 
 def detect_admin() -> bool:
@@ -98,102 +121,3 @@ def detect_os() -> Dict[str, Union[str, Dict[str, str]]]:
     system = platform.system()
 
     return os_detectors.get(system, lambda: {"Error": "Unsupported OS..."})()
-
-
-def load_config_file(file_path):
-    try:
-        with open(file_path, "r") as f:
-            config = toml.load(f)
-        return config
-    except FileNotFoundError:
-        print(f"Error: {file_path} not found.")
-        return None
-    except toml.TomlDecodeError:
-        print(f"Error: Could not decode {file_path} as TOML.")
-        return None
-
-
-def deploy_config_file(config_file, src_file):
-    if os.path.exists(config_file):
-        click.echo("Config file exists...")
-        click.echo("Loading config file...")
-        config = load_config_file(config_file)
-        if config is not None:
-            return config
-    else:
-        click.echo("Deploying config file...")
-        shutil.copy(src_file, config_file)
-        click.echo("Loading config file...")
-        config = load_config_file(config_file)
-        if config is not None:
-            return config
-
-
-def generate_config_file(config_file, src_file):
-    if os.path.exists(config_file):
-        click.echo("Config file exists...")
-        click.echo("Renaming config file...")
-        timestamp = int(time.time())
-        backup_file = f"{config_file}.{timestamp}.bak"
-        os.rename(config_file, backup_file)
-    shutil.copy(src_file, config_file)
-
-
-def handle_directory(directory, user_type):
-    if os.path.exists(directory):
-        click.echo(f"{user_type} directory exists...")
-    else:
-        os.makedirs(directory, exist_ok=False)
-        click.echo(f"{user_type} directory created...")
-
-
-def init_config(os_info, admin, cmode="deploy"):
-    # Constants
-    filename = "hardshell.toml"
-    win_src = ".\\hardshell\\config\\hardshell.toml"  # TODO For testing
-    lin_src = "./hardshell/config/hardshell.toml"  # TODO For testing
-    # win_src = distribution("hardshell").locate_file(
-    #     "hardshell\\config\\hardshell.toml"
-    # )
-    # lin_src = distribution("hardshell").locate_file(
-    #     "hardshell/config/hardshell.toml"
-    # )
-
-    # Determine user type and directories
-    user_type = "Admin" if admin else "User"
-
-    if admin:
-        win_dir = r"C:\\Program Files\\hardshell"
-        lin_dir = r"/etc/hardshell/hardshell.toml"
-    else:
-        win_dir = os.path.expandvars(
-            r"C:\\Users\\%USERNAME%\\AppData\\Local\\hardshell"
-        )
-        lin_dir = f"/home/{os.environ.get('USER', 'user')}/.hardshell"
-
-    click.echo(f"{user_type} detected...")
-
-    if os_info["type"] not in ["windows", "linux"]:
-        click.echo("Error: Unsupported OS type...")
-        return
-
-    src_file = win_src if os_info["type"] == "windows" else lin_src
-    config_dir = win_dir if os_info["type"] == "windows" else lin_dir
-    config_file = os.path.join(config_dir, filename)
-
-    click.echo(f"{os_info['type'].capitalize()} detected...")
-
-    handle_directory(config_dir, user_type)
-
-    if cmode == "deploy":
-        config = deploy_config_file(config_file, src_file)
-        return config
-    elif cmode == "generate":
-        generate_config_file(config_file, src_file)
-    elif cmode == "test":
-        test_config = ".\\hardshell\\config\\hardshell.toml"
-        config = load_config_file(test_config)
-        click.echo(config)
-        return config
-    else:
-        click.echo("Error: Unsupported mode...")

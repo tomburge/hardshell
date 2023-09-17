@@ -4,7 +4,8 @@
 import click
 
 from hardshell import __version__
-from hardshell.utils.core import detect_admin, detect_os, init_config
+from hardshell.utils.config import init_config
+from hardshell.utils.core import detect_admin, detect_os
 from hardshell.utils.startup import init
 
 
@@ -27,14 +28,18 @@ def system_cli():
 # Audit Command
 @system_cli.command()
 def audit():
-    init(mode="audit")
+    mode = "audit"
+    cmode = "test-deploy"  # deploy | test | test-deploy
+    init(mode=mode, cmode=cmode)
 
 
 # Harden Command
 @system_cli.command()
 @click.confirmation_option()
 def harden():
-    init(mode="harden")
+    mode = "harden"
+    cmode = "test"  # deploy | test | test-deploy
+    init(mode=mode, cmode=cmode)
 
 
 # Config Group
@@ -48,8 +53,8 @@ def config():
 def generate():
     os_info = detect_os()
     admin = detect_admin()
-    mode = "generate"
-    init_config(os_info, admin, mode)
+    cmode = "test-generate"  # generate | test-generate
+    init_config(os_info, admin, cmode)
 
 
 def main():
