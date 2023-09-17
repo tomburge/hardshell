@@ -1,5 +1,6 @@
-import click
 import subprocess
+
+import click
 
 
 def kernel_module_loadable(module_name):

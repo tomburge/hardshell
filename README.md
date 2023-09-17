@@ -19,4 +19,4 @@ Config File Locations:
 windows admin: C:\Program Files\hardshell\hardshell.toml
 windows user: C:\Users\user\AppData\Local\hardshell\hardshell.toml
 linux admin: /etc/hardshell/hardshell.toml
-linux user: /home/user/.hardshell/hardshell.toml
+linux user: /home/$USER/.hardshell/hardshell.toml

@@ -1,4 +1,5 @@
 import os
+import pwd
 import shutil
 import time
 from importlib.metadata import distribution
@@ -71,7 +72,9 @@ def init_config(os_info, admin, cmode="deploy"):
         win_dir = os.path.expandvars(
             r"C:\\Users\\%USERNAME%\\AppData\\Local\\hardshell\\"
         )
-        lin_dir = f"/home/{os.environ.get('USER', 'user')}/.hardshell"
+        if os_info["type"] == "linux":
+            user_name = os.environ.get("USER") or pwd.getpwuid(os.getuid())[0]
+            lin_dir = f"/home/{user_name}/.hardshell"
 
     # Determine OS Type
     if os_info["type"] not in ["windows", "linux"]:

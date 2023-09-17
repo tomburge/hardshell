@@ -1,8 +1,9 @@
 #########################################################################################
 # Imports
 #########################################################################################
-import click
 import platform
+
+import click
 
 from hardshell import __name__, __version__
 from hardshell.scanner.scanner import scanner
@@ -43,7 +44,9 @@ def init(mode, cmode):
     click.echo("  " + f"Operating System: " + f"{'':<16}{is_os['type'].capitalize()}")
     click.echo("  " + f"Operating System Name: " + f"{'':<11}{is_os['name']}")
     click.echo("  " + f"Operating System Version: " + f"{'':<8}{is_os['version']}")
-    click.echo("  " + f"Operating System Architecture: " + f"{'':<3}{platform.machine()}")
+    click.echo(
+        "  " + f"Operating System Architecture: " + f"{'':<3}{platform.machine()}"
+    )
     click.echo("  " + f"Hostname: " + f"{'':<24}{platform.node()}")
     click.echo("  " + "-" * 70)
     click.echo("\n")
