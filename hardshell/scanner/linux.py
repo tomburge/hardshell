@@ -21,6 +21,8 @@ def kernel_module_loaded(mode, config, mod_type, mod_name):
             try:
                 result = subprocess.run(["modprobe", "-r", mod_name])
                 click.echo(result)
+                if "not found" in result:
+                    return "NOT FOUND"
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
@@ -97,6 +99,13 @@ def scan_fs(mode, config):
             # Loaded Check
             loaded = kernel_module_loaded(mode, config, mod_type, fs)
             if loaded == "UNLOADED":
+                click.echo(
+                    "  "
+                    + f"- Filesystem: {fs}"
+                    + "\t" * 6
+                    + click.style(f"[{loaded}]", fg="bright_green")
+                )
+            if loaded == "NOT FOUND":
                 click.echo(
                     "  "
                     + f"- Filesystem: {fs}"
