@@ -32,16 +32,18 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
                 result = subprocess.run(
                     cmd, shell=True, check=True, capture_output=True, text=True
                 )
+                return "DENIED"
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
                     + "- "
                     + click.style("[SUDO REQUIRED]", fg="bright_red")
-                    + f"- [HARDEN] - {mod_type} - {mod_name}"
+                    + f"- {mod_type} - {mod_name}"
                     + "\t" * 1
                     + click.style(f"[{e.stderr}]", fg="bright_red")
                 )
-                return "DENIED"
+                print(e.stdout)
+                print(e.output)
 
     deny = subprocess.getoutput(
         f"modprobe --showconfig | grep -P '^\s*blacklist\s+{mod_name}\b'"
