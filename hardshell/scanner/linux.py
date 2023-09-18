@@ -9,8 +9,9 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
 
     if mode == "audit":
         if disable:
-            cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
-            click.echo(cmd)
+            cmd = f"echo 'install /bin/false\n' >> {mod_type}-{mod_name}.conf"
+            # cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
+            # click.echo(cmd)
             try:
                 result = subprocess.run(
                     cmd, shell=True, check=True, capture_output=True, text=True
@@ -91,6 +92,7 @@ def scan_fs(mode, config):
     click.echo("  " + "-" * 80)
     for fs in config["filesystems"]:
         mod_type = "filesystems"
+        click.echo("\n")
         if config["filesystems"][fs]["skip"]:
             # Skip Filesystem Set
             click.echo(
