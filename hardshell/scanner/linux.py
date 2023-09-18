@@ -105,20 +105,20 @@ def scan_fs(mode, config):
 
             # Loaded Check
             loaded = kernel_module_loaded(mode, config, mod_type, fs)
-            if loaded == "UNLOADED":
+            if loaded == "UNLOADED" or loaded == "NOT FOUND":
                 click.echo(
                     "  "
                     + f"- Filesystem: {fs}"
                     + "\t" * 6
                     + click.style(f"[{loaded}]", fg="bright_green")
                 )
-            if loaded == "NOT FOUND":
-                click.echo(
-                    "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
-                    + click.style(f"[{loaded}]", fg="bright_green")
-                )
+            # if loaded == "NOT FOUND":
+            #     click.echo(
+            #         "  "
+            #         + f"- Filesystem: {fs}"
+            #         + "\t" * 6
+            #         + click.style(f"[{loaded}]", fg="bright_green")
+            #     )
             else:
                 click.echo(
                     "  "
