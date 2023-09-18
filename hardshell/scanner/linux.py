@@ -38,7 +38,7 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
 def kernel_module_loaded(mode, config, mod_type, mod_name):
     disable = config[mod_type][mod_name]["disable"]
 
-    if mode == "harden":
+    if mode == "audit":
         if disable:
             try:
                 result = subprocess.run(
@@ -62,7 +62,7 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
     mp_config = config["global"]["modprobe_config"]
     disable = config[mod_type][mod_name]["disable"]
 
-    if mode == "harden":
+    if mode == "audit":
         if disable:
             cmd = (
                 f"echo 'blacklist {mod_name}\n' >> {mp_config}{mod_type}-{mod_name}.conf"
