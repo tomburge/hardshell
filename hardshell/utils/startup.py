@@ -39,17 +39,23 @@ def init(mode, cmode):
     click.echo("\n")
 
     # System Info
-    click.echo("  " + "-" * 70)
-    click.echo("  " + f"{__name__.capitalize()} Version: " + "\t" * 3 + f"{__version__}")
-    click.echo("  " + f"Operating System: " + "\t" * 3 + f"{is_os['type'].capitalize()}")
+    click.echo("  " + "-" * 80)
+    click.echo(
+        "  " + f"{__name__.capitalize()} Version: " + "\t" * 3 + f"{__version__}"
+    )
+    click.echo(
+        "  " + f"Operating System: " + "\t" * 3 + f"{is_os['type'].capitalize()}"
+    )
     click.echo("  " + f"Operating System Name: " + "\t" * 2 + f"{is_os['name']}")
     click.echo("  " + f"Operating System Version: " + "\t" * 2 + f"{is_os['version']}")
-    click.echo("  " + f"Operating System Architecture: " + "\t" + f"{platform.machine()}")
+    click.echo(
+        "  " + f"Operating System Architecture: " + "\t" + f"{platform.machine()}"
+    )
     click.echo("  " + f"Hostname: " + "\t" * 4 + f"{platform.node()}")
-    click.echo("  " + "-" * 70)
+    click.echo("  " + "-" * 80)
     click.echo("\n")
 
     # Scanner
     click.echo("  " + "Starting Scanner...")
-    click.echo("  " + "-" * 70)
+    click.echo("  " + "-" * 80)
     scan = scanner(mode=mode, os_info=is_os, config=config)
