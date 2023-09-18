@@ -4,7 +4,6 @@
 [global]
 # modprobe Configuration File Locations
 modprobe_config = "/etc/modprobe.d/"
-# modprobe_fs_config = "uncommon-fs.conf"
 
 #################################################
 # Filesystems Configuration
