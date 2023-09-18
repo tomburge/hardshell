@@ -4,20 +4,67 @@
 [global]
 # modprobe Configuration File Locations
 modprobe_config = "/etc/modprobe.d/"
+# modprobe_fs_config = "uncommon-fs.conf"
 
 #################################################
 # Filesystems Configuration
 #################################################
-[filesystems]
-cramfs = "echo 'install cramfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-fat = "echo 'install fat /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-freevxfs = "echo 'install freevxfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-gfs2 = "echo 'install gfs2 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-hfs = "echo 'install hfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-hfsplus = "echo 'install hfsplus /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-jffs2 = "echo 'install jffs2 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-# nfs = "echo 'install nfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-# nfsv3 = "echo 'install nfsv3 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-squashfs = "echo 'install squashfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-udf = "echo 'install udf /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
-vfat = "echo 'install vfat /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+[filesystems.cramfs]
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.fat]
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.freevxfs]
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.gfs2]
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.hfs]
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.hfsplus]
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.jffs2]
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.nfs]
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.nfsv3]
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.squashfs]
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.udf]
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.vfat]
+disable = false
+cis = ""
+stig = ""

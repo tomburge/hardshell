@@ -2,8 +2,8 @@ import subprocess
 import click
 
 
-def kernel_module_loadable(module_name):
-    loadable = subprocess.getoutput(f"modprobe -n -v {module_name}")
+def kernel_module_loadable(mode, config, mod_type, mod_name):
+    loadable = subprocess.getoutput(f"modprobe -n -v {mod_name}")
     loadable_lines = loadable.split("\n")
     loadable_lines = [line.strip() for line in loadable_lines]
     for line in loadable_lines:
@@ -12,34 +12,39 @@ def kernel_module_loadable(module_name):
     return True
 
 
-def kernel_module_loaded(module_name):
-    loaded = subprocess.getoutput(f"lsmod | grep {module_name}")
+def kernel_module_loaded(mode, config, mod_type, mod_name):
+    loaded = subprocess.getoutput(f"lsmod | grep {mod_name}")
     return True if loaded else False
 
 
-def kernel_module_status(module_name):
-    status = subprocess.getoutput(
-        f"modprobe --showconfig | grep -P '^\s*blacklist\s+{module_name}\b'"
+def kernel_module_deny(mode, config, mod_type, mod_name):
+    mp_config = config["global"]["modprobe_config"]
+    disable = config[mod_type][mod_name]["disable"]
+
+    deny = subprocess.getoutput(
+        f"modprobe --showconfig | grep -P '^\s*blacklist\s+{mod_name}\b'"
     )
-    return True if status else False
+
+    if mode == "audit":
+        if disable:
+            click.echo(
+                "  "
+                + f"\t- Command: echo -e 'blacklist {mod_name}\\n' >> {mp_config}fs-{mod_name}.conf"
+            )
+
+    return True if deny else False
 
 
 def fs_scan(mode, config):
-    if mode == "audit":
-        pass
-    elif mode == "harden":
-        pass
-    else:
-        pass
-
     for fs in config["filesystems"]:
-        click.echo("  " + f"Filesystem: {fs}")
-        status = kernel_module_status(fs)
-        click.echo("  " + f"Status: {status}")
-        loaded = kernel_module_loaded(fs)
-        click.echo("  " + f"Loaded: {loaded}")
-        loadable = kernel_module_loadable(fs)
-        click.echo("  " + f"Loadable: {loadable}")
+        mod_type = "filesystems"
+        click.echo("  " + f"- Filesystem: {fs}")
+        deny = kernel_module_deny(mode, config, mod_type, fs)
+        click.echo("  " + f"\t- Denied: {deny}")
+        loaded = kernel_module_loaded(mode, config, mod_type, fs)
+        click.echo("  " + f"\t- Loaded: {loaded}")
+        loadable = kernel_module_loadable(mode, config, mod_type, fs)
+        click.echo("  " + f"\t- Loadable: {loadable}")
 
 
 def scan_linux(mode, config):
