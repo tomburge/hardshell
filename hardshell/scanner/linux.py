@@ -39,8 +39,8 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
                     + "- "
                     + click.style("[SUDO REQUIRED]", fg="bright_red")
                     + f"- {mod_type} - {mod_name}"
-                    + "\t" * 1
-                    + click.style(f"[{e.stderr}]", fg="bright_red")
+                    # + "\t" * 1
+                    # + click.style(f"[{e.stderr}]", fg="bright_red")
                 )
 
     deny = subprocess.getoutput(
