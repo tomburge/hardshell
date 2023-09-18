@@ -10,11 +10,13 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
     if mode == "audit":
         if disable:
             cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
+            click.echo(cmd)
             try:
                 result = subprocess.run(
                     cmd, shell=True, check=True, capture_output=True, text=True
                 )
-                return "UNLOADABLE"
+                click.echo(result)
+                # return "UNLOADABLE"
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
