@@ -9,7 +9,7 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
 
     if mode == "audit":
         if disable:
-            cmd = f"echo 'install /bin/false\n' >> {mod_type}-{mod_name}.conf"
+            cmd = f"echo 'install /bin/false' >> {mod_type}-{mod_name}.conf"
             # cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
             # click.echo(cmd)
             try:
@@ -64,7 +64,7 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
 
     if mode == "audit":
         if disable:
-            cmd = f"echo 'blacklist {mod_name}\n' >> {mod_type}-{mod_name}.conf"
+            cmd = f"echo 'blacklist {mod_name}' >> {mod_type}-{mod_name}.conf"
             # cmd = (
             #     f"echo 'blacklist {mod_name}\n' >> {mp_config}{mod_type}-{mod_name}.conf"
             # )
