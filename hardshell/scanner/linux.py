@@ -22,11 +22,8 @@ def kernel_module_loaded(mode, config, mod_type, mod_name):
                 result = subprocess.run(
                     ["modprobe", "-r", mod_name], capture_output=True, text=True
                 )
-                click.echo(result)
                 if "not found" in result.stderr:
-                    return "NOT FOUND (strerr)"
-                if "not found" in result.stdout:
-                    return "NOT FOUND (strout)"
+                    return "NOT FOUND"
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
