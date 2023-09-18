@@ -33,7 +33,13 @@ def kernel_module_loaded(mode, config, mod_type, mod_name):
                 )
 
     loaded = subprocess.getoutput(f"lsmod | grep {mod_name}")
-    return "LOADED" if loaded else "UNLOADED"
+    if "not found" in result.stderr:
+        return "NOT FOUND"
+    elif loaded:
+        return "LOADED"
+    else:
+        return "UNLOADED"
+    # return "LOADED" if loaded else "UNLOADED"
 
 
 def kernel_module_deny(mode, config, mod_type, mod_name):
