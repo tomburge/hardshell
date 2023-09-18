@@ -35,9 +35,10 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
-                    + "- [SUDO REQUIRED]"
+                    + "- "
+                    + click.style("[SUDO REQUIRED]", fg="bright_red")
                     + f"- [HARDEN] - {mod_type} - {mod_name}"
-                    + "\t" * 3
+                    + "\t" * 1
                     + click.style(f"[{e.stderr}]", fg="bright_red")
                 )
                 return "DENIED"
