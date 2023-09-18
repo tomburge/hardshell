@@ -42,8 +42,6 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
                     + "\t" * 1
                     + click.style(f"[{e.stderr}]", fg="bright_red")
                 )
-                print(e.stdout)
-                print(e.output)
 
     deny = subprocess.getoutput(
         f"modprobe --showconfig | grep -P '^\s*blacklist\s+{mod_name}\b'"
