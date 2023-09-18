@@ -28,9 +28,18 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
                 f"echo 'blacklist {mod_name}\n' >> {mp_config}{mod_type}-{mod_name}.conf"
             )
             # cmd = f"echo 'blacklist {mod_name}\n' >> {mod_type}-{mod_name}.conf"
-            result = subprocess.run(
-                cmd, shell=True, check=True, capture_output=True, text=True
-            )
+            try:
+                result = subprocess.run(
+                    cmd, shell=True, check=True, capture_output=True, text=True
+                )
+            except subprocess.CalledProcessError as e:
+                click.echo(
+                    "  "
+                    + f"- {mod_name}"
+                    + "\t" * 6
+                    + click.style(f"[{e.stderr}]", fg="bright_red")
+                )
+                return "DENIED"
 
     deny = subprocess.getoutput(
         f"modprobe --showconfig | grep -P '^\s*blacklist\s+{mod_name}\b'"
