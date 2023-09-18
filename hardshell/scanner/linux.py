@@ -108,15 +108,15 @@ def scan_fs(mode, config):
             if deny == "DENIED":
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{deny}]", fg="bright_green")
                 )
             else:
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{deny}]", fg="bright_red")
                 )
 
@@ -125,15 +125,15 @@ def scan_fs(mode, config):
             if loaded == "UNLOADED" or loaded == "NOT FOUND":
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{loaded}]", fg="bright_green")
                 )
             else:
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{loaded}]", fg="bright_red")
                 )
 
@@ -142,15 +142,15 @@ def scan_fs(mode, config):
             if loadable == "LOADABLE":
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{loadable}]", fg="bright_red")
                 )
             else:
                 click.echo(
                     "  "
-                    + f"- Filesystem: {fs}"
-                    + "\t" * 6
+                    + f"- [CHECK] - Filesystem: {fs}"
+                    + "\t" * 5
                     + click.style(f"[{loadable}]", fg="bright_green")
                 )
 
