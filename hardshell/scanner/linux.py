@@ -15,8 +15,7 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
                 result = subprocess.run(
                     cmd, shell=True, check=True, capture_output=True, text=True
                 )
-                click.echo(result)
-                # return "UNLOADABLE"
+                return "UNLOADABLE"
             except subprocess.CalledProcessError as e:
                 click.echo(
                     "  "
