@@ -4,6 +4,25 @@ import click
 
 
 def kernel_module_loadable(mode, config, mod_type, mod_name):
+    mp_config = config["global"]["modprobe_config"]
+    disable = config[mod_type][mod_name]["disable"]
+
+    if mode == "audit":
+        if disable:
+            cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
+            try:
+                result = subprocess.run(
+                    cmd, shell=True, check=True, capture_output=True, text=True
+                )
+                return "UNLOADABLE"
+            except subprocess.CalledProcessError as e:
+                click.echo(
+                    "  "
+                    + "- "
+                    + click.style("[SUDO REQUIRED]", fg="bright_red")
+                    + f"- {mod_type} - {mod_name}"
+                )
+
     loadable = subprocess.getoutput(f"modprobe -n -v {mod_name}")
     loadable_lines = loadable.split("\n")
     loadable_lines = [line.strip() for line in loadable_lines]
@@ -16,7 +35,7 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
 def kernel_module_loaded(mode, config, mod_type, mod_name):
     disable = config[mod_type][mod_name]["disable"]
 
-    if mode == "audit":
+    if mode == "harden":
         if disable:
             try:
                 result = subprocess.run(
@@ -33,13 +52,6 @@ def kernel_module_loaded(mode, config, mod_type, mod_name):
                 )
 
     loaded = subprocess.getoutput(f"lsmod | grep {mod_name}")
-    # if result:
-    #     if "not found" in result.stderr:
-    #         return "NOT FOUND"
-    # elif loaded:
-    #     return "LOADED"
-    # else:
-    #     return "UNLOADED"
     return "LOADED" if loaded else "UNLOADED"
 
 
@@ -78,6 +90,7 @@ def scan_fs(mode, config):
     for fs in config["filesystems"]:
         mod_type = "filesystems"
         if config["filesystems"][fs]["skip"]:
+            # Skip Filesystem Set
             click.echo(
                 "  "
                 + f"- Filesystem: {fs}"
@@ -113,13 +126,6 @@ def scan_fs(mode, config):
                     + "\t" * 6
                     + click.style(f"[{loaded}]", fg="bright_green")
                 )
-            # if loaded == "NOT FOUND":
-            #     click.echo(
-            #         "  "
-            #         + f"- Filesystem: {fs}"
-            #         + "\t" * 6
-            #         + click.style(f"[{loaded}]", fg="bright_green")
-            #     )
             else:
                 click.echo(
                     "  "
