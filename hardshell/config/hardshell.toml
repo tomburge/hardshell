@@ -1,0 +1,81 @@
+#################################################
+# Global Configuration
+#################################################
+[global]
+# modprobe Configuration File Locations
+modprobe_config = "/etc/modprobe.d/"
+
+#################################################
+# Filesystems Configuration
+#################################################
+[filesystems.cramfs]
+skip = false
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.fat]
+skip = false
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.freevxfs]
+skip = false
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.gfs2]
+skip = false
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.hfs]
+skip = false
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.hfsplus]
+skip = false
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.jffs2]
+skip = false
+disable = true
+cis = "level-1"
+stig = ""
+
+[filesystems.nfs]
+skip = true
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.nfsv3]
+skip = true
+disable = false
+cis = ""
+stig = ""
+
+[filesystems.squashfs]
+skip = false
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.udf]
+skip = false
+disable = true
+cis = "level-2"
+stig = ""
+
+[filesystems.vfat]
+skip = false
+disable = false
+cis = ""
+stig = ""
