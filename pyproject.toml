@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hardshell"
-version = "0.1.2"
+version = "0.1.3"
 description = "Harden your operating system against vulnerabilities"
 license = "MIT"
 authors = ["Tom Burge <tom@tomburge.org>"]
