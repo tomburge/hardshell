@@ -14,6 +14,21 @@ def kernel_module_loadable(mode, config, mod_type, mod_name):
 
 
 def kernel_module_loaded(mode, config, mod_type, mod_name):
+    disable = config[mod_type][mod_name]["disable"]
+
+    if mode == "audit":
+        if disable:
+            try:
+                result = subprocess.run(["modprobe", "-r", mod_name])
+                click.echo(result)
+            except subprocess.CalledProcessError as e:
+                click.echo(
+                    "  "
+                    + "- "
+                    + click.style("[SUDO REQUIRED]", fg="bright_red")
+                    + f"- {mod_type} - {mod_name}"
+                )
+
     loaded = subprocess.getoutput(f"lsmod | grep {mod_name}")
     return "LOADED" if loaded else "UNLOADED"
 
@@ -22,12 +37,11 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
     mp_config = config["global"]["modprobe_config"]
     disable = config[mod_type][mod_name]["disable"]
 
-    if mode == "audit":
+    if mode == "harden":
         if disable:
             cmd = (
                 f"echo 'blacklist {mod_name}\n' >> {mp_config}{mod_type}-{mod_name}.conf"
             )
-            # cmd = f"echo 'blacklist {mod_name}\n' >> {mod_type}-{mod_name}.conf"
             try:
                 result = subprocess.run(
                     cmd, shell=True, check=True, capture_output=True, text=True
@@ -39,8 +53,6 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
                     + "- "
                     + click.style("[SUDO REQUIRED]", fg="bright_red")
                     + f"- {mod_type} - {mod_name}"
-                    # + "\t" * 1
-                    # + click.style(f"[{e.stderr}]", fg="bright_red")
                 )
 
     deny = subprocess.getoutput(
