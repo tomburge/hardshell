@@ -1,5 +1,4 @@
 import os
-import pwd
 import shutil
 import time
 from importlib.metadata import distribution
@@ -23,17 +22,17 @@ def load_config_file(file_path):
 
 def deploy_config_file(config_file, src_file):
     if os.path.exists(config_file):
-        click.echo("\t- Config file..." + f"{'':<41}[FOUND]")
+        click.echo("\t- Config file..." + "\t" * 5 + "[FOUND]")
         click.echo("\t  Location: " + config_file)
-        click.echo("\t- Loading config file..." + f"{'':<33}[DONE]")
+        click.echo("\t- Loading config file..." + "\t" * 4 + "[DONE]")
         config = load_config_file(config_file)
         if config is not None:
             return config
     else:
-        click.echo("\t- Deploying config file..." + f"{'':<31}[DONE]")
+        click.echo("\t- Deploying config file..." + "\t" * 4 + "[DONE]")
         shutil.copy(src_file, config_file)
-        click.echo("\t- Config file deployed..." + f"{'':<32}[DONE]")
-        click.echo("\t- Loading config file..." + f"{'':<33}[DONE]")
+        click.echo("\t- Config file deployed..." + "\t" * 4 + "[DONE]")
+        click.echo("\t- Loading config file..." + "\t" * 4 + "[DONE]")
         config = load_config_file(config_file)
         if config is not None:
             return config
@@ -41,8 +40,8 @@ def deploy_config_file(config_file, src_file):
 
 def generate_config_file(config_file, src_file):
     if os.path.exists(config_file):
-        click.echo("\t- Config file..." + f"{'':<38}[FOUND]")
-        click.echo("\t- Renaming config file..." + f"{'':<32}[DONE]")
+        click.echo("\t- Config file..." + "\t" * 5 + "[FOUND]")
+        click.echo("\t- Renaming config file..." + "\t" * 4 + "[DONE]")
         timestamp = int(time.time())
         backup_file = f"{config_file}.{timestamp}.bak"
         os.rename(config_file, backup_file)
@@ -51,13 +50,15 @@ def generate_config_file(config_file, src_file):
 
 def handle_directory(directory):
     if os.path.exists(directory):
-        click.echo("\t- Config directory..." + f"{'':<36}[FOUND]")
+        click.echo("\t- Config directory..." + "\t" * 5 + "[FOUND]")
     else:
         os.makedirs(directory, exist_ok=False)
-        click.echo("\t- Creating config directory..." + f"{'':<27}[DONE]")
+        click.echo("\t- Creating config directory..." + "\t" * 4 + "[DONE]")
 
 
 def init_config(os_info, admin, cmode="deploy"):
+    if os_info["type"] == "linux":
+        import pwd
     # Config File Locations
     filename = "hardshell.toml"
     win_src = distribution("hardshell").locate_file("hardshell\\config\\hardshell.toml")

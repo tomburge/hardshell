@@ -2,44 +2,22 @@
 # Global Configuration
 #################################################
 [global]
-
+# modprobe Configuration File Locations
+modprobe_config = "/etc/modprobe.d/"
 
 #################################################
 # Filesystems Configuration
 #################################################
 [filesystems]
-type = "fs"
-locations = [
-    "/etc/modprobe.d/*.conf",
-    "/lib/modprobe.d/*.conf",
-    "/run/modprobe.d/*.conf",
-    "/usr/local/lib/modprobe.d/*.conf",
-]
-
-[filesystems.cramfs]
-name = "cramfs"
-disable = true
-
-[filesystems.freevxfs]
-name = "freevxfs"
-disable = true
-
-[filesystems.hfs]
-name = "hfs"
-disable = true
-
-[filesystems.hfsplus]
-name = "hfsplus"
-disable = true
-
-[filesystems.jffs2]
-name = "jffs2"
-disable = true
-
-[filesystems.squashfs]
-name = "squashfs"
-disable = true
-
-[filesystems.udf]
-name = "udf"
-disable = true
+cramfs = "echo 'install cramfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+fat = "echo 'install fat /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+freevxfs = "echo 'install freevxfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+gfs2 = "echo 'install gfs2 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+hfs = "echo 'install hfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+hfsplus = "echo 'install hfsplus /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+jffs2 = "echo 'install jffs2 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+# nfs = "echo 'install nfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+# nfsv3 = "echo 'install nfsv3 /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+squashfs = "echo 'install squashfs /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+udf = "echo 'install udf /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"
+vfat = "echo 'install vfat /bin/false' >> /etc/modprobe.d/uncommon-fs.conf"

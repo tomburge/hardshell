@@ -18,36 +18,34 @@ def init(mode, cmode):
     # Detect Admin
     is_admin = detect_admin()
     if is_admin == True:
-        banner.append("  " + "#" * 35)
-        banner.append("  " + f"# PRIVILEGED SCAN {mode.upper()} MODE")
-        banner.append("  " + "#" * 35)
+        banner.append("  " + "#" * 40)
+        banner.append("  " + "\t" * 1 + f"PRIVILEGED SCAN {mode.upper()} MODE")
+        banner.append("  " + "#" * 40)
     else:
-        banner.append("  " + "#" * 35)
-        banner.append("  " + f"# NON-PRIVILEGED SCAN {mode.upper()} MODE")
-        banner.append("  " + "#" * 35)
+        banner.append("  " + "#" * 42)
+        banner.append("  " + "\t" * 1 + f"NON-PRIVILEGED SCAN {mode.upper()} MODE")
+        banner.append("  " + "#" * 42)
     click.echo("\n".join(banner))
     click.echo("\n")
 
     # Detect Operating System
     is_os = detect_os()
-    click.echo("  - Detecting OS..." + f"{'':<46}[DONE]")
+    click.echo("  - Detecting OS..." + "\t" * 6 + "[DONE]")
 
     # Load Config
-    click.echo("  - Checking for config..." + f"{'':<39}[DONE]")
+    click.echo("  - Checking for config..." + "\t" * 5 + "[DONE]")
     config = init_config(os_info=is_os, admin=is_admin, cmode=cmode)
-    click.echo("  - Loading config..." + f"{'':<44}[DONE]")
+    click.echo("  - Loading config..." + "\t" * 6 + "[DONE]")
     click.echo("\n")
 
     # System Info
     click.echo("  " + "-" * 70)
-    click.echo("  " + f"{__name__.capitalize()} Version: " + f"{'':<15}{__version__}")
-    click.echo("  " + f"Operating System: " + f"{'':<16}{is_os['type'].capitalize()}")
-    click.echo("  " + f"Operating System Name: " + f"{'':<11}{is_os['name']}")
-    click.echo("  " + f"Operating System Version: " + f"{'':<8}{is_os['version']}")
-    click.echo(
-        "  " + f"Operating System Architecture: " + f"{'':<3}{platform.machine()}"
-    )
-    click.echo("  " + f"Hostname: " + f"{'':<24}{platform.node()}")
+    click.echo("  " + f"{__name__.capitalize()} Version: " + "\t" * 3 + f"{__version__}")
+    click.echo("  " + f"Operating System: " + "\t" * 3 + f"{is_os['type'].capitalize()}")
+    click.echo("  " + f"Operating System Name: " + "\t" * 2 + f"{is_os['name']}")
+    click.echo("  " + f"Operating System Version: " + "\t" * 2 + f"{is_os['version']}")
+    click.echo("  " + f"Operating System Architecture: " + "\t" + f"{platform.machine()}")
+    click.echo("  " + f"Hostname: " + "\t" * 4 + f"{platform.node()}")
     click.echo("  " + "-" * 70)
     click.echo("\n")
 
