@@ -4,10 +4,12 @@ import platform
 from pathlib import Path
 from typing import Callable, Dict, Union
 
+import click
+
 from hardshell import __name__, __version__
 
 
-def get_banner():
+def startup_banner():
     """
     Gets the startup banner.
 
@@ -27,15 +29,15 @@ def get_banner():
         + f"# {__name__} comes with ABSOLUTELY NO WARRANTY. This is free software, and"
     )
     banner.append(
-        "  "
-        + "# you are welcome to redistribute it under the terms of the MIT License."
+        "  " + "# you are welcome to redistribute it under the terms of the MIT License."
     )
-    banner.append(
-        "  " + "# See the LICENSE file for details about using this software."
-    )
-    banner.append("  " + "#" * 80)
-    banner.append("\n")
+    banner.append("  " + "# See the LICENSE file for details about using this software.")
+    banner.append("  " + "#" * 80 + "\n")
     return banner
+
+
+def shutdown_banner():
+    pass
 
 
 def detect_admin() -> bool:
@@ -124,3 +126,20 @@ def detect_os() -> Dict[str, Union[str, Dict[str, str]]]:
     system = platform.system()
 
     return os_detectors.get(system, lambda: {"Error": "Unsupported OS..."})()
+
+
+def handle_directory(dir_type, directory):
+    """
+    Checks if a directory exists and creates it if it does not.
+
+    Returns:
+        None
+
+    Example Usage:
+        handle_directory(dir)
+    """
+    if os.path.exists(directory):
+        click.echo(f"\t- {dir_type} directory..." + "\t" * 4 + "[FOUND]")
+    else:
+        os.makedirs(directory, exist_ok=False)
+        click.echo(f"\t- Creating {dir_type} directory..." + "\t" * 4 + "[DONE]")

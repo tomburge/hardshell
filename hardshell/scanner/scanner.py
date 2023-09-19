@@ -1,17 +1,32 @@
+#########################################################################################
+# Imports
+#########################################################################################
 import click
 
+from hardshell.utils.logger import logger
 from hardshell.scanner.linux import scan_linux
 from hardshell.scanner.windows import scan_windows
 
 
 def scanner(mode, os_info, config):
+    """
+    Start scanner based on operating system.
+
+    Returns:
+        None
+
+    Example Usage:
+        scan = scanner(mode=mode, os_info=is_os, config=config)
+    """
     # Confirming OS
     if os_info["type"] == "windows":
         # Windows
         click.echo("  " + "Windows")
-        scan_windows(mode, config)
+        logger.info("(scanner.py) - Starting Windows Scanner")
+        scan = scan_windows(mode, config)
     elif os_info["type"] == "linux":
         # Linux
-        scan_linux(mode, config)
+        logger.info("(scanner.py) - Starting Linux Scanner")
+        scan = scan_linux(mode, config)
     else:
         pass
