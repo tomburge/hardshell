@@ -24,9 +24,11 @@ def scanner(mode, os_info, config):
         click.echo("  " + "Windows")
         logger.info("(scanner.py) - Starting Windows Scanner")
         scan = scan_windows(mode, config)
+        click.echo(scan)
     elif os_info["type"] == "linux":
         # Linux
         logger.info("(scanner.py) - Starting Linux Scanner")
         scan = scan_linux(mode, config)
+        click.echo(scan)
     else:
         pass

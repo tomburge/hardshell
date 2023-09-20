@@ -139,7 +139,7 @@ def handle_directory(dir_type, directory):
         handle_directory(dir)
     """
     if os.path.exists(directory):
-        click.echo(f"\t- {dir_type} directory..." + "\t" * 4 + "[FOUND]")
+        click.echo(f"\t- {dir_type.capitalize()} directory..." + "\t" * 5 + "[FOUND]")
     else:
         os.makedirs(directory, exist_ok=False)
         click.echo(f"\t- Creating {dir_type} directory..." + "\t" * 4 + "[DONE]")
