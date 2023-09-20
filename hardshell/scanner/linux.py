@@ -155,7 +155,7 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
 
 
 def scan_kernel_modules(mode, config, mod_type):
-    click.echo("\n  Scanning Kernel Modules...")
+    click.echo(click.style("\n  Scanning Kernel Modules...", fg="yellow"))
     click.echo("  " + "-" * 80)
     logger.info(f"linux.py - {mode.upper()} - Scanning Kernel Modules")
 
@@ -163,6 +163,9 @@ def scan_kernel_modules(mode, config, mod_type):
         click.echo("")
 
         if config[mod_type][km]["skip"]:
+            click.echo(
+                click.style(f"  - Checking {mod_type.capitalize()}: {km}", fg="yellow")
+            )
             echo_and_log(
                 f"- [CHECK] - {mod_type.capitalize()}: {km}",
                 "SKIPPED",
@@ -171,6 +174,9 @@ def scan_kernel_modules(mode, config, mod_type):
                 "warning",
             )
         elif not config[mod_type][km]["disable"]:
+            click.echo(
+                click.style(f"  - Checking {mod_type.capitalize()}: {km}", fg="yellow")
+            )
             echo_and_log(
                 f"- [CHECK] - {mod_type.capitalize()}: {km}",
                 "WARNING",
@@ -179,7 +185,9 @@ def scan_kernel_modules(mode, config, mod_type):
                 "warning",
             )
         else:
-            click.echo(f"  - Checking {mod_type.capitalize()}: {km}")
+            click.echo(
+                click.style(f"  - Checking {mod_type.capitalize()}: {km}", fg="yellow")
+            )
 
             status_map = {
                 "UNLOADED": ("bright_green", "info"),
@@ -200,61 +208,132 @@ def scan_kernel_modules(mode, config, mod_type):
 
 
 # Kernel Parameter Functions
+def process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path):
+    # click.echo(full_path)
+    with open(full_path, "r") as f:
+        for line in f:
+            if setting == line:
+                click.echo(f"lines equal: {line}")
+                logger.info(f"(linux.py) - {line} found in file: {full_path}")
+
+
+def kernel_param_set(config, param_type, ps, setting):
+    try:
+        sysctl_config_dir = config["global"]["sysctl_config"]
+        sysctl_prefix = config["global"]["sysctl_config_prefix"]
+        # click.echo(setting)
+        for filename in os.listdir(sysctl_config_dir):
+            if filename.endswith(".conf"):
+                full_path = os.path.join(sysctl_config_dir, filename)
+                # click.echo(full_path)
+                process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path)
+    except KeyError as e:
+        click.echo(
+            "  "
+            + "\t- "
+            + click.style("[KEYERROR]", fg="bright_red")
+            + f"- {param_type} - {ps}"
+        )
+        ### LOG ###
+        logger.error(f"Failed to reload sysctl: {e}")
+        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
+        ###########
+    except NameError as e:
+        click.echo(
+            "  "
+            + "\t- "
+            + click.style("[NAMEERROR]", fg="bright_red")
+            + f"- {param_type} - {ps}"
+        )
+        ### LOG ###
+        logger.error(f"Failed to reload sysctl: {e}")
+        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [NAMEERROR]")
+        ###########
+
+
 def kernel_param_check(mode, config, param_type, ps):
     settings = config[param_type][ps]["settings"]
     settings_num = 0
     result_list = []
-    result = "ERROR"
+
+    ### LOG ###
     logger.info("---")
     logger.info(f"(linux.py) - [CHECK] - Parameter: {ps}")
+    ###########
 
-    # click.echo(mode)
-    # click.echo(config[param_type][ps])
-    # click.echo(param_type)
-    # click.echo(ps)
-    set = config[param_type][ps]["set"]
-    click.echo(set)
-    if set and mode == "audit":
-        click.echo("set and audit")
-
-        try:
-            # subprocess.run(["sysctl", "-p", file_path], check=True)
-            logger.info("Parameter set successfully.")
-        except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to reload sysctl: {e}")
+    # click.echo(settings)
 
     for setting in settings:
+        # Set Kernel Parameter
+        set = config[param_type][ps]["set"]
+        if set and mode == "audit":
+            try:
+                kernel_param_set(config, param_type, ps, setting)
+                # click.echo(setting)
+                # subprocess.run(["sysctl", "-p", file_path], check=True)
+
+                ### LOG ###
+                # logger.info("sysctl reloaded")
+                ###########
+
+            except subprocess.CalledProcessError as e:
+                click.echo(
+                    "  "
+                    + "\t- "
+                    + click.style("[SUDO REQUIRED]", fg="bright_red")
+                    + f"- {param_type} - {ps}"
+                )
+                ### LOG ###
+                logger.error(f"Failed to reload sysctl: {e}")
+                logger.error(
+                    f"(linux.py) - [CHECK] - {param_type}: {ps} - [SUDO REQUIRED]"
+                )
+                ###########
+
+        # Audit Kernel Parameter
         settings_num = settings_num + 1
+        split_setting = setting.split("=")
+
+        ### LOG ###
         logger.info(f"(linux.py) - [CHECK] - Setting {settings_num}:")
         logger.info(f"(linux.py) - [CHECK] - Expected Kernel Parameter: {setting}")
-        split_setting = setting.split("=")
+        ###########
 
         if len(split_setting) == 2:
             param_name = split_setting[0].strip()
             param_value = split_setting[1].strip()
-
             try:
                 run_result = subprocess.run(
                     ["sysctl", param_name], capture_output=True, text=True, check=True
                 )
                 current_value = run_result.stdout.split("=")[1].strip()
-                logger.info(f"(linux.py) - [CHECK] - Current Kernel Parameter: {setting}")
 
                 if current_value == param_value:
                     result_list.append("DISABLED")
-                    # result = "DISABLED"
                 else:
                     result_list.append("ENABLED")
-                    # return "ENABLED"
+
+                ### LOG ###
+                logger.info(
+                    f"(linux.py) - [CHECK] - Current Kernel Parameter: {run_result.stdout}"
+                )
+                ###########
+
             except subprocess.CalledProcessError as e:
-                logger.error(f"Failed to retrieve kernel parameter: {e}")
                 result_list.append("ERROR")
-                # return "ERROR"
+                ### LOG ###
+                logger.error(f"Failed to retrieve kernel parameter: {e}")
+                ###########
         else:
             return "MISCONFIGURED"
 
     if "ENABLED" in result_list and "DISABLED" in result_list:
-        click.echo(f"  - [RESULT] - Mixed results for {ps} exist. Check log.")
+        click.echo(
+            click.style(
+                f"  - [RESULT] - Mixed results for {ps} exist. Check log.",
+                fg="magenta",
+            )
+        )
         return "WARNING"
     elif "ERROR" in result_list:
         return "ERROR"
@@ -262,18 +341,14 @@ def kernel_param_check(mode, config, param_type, ps):
         return "ENABLED"
     else:
         return "DISABLED"
-    # return result if len(result) > 0 else "ERROR"
-    return result
 
 
 def scan_kernel_params(mode, config, param_type):
-    click.echo("\n  Scanning Kernel Parameters...")
+    click.echo(click.style("\n  Scanning Kernel Parameters...", fg="yellow"))
     click.echo("  " + "-" * 80)
-    logger.info(f"linux.py - {mode.upper()} - Scanning Kernel Parameters")
+    logger.info(f"(linux.py) - [{mode.upper()}] - Scanning Kernel Parameters")
 
     for ps in config[param_type]:
-        click.echo("")
-
         if config[param_type][ps]["skip"]:
             echo_and_log(
                 f"- [CHECK] - {param_type.capitalize()}: {ps}",
@@ -291,7 +366,9 @@ def scan_kernel_params(mode, config, param_type):
                 "warning",
             )
         else:
-            click.echo(f"  - Checking {param_type.capitalize()}: {ps}")
+            click.echo(
+                click.style(f"  - Checking {param_type.capitalize()}: {ps}", fg="yellow")
+            )
 
             status_map = {
                 "DISABLED": ("bright_green", "info"),
@@ -299,10 +376,6 @@ def scan_kernel_params(mode, config, param_type):
                 "MISCONFIGURED": ("bright_red", "info"),
                 "WARNING": ("bright_yellow", "info"),
             }
-
-            process_kernel_check(
-                mode, config, param_type, ps, kernel_param_check, status_map
-            )
 
             process_kernel_check(
                 mode, config, param_type, ps, kernel_param_check, status_map
@@ -319,7 +392,7 @@ def scan_linux(mode, config):
     scan_kernel_params(mode, config, "networks")
 
     # Complete Scan
-    return "\n" + "  " + "\t--SCAN COMPLETE--"
+    return "SCAN COMPLETE"
 
 
 # Holding Area
