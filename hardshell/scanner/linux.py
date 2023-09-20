@@ -12,6 +12,19 @@ from hardshell.utils.logger import logger
 from hardshell.utils.utlities import echo_and_log
 
 
+# Kernel Function Utilities
+def process_kernel_check(mode, config, check_type, ck, check_function, status_map):
+    status = check_function(mode, config, check_type, ck)
+    color, log_level = status_map.get(status, ("bright_red", "info"))
+    echo_and_log(
+        f"- [CHECK] - {check_type.capitalize()}: {ck}",
+        status,
+        color,
+        f"(linux.py) - [CHECK] - {check_type.capitalize()}: {ck} - {status}",
+        log_level,
+    )
+
+
 # Kernel Module Functions
 def kernel_module_loaded(mode, config, mod_type, mod_name):
     """
@@ -141,18 +154,6 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
     return "DENIED" if deny else "ALLOWED"
 
 
-def process_kernel_check(mode, config, check_type, ck, check_function, status_map):
-    status = check_function(mode, config, check_type, ck)
-    color, log_level = status_map.get(status, ("bright_red", "info"))
-    echo_and_log(
-        f"- [CHECK] - {check_type.capitalize()}: {ck}",
-        status,
-        color,
-        f"(linux.py) - [CHECK] - {check_type.capitalize()}: {ck} - {status}",
-        log_level,
-    )
-
-
 def scan_kernel_modules(mode, config, mod_type):
     click.echo("\n  Scanning Kernel Modules...")
     click.echo("  " + "-" * 80)
@@ -199,13 +200,28 @@ def scan_kernel_modules(mode, config, mod_type):
 
 
 # Kernel Parameter Functions
-def kernel_param_audit(mode, config, param_type, ps):
+def kernel_param_check(mode, config, param_type, ps):
     settings = config[param_type][ps]["settings"]
     settings_num = 0
     result_list = []
     result = "ERROR"
     logger.info("---")
     logger.info(f"(linux.py) - [CHECK] - Parameter: {ps}")
+
+    # click.echo(mode)
+    # click.echo(config[param_type][ps])
+    # click.echo(param_type)
+    # click.echo(ps)
+    set = config[param_type][ps]["set"]
+    click.echo(set)
+    if set and mode == "audit":
+        click.echo("set and audit")
+
+        try:
+            # subprocess.run(["sysctl", "-p", file_path], check=True)
+            logger.info("Parameter set successfully.")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to reload sysctl: {e}")
 
     for setting in settings:
         settings_num = settings_num + 1
@@ -250,20 +266,6 @@ def kernel_param_audit(mode, config, param_type, ps):
     return result
 
 
-def kernel_conf_update(mode, config, param_type, ps):
-    pass
-
-
-def kernel_param_set(file_path):
-    pass
-    # kernel_conf_update()
-    # try:
-    #     subprocess.run(["sysctl", "-p", file_path], check=True)
-    #     logger.info("Parameter set successfully.")
-    # except subprocess.CalledProcessError as e:
-    #     logger.error(f"Failed to reload sysctl: {e}")
-
-
 def scan_kernel_params(mode, config, param_type):
     click.echo("\n  Scanning Kernel Parameters...")
     click.echo("  " + "-" * 80)
@@ -299,12 +301,12 @@ def scan_kernel_params(mode, config, param_type):
             }
 
             process_kernel_check(
-                mode, config, param_type, ps, kernel_param_audit, status_map
+                mode, config, param_type, ps, kernel_param_check, status_map
             )
 
-            # process_kernel_check(
-            #     mode, config, param_type, ps, kernel_param_set, status_map
-            # )
+            process_kernel_check(
+                mode, config, param_type, ps, kernel_param_check, status_map
+            )
 
 
 def scan_linux(mode, config):
@@ -321,3 +323,21 @@ def scan_linux(mode, config):
 
 
 # Holding Area
+
+
+# def kernel_param_set(mode, config, param_type, ps):
+#     # click.echo(mode)
+#     # click.echo(config[param_type][ps])
+#     # click.echo(param_type)
+#     # click.echo(ps)
+#     set = config[param_type][ps]["set"]
+#     click.echo(set)
+#     if mode == "audit":
+#         # if set and mode == "audit":
+#         click.echo("audit")
+#         # click.echo("audit and set yes")
+#         try:
+#             # subprocess.run(["sysctl", "-p", file_path], check=True)
+#             logger.info("Parameter set successfully.")
+#         except subprocess.CalledProcessError as e:
+#             logger.error(f"Failed to reload sysctl: {e}")
