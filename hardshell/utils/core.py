@@ -29,9 +29,12 @@ def startup_banner():
         + f"# {__name__} comes with ABSOLUTELY NO WARRANTY. This is free software, and"
     )
     banner.append(
-        "  " + "# you are welcome to redistribute it under the terms of the MIT License."
+        "  "
+        + "# you are welcome to redistribute it under the terms of the MIT License."
     )
-    banner.append("  " + "# See the LICENSE file for details about using this software.")
+    banner.append(
+        "  " + "# See the LICENSE file for details about using this software."
+    )
     banner.append("  " + "#" * 80 + "\n")
     return banner
 

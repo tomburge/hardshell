@@ -3,9 +3,9 @@
 #########################################################################################
 import click
 
-from hardshell.utils.logger import logger
 from hardshell.scanner.linux import scan_linux
 from hardshell.scanner.windows import scan_windows
+from hardshell.utils.logger import logger
 
 
 def scanner(mode, os_info, config):
