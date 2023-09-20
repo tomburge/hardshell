@@ -39,6 +39,9 @@ replace = '__version__ = "{new_version}"'
 search = 'assert __version__ == "{current_version}"'
 replace = 'assert __version__ == "{new_version}"'
 
+[tool.black]
+line-length = 90
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -214,9 +214,7 @@ def kernel_param_audit(mode, config, param_type, ps):
                     ["sysctl", param_name], capture_output=True, text=True, check=True
                 )
                 current_value = result.stdout.split("=")[1].strip()
-                logger.info(
-                    f"(linux.py) - [CHECK] - Current Kernel Parameter: {setting}"
-                )
+                logger.info(f"(linux.py) - [CHECK] - Current Kernel Parameter: {setting}")
 
                 if current_value == param_value:
                     return "DISABLED"
