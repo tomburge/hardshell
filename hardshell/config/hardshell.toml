@@ -5,6 +5,7 @@
 # modprobe Configuration File Locations
 modprobe_config = "/etc/modprobe.d/"
 sysctl_config = "/etc/sysctl.d/"
+sysctl_config_prefix = "10-"
 
 #################################################
 # Filesystems Configuration

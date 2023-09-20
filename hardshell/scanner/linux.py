@@ -201,30 +201,67 @@ def scan_kernel_modules(mode, config, mod_type):
 # Kernel Parameter Functions
 def kernel_param_audit(mode, config, param_type, ps):
     settings = config[param_type][ps]["settings"]
+    settings_num = 0
+    result_list = []
+    result = "ERROR"
+    logger.info("---")
+    logger.info(f"(linux.py) - [CHECK] - Parameter: {ps}")
 
     for setting in settings:
+        settings_num = settings_num + 1
+        logger.info(f"(linux.py) - [CHECK] - Setting {settings_num}:")
         logger.info(f"(linux.py) - [CHECK] - Expected Kernel Parameter: {setting}")
         split_setting = setting.split("=")
+
         if len(split_setting) == 2:
             param_name = split_setting[0].strip()
             param_value = split_setting[1].strip()
 
             try:
-                result = subprocess.run(
+                run_result = subprocess.run(
                     ["sysctl", param_name], capture_output=True, text=True, check=True
                 )
-                current_value = result.stdout.split("=")[1].strip()
+                current_value = run_result.stdout.split("=")[1].strip()
                 logger.info(f"(linux.py) - [CHECK] - Current Kernel Parameter: {setting}")
 
                 if current_value == param_value:
-                    return "DISABLED"
+                    result_list.append("DISABLED")
+                    # result = "DISABLED"
                 else:
-                    return "ENABLED"
+                    result_list.append("ENABLED")
+                    # return "ENABLED"
             except subprocess.CalledProcessError as e:
                 logger.error(f"Failed to retrieve kernel parameter: {e}")
-                return "ERROR"
+                result_list.append("ERROR")
+                # return "ERROR"
         else:
             return "MISCONFIGURED"
+
+    if "ENABLED" in result_list and "DISABLED" in result_list:
+        click.echo(f"  - [RESULT] - Mixed results for {ps} exist. Check log.")
+        return "WARNING"
+    elif "ERROR" in result_list:
+        return "ERROR"
+    elif "ENABLED" in result_list:
+        return "ENABLED"
+    else:
+        return "DISABLED"
+    # return result if len(result) > 0 else "ERROR"
+    return result
+
+
+def kernel_conf_update(mode, config, param_type, ps):
+    pass
+
+
+def kernel_param_set(file_path):
+    pass
+    # kernel_conf_update()
+    # try:
+    #     subprocess.run(["sysctl", "-p", file_path], check=True)
+    #     logger.info("Parameter set successfully.")
+    # except subprocess.CalledProcessError as e:
+    #     logger.error(f"Failed to reload sysctl: {e}")
 
 
 def scan_kernel_params(mode, config, param_type):
@@ -258,10 +295,15 @@ def scan_kernel_params(mode, config, param_type):
                 "DISABLED": ("bright_green", "info"),
                 "ENABLED": ("bright_red", "info"),
                 "MISCONFIGURED": ("bright_red", "info"),
+                "WARNING": ("bright_yellow", "info"),
             }
 
             process_kernel_check(
                 mode, config, param_type, ps, kernel_param_audit, status_map
+            )
+
+            process_kernel_check(
+                mode, config, param_type, ps, kernel_param_set, status_map
             )
 
 
@@ -279,44 +321,3 @@ def scan_linux(mode, config):
 
 
 # Holding Area
-
-# Kernel Parameter Functions
-# def update_file_content(file_path, params):
-#     with open(file_path, "r+") as f:
-#         content = f.read()
-#         for param in params:
-#             pattern = f"^{param['name']}="
-#             if re.search(pattern, content, re.MULTILINE):
-#                 content = re.sub(
-#                     pattern + r".*",
-#                     f"{param['name']}={param['value']}",
-#                     content,
-#                     flags=re.MULTILINE,
-#                 )
-#             else:
-#                 content += f"\n{param['name']}={param['value']}"
-#         f.seek(0)
-#         f.write(content)
-#         f.truncate()
-
-# def kernel_param_harden():
-#     found = False
-#     for file_path in glob.glob(f"{KERNEL_PARAM_DIR}*.conf"):
-#         if os.path.exists(file_path):
-#             with open(file_path, "r") as f:
-#                 content = f.read()
-#                 for param in KERNEL_PARAMS:
-#                     pattern = f"^{param['name']}="
-#                     if re.search(pattern, content, re.MULTILINE):
-#                         update_file_content(file_path, KERNEL_PARAMS)
-#                         found = True
-#                         break
-
-#     if not found:
-#         new_file_path = os.path.join(KERNEL_PARAM_DIR, KERNEL_PARAM_FILE)
-#         with open(new_file_path, "w") as f:
-#             for param in KERNEL_PARAMS:
-#                 f.write(f"{param['name']}={param['value']}\n")
-
-#     subprocess.run(["sysctl", "-p"], check=True)
-#     logger.info("Parameter set successfully.")

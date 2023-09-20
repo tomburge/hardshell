@@ -23,3 +23,13 @@ windows user: C:\Users\user\AppData\Local\hardshell\hardshell.toml
 linux admin: /etc/hardshell/hardshell.toml
 
 linux user: /home/$USER/.hardshell/hardshell.toml
+
+Log File Locations:
+
+windows admin: C:\Program Files\hardshell\logs
+
+windows user: C:\Users\user\AppData\Local\hardshell\logs
+
+linux admin: /var/logs/hardshell/
+
+linux user: /home/$USER/.hardshell/logs
