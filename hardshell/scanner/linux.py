@@ -302,9 +302,9 @@ def scan_kernel_params(mode, config, param_type):
                 mode, config, param_type, ps, kernel_param_audit, status_map
             )
 
-            process_kernel_check(
-                mode, config, param_type, ps, kernel_param_set, status_map
-            )
+            # process_kernel_check(
+            #     mode, config, param_type, ps, kernel_param_set, status_map
+            # )
 
 
 def scan_linux(mode, config):
