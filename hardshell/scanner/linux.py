@@ -208,25 +208,47 @@ def scan_kernel_modules(mode, config, mod_type):
 
 
 # Kernel Parameter Functions
-def process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path):
-    # click.echo(full_path)
-    with open(full_path, "r") as f:
-        for line in f:
-            if setting == line:
-                click.echo(f"lines equal: {line}")
-                logger.info(f"(linux.py) - {line} found in file: {full_path}")
-
-
 def kernel_param_set(config, param_type, ps, setting):
     try:
         sysctl_config_dir = config["global"]["sysctl_config"]
         sysctl_prefix = config["global"]["sysctl_config_prefix"]
-        # click.echo(setting)
+        # new_path = os.path.join(sysctl_config_dir, sysctl_prefix + param_type + ".conf")
+        # click.echo(new_path)
+
         for filename in os.listdir(sysctl_config_dir):
-            if filename.endswith(".conf"):
-                full_path = os.path.join(sysctl_config_dir, filename)
-                # click.echo(full_path)
-                process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path)
+            try:
+                if filename == sysctl_prefix + param_type + ".conf":
+                    full_path = os.path.join(sysctl_config_dir, filename)
+                    # click.echo(full_path)
+
+                    with open(full_path, "r") as f:
+                        for line in f:
+                            if setting == line:
+                                click.echo(f"lines equal: {line}")
+                                logger.info(
+                                    f"(linux.py) - {line} found in file: {full_path}"
+                                )
+
+                elif filename.endswith(".conf"):
+                    full_path = os.path.join(sysctl_config_dir, filename)
+                    # click.echo(full_path)
+
+                    with open(full_path, "r") as f:
+                        for line in f:
+                            if setting == line:
+                                click.echo(f"lines equal: {line}")
+                                logger.info(
+                                    f"(linux.py) - {line} found in file: {full_path}"
+                                )
+                            elif setting in line:
+                                click.echo(f"lines exists: {line}")
+                                logger.info(
+                                    f"(linux.py) - {line} found in file: {full_path}"
+                                )
+
+            except:
+                click.echo("exception")
+
     except KeyError as e:
         click.echo(
             "  "
@@ -397,6 +419,59 @@ def scan_linux(mode, config):
 
 # Holding Area
 
+# def process_kernel_param(sysctl_config_dir, sysctl_prefix, ps, setting, full_path):
+#     # click.echo(full_path)
+#     filename = sysctl_prefix + ps + ".conf"
+#     new_path = os.path.join(sysctl_config_dir, filename)
+#     # click.echo(filename)
+#     # click.echo(new_path)
+
+#     with open(full_path, "r") as f:
+#         for line in f:
+#             if setting == line:
+#                 click.echo(f"lines equal: {line}")
+#                 logger.info(f"(linux.py) - {line} found in file: {full_path}")
+
+# def kernel_param_set(config, param_type, ps, setting):
+#     try:
+#         sysctl_config_dir = config["global"]["sysctl_config"]
+#         sysctl_prefix = config["global"]["sysctl_config_prefix"]
+#         # click.echo(setting)
+#         for filename in os.listdir(sysctl_config_dir):
+#             if filename.endswith(".conf"):
+#                 full_path = os.path.join(sysctl_config_dir, filename)
+#                 # click.echo(full_path)
+#                 # click.echo(filename)
+#                 # process_kernel_param(
+#                 #     sysctl_config_dir, sysctl_prefix, ps, setting, full_path
+#                 # )
+#             if filename == sysctl_prefix + ps + ".conf":
+#                 full_path = os.path.join(sysctl_config_dir, filename)
+#                 # click.echo(full_path)
+#                 click.echo(filename)
+#                 # process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path)
+#     except KeyError as e:
+#         click.echo(
+#             "  "
+#             + "\t- "
+#             + click.style("[KEYERROR]", fg="bright_red")
+#             + f"- {param_type} - {ps}"
+#         )
+#         ### LOG ###
+#         logger.error(f"Failed to reload sysctl: {e}")
+#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
+#         ###########
+#     except NameError as e:
+#         click.echo(
+#             "  "
+#             + "\t- "
+#             + click.style("[NAMEERROR]", fg="bright_red")
+#             + f"- {param_type} - {ps}"
+#         )
+#         ### LOG ###
+#         logger.error(f"Failed to reload sysctl: {e}")
+#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [NAMEERROR]")
+#         ###########
 
 # def kernel_param_set(mode, config, param_type, ps):
 #     # click.echo(mode)
