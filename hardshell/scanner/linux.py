@@ -287,7 +287,7 @@ def kernel_param_check(mode, config, param_type, ps):
     for setting in settings:
         # Set Kernel Parameter
         set = config[param_type][ps]["set"]
-        if set and mode == "audit":
+        if set and mode == "harden":
             try:
                 config_path = kernel_param_set(config, param_type, ps, setting)
                 if config_path is not None:
