@@ -6,6 +6,8 @@
 modprobe_config = "/etc/modprobe.d/"
 sysctl_config = "/etc/sysctl.d/"
 sysctl_config_prefix = "10-"
+# Uncomment the following to set your own sysctl config file name
+#sysctl_config_file = "10-example.conf"
 
 #################################################
 # Filesystems Configuration
@@ -172,7 +174,7 @@ mitre = "T1068,T1068.000 TA0002 M1050"
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6"
 
-[processes.aslr2]
+[processes.aslrtest]
 skip = true
 set = true
 stack = "kernel"
@@ -194,7 +196,7 @@ mitre = "T1055.008 TA0005 M1040"
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6"
 
-[processes.ptrace2]
+[processes.ptracetest]
 skip = false
 set = false
 stack = "kernel"

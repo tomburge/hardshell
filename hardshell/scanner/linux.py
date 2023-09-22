@@ -212,65 +212,66 @@ def kernel_param_set(config, param_type, ps, setting):
     try:
         sysctl_config_dir = config["global"]["sysctl_config"]
         sysctl_prefix = config["global"]["sysctl_config_prefix"]
-        # new_path = os.path.join(sysctl_config_dir, sysctl_prefix + param_type + ".conf")
-        # click.echo(new_path)
 
+        target_file = sysctl_prefix + param_type + ".conf"
+        target_path = os.path.join(sysctl_config_dir, target_file)
+
+        # Process each .conf file in the directory
         for filename in os.listdir(sysctl_config_dir):
-            try:
-                if filename == sysctl_prefix + param_type + ".conf":
-                    full_path = os.path.join(sysctl_config_dir, filename)
-                    # click.echo(full_path)
+            if filename.endswith(".conf"):
+                full_path = os.path.join(sysctl_config_dir, filename)
+                temp_path = os.path.join(sysctl_config_dir, f"{filename}.tmp")
 
-                    with open(full_path, "r") as f:
-                        for line in f:
-                            if setting == line:
-                                click.echo(f"lines equal: {line}")
-                                logger.info(
-                                    f"(linux.py) - {line} found in file: {full_path}"
-                                )
+                with open(full_path, "r") as f, open(temp_path, "w") as tf:
+                    for line in f:
+                        stripped_line = line.strip()
+                        # If the file is the target file, check if the current setting matches the expected setting
+                        if (
+                            filename == target_file
+                            and setting.split("=")[0] in stripped_line
+                        ):
+                            if stripped_line != setting and not stripped_line.startswith(
+                                "#"
+                            ):
+                                tf.write("#" + line)
+                        elif (
+                            filename != target_file
+                            and setting in stripped_line
+                            and not stripped_line.startswith("#")
+                        ):
+                            tf.write("#" + line)
+                        else:
+                            tf.write(line)
 
-                elif filename.endswith(".conf"):
-                    full_path = os.path.join(sysctl_config_dir, filename)
-                    # click.echo(full_path)
+                # Replace the original file with the modified temporary file
+                os.replace(temp_path, full_path)
 
-                    with open(full_path, "r") as f:
-                        for line in f:
-                            if setting == line:
-                                click.echo(f"lines equal: {line}")
-                                logger.info(
-                                    f"(linux.py) - {line} found in file: {full_path}"
-                                )
-                            elif setting in line:
-                                click.echo(f"lines exists: {line}")
-                                logger.info(
-                                    f"(linux.py) - {line} found in file: {full_path}"
-                                )
+        # Process the target file
+        if target_file in os.listdir(sysctl_config_dir):
+            with open(target_path, "r") as f:
+                lines = f.readlines()
 
-            except:
-                click.echo("exception")
+            # Check if the desired setting is already in the file
+            if not any(setting == line.strip() for line in lines):
+                with open(target_path, "a") as f:
+                    # If the file is not empty and does not end with a newline, add one
+                    if lines and not lines[-1].endswith("\n"):
+                        f.write("\n")
+                    f.write(setting + "\n")
+        else:  # If the target file does not exist, create it and write the setting to it
+            with open(target_path, "w") as nf:
+                nf.write(setting + "\n")
+
+        return target_path
 
     except KeyError as e:
-        click.echo(
-            "  "
-            + "\t- "
-            + click.style("[KEYERROR]", fg="bright_red")
-            + f"- {param_type} - {ps}"
-        )
-        ### LOG ###
-        logger.error(f"Failed to reload sysctl: {e}")
         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
-        ###########
-    except NameError as e:
-        click.echo(
-            "  "
-            + "\t- "
-            + click.style("[NAMEERROR]", fg="bright_red")
-            + f"- {param_type} - {ps}"
+    except (TypeError, ValueError, FileNotFoundError, PermissionError) as e:
+        logger.error(
+            f"(linux.py) - [CHECK] - {param_type}: {ps} - {type(e).__name__}: {e}"
         )
-        ### LOG ###
-        logger.error(f"Failed to reload sysctl: {e}")
-        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [NAMEERROR]")
-        ###########
+    except Exception as e:
+        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - Unexpected Error: {e}")
 
 
 def kernel_param_check(mode, config, param_type, ps):
@@ -283,22 +284,25 @@ def kernel_param_check(mode, config, param_type, ps):
     logger.info(f"(linux.py) - [CHECK] - Parameter: {ps}")
     ###########
 
-    # click.echo(settings)
-
     for setting in settings:
         # Set Kernel Parameter
         set = config[param_type][ps]["set"]
         if set and mode == "audit":
             try:
-                kernel_param_set(config, param_type, ps, setting)
-                # click.echo(setting)
-                # subprocess.run(["sysctl", "-p", file_path], check=True)
+                config_path = kernel_param_set(config, param_type, ps, setting)
+                # if config_path is not None:
+                # click.echo(config_path)
+                subprocess.run(
+                    ["sysctl", "-p", config_path], check=True, capture_output=True
+                )
+                # subprocess.run(["sysctl", "-p", config_path], check=True)
 
                 ### LOG ###
-                # logger.info("sysctl reloaded")
+                logger.info("sysctl reloaded")
                 ###########
 
             except subprocess.CalledProcessError as e:
+                click.echo(e)
                 click.echo(
                     "  "
                     + "\t- "
@@ -419,73 +423,61 @@ def scan_linux(mode, config):
 
 # Holding Area
 
-# def process_kernel_param(sysctl_config_dir, sysctl_prefix, ps, setting, full_path):
-#     # click.echo(full_path)
-#     filename = sysctl_prefix + ps + ".conf"
-#     new_path = os.path.join(sysctl_config_dir, filename)
-#     # click.echo(filename)
-#     # click.echo(new_path)
-
-#     with open(full_path, "r") as f:
-#         for line in f:
-#             if setting == line:
-#                 click.echo(f"lines equal: {line}")
-#                 logger.info(f"(linux.py) - {line} found in file: {full_path}")
-
+# adds desired setting to target file without commenting existing setting
 # def kernel_param_set(config, param_type, ps, setting):
 #     try:
 #         sysctl_config_dir = config["global"]["sysctl_config"]
 #         sysctl_prefix = config["global"]["sysctl_config_prefix"]
-#         # click.echo(setting)
+
+#         target_file = sysctl_prefix + param_type + ".conf"
+#         target_path = os.path.join(sysctl_config_dir, target_file)
+
+#         # Process each .conf file in the directory
 #         for filename in os.listdir(sysctl_config_dir):
 #             if filename.endswith(".conf"):
 #                 full_path = os.path.join(sysctl_config_dir, filename)
-#                 # click.echo(full_path)
-#                 # click.echo(filename)
-#                 # process_kernel_param(
-#                 #     sysctl_config_dir, sysctl_prefix, ps, setting, full_path
-#                 # )
-#             if filename == sysctl_prefix + ps + ".conf":
-#                 full_path = os.path.join(sysctl_config_dir, filename)
-#                 # click.echo(full_path)
-#                 click.echo(filename)
-#                 # process_kernel_param(sysctl_config_dir, sysctl_prefix, setting, full_path)
-#     except KeyError as e:
-#         click.echo(
-#             "  "
-#             + "\t- "
-#             + click.style("[KEYERROR]", fg="bright_red")
-#             + f"- {param_type} - {ps}"
-#         )
-#         ### LOG ###
-#         logger.error(f"Failed to reload sysctl: {e}")
-#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
-#         ###########
-#     except NameError as e:
-#         click.echo(
-#             "  "
-#             + "\t- "
-#             + click.style("[NAMEERROR]", fg="bright_red")
-#             + f"- {param_type} - {ps}"
-#         )
-#         ### LOG ###
-#         logger.error(f"Failed to reload sysctl: {e}")
-#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [NAMEERROR]")
-#         ###########
+#                 temp_path = os.path.join(sysctl_config_dir, f"{filename}.tmp")
 
-# def kernel_param_set(mode, config, param_type, ps):
-#     # click.echo(mode)
-#     # click.echo(config[param_type][ps])
-#     # click.echo(param_type)
-#     # click.echo(ps)
-#     set = config[param_type][ps]["set"]
-#     click.echo(set)
-#     if mode == "audit":
-#         # if set and mode == "audit":
-#         click.echo("audit")
-#         # click.echo("audit and set yes")
-#         try:
-#             # subprocess.run(["sysctl", "-p", file_path], check=True)
-#             logger.info("Parameter set successfully.")
-#         except subprocess.CalledProcessError as e:
-#             logger.error(f"Failed to reload sysctl: {e}")
+#                 with open(full_path, "r") as f, open(temp_path, "w") as tf:
+#                     for line in f:
+#                         split_setting = setting.split("=")
+#                         stripped_line = line.strip()
+#                         # If the file is not the target file, comment out the line if it contains the setting
+#                         if (
+#                             filename != target_file
+#                             and split_setting[0] in stripped_line
+#                             and not stripped_line.startswith("#")
+#                         ):
+#                             tf.write("#" + line)
+#                         else:
+#                             tf.write(line)
+
+#                 # Replace the original file with the modified temporary file
+#                 os.replace(temp_path, full_path)
+
+#         # Process the target file
+#         if target_file in os.listdir(sysctl_config_dir):
+#             with open(target_path, "r") as f:
+#                 lines = f.readlines()
+
+#             # Check if the setting is already in the file
+#             if not any(setting in line for line in lines):
+#                 with open(target_path, "a") as f:
+#                     # If the file is not empty and does not end with a newline, add one
+#                     if lines and not lines[-1].endswith("\n"):
+#                         f.write("\n")
+#                     f.write(setting + "\n")
+#         else:  # If the target file does not exist, create it and write the setting to it
+#             with open(target_path, "w") as nf:
+#                 nf.write(setting + "\n")
+
+#         return target_path
+
+#     except KeyError as e:
+#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
+#     except (TypeError, ValueError, FileNotFoundError, PermissionError) as e:
+#         logger.error(
+#             f"(linux.py) - [CHECK] - {param_type}: {ps} - {type(e).__name__}: {e}"
+#         )
+#     except Exception as e:
+#         logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - Unexpected Error: {e}")
