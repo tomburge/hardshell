@@ -290,24 +290,21 @@ def kernel_param_check(mode, config, param_type, ps):
         if set and mode == "audit":
             try:
                 config_path = kernel_param_set(config, param_type, ps, setting)
-                # if config_path is not None:
-                # click.echo(config_path)
-                subprocess.run(
-                    ["sysctl", "-p", config_path], check=True, capture_output=True
-                )
-                # subprocess.run(["sysctl", "-p", config_path], check=True)
+                if config_path is not None:
+                    subprocess.run(
+                        ["sysctl", "-p", config_path], check=True, capture_output=True
+                    )
 
                 ### LOG ###
                 logger.info("sysctl reloaded")
                 ###########
 
             except subprocess.CalledProcessError as e:
-                click.echo(e)
                 click.echo(
                     "  "
                     + "\t- "
-                    + click.style("[SUDO REQUIRED]", fg="bright_red")
-                    + f"- {param_type} - {ps}"
+                    + click.style("[WARNING] Check Log", fg="bright_yellow")
+                    + f" - {param_type} - {ps}"
                 )
                 ### LOG ###
                 logger.error(f"Failed to reload sysctl: {e}")
