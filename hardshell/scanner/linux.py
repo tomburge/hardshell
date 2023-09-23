@@ -50,88 +50,21 @@ def kernel_module_loaded(mode, config, mod_type, mod_name):
             result = subprocess.run(
                 ["modprobe", "-r", mod_name], capture_output=True, text=True
             )
+
             if "not found" in result.stderr:
                 return "NOT FOUND"
+
         except subprocess.CalledProcessError as e:
-            click.echo(
-                "  "
-                + "\t- "
-                + click.style("[SUDO REQUIRED]", fg="bright_red")
-                + f"- {mod_type} - {mod_name}"
-            )
-            logger.error(
-                f"(linux.py) - [CHECK] - {mod_type}: {mod_name} - [SUDO REQUIRED]"
+            echo_and_log(
+                f"- [FIX] - {mod_type.capitalize()}: {mod_name}",
+                "SUDO REQUIRED",
+                "bright_red",
+                f"(linux.py) - {mode.upper()} - Failed {mod_type.capitalize()}: {mod_name}",
+                "warning",
             )
 
     loaded = subprocess.getoutput(f"lsmod | grep {mod_name}")
     return "LOADED" if loaded else "UNLOADED"
-
-
-# Testing
-def kernel_module_loadable(mode, config, mod_type, mod_name):
-    pass
-    # """
-    # audit mode: Checks if a kernel module is loadable.
-    # harden mode: Add "install /bin/false" to the kernel module config file.
-
-    # Returns:
-    #     str: LOADABLE, UNLOADABLE, NOT FOUND
-
-    # Raises:
-    #     CalledProcessError: If the command fails.
-
-    # Example Usage:
-    #     loadable = kernel_module_loadable("audit", config, "fs", "squashfs")
-    #     print(loadable)
-    # """
-    # mp_config = config["global"]["modprobe_config"]
-    # disable = config[mod_type][mod_name]["disable"]
-    # conf_file = f"{mp_config}{mod_type}-{mod_name}.conf"
-
-    # if disable and mode == "harden":
-    #     try:
-    #         if not os.path.exists(conf_file):
-    #             with open(conf_file, "w") as f:
-    #                 pass  # create the file if it does not exist
-
-    #         with open(conf_file, "r") as f:
-    #             content = f.read()
-
-    #         if "install /bin/true" not in content and "install /bin/false" not in content:
-    #             with open(conf_file, "a") as f:
-    #                 f.write("install /bin/false\n")
-    #             return "UNLOADABLE"
-
-    #         if "install /bin/true" in content or "install /bin/false" in content:
-    #             return "UNLOADABLE"
-
-    #     except Exception as e:
-    #         echo_and_log(
-    #             f"- [FIX] - {mod_type.capitalize()}: {mod_name}",
-    #             "SUDO REQUIRED",
-    #             "bright_red",
-    #             f"(linux.py) - {mode.upper()} - Skipping {mod_type.capitalize()}: {mod_name}",
-    #             "warning",
-    #         )
-
-    # # try:
-    # result = subprocess.run(
-    #     ["modprobe", "-n", "-v", mod_name], check=True, capture_output=True, text=True
-    # )
-    # click.echo(result)
-    # loadable_lines = result.stdout.split("\n")
-
-    # loadable_lines = [line.strip() for line in loadable_lines]
-    # click.echo(loadable_lines)
-    # for line in loadable_lines:
-    #     if "install /bin/true" in line or "install /bin/false" in line:
-    #         return "UNLOADABLE"
-    # return "LOADABLE"
-
-    # except subprocess.CalledProcessError as e:
-    #     # Handle the error as appropriate for your use case
-    #     pass
-    #     # loadable_lines = []
 
 
 def kernel_module_deny(mode, config, mod_type, mod_name):
@@ -170,12 +103,12 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
             if f"blacklist {mod_name}" in content:
                 return "DENIED"
 
-        except Exception as e:
+        except Exception:
             echo_and_log(
                 f"- [FIX] - {mod_type.capitalize()}: {mod_name}",
                 "SUDO REQUIRED",
                 "bright_red",
-                f"(linux.py) - {mode.upper()} - Skipping {mod_type.capitalize()}: {mod_name}",
+                f"(linux.py) - {mode.upper()} - Failed {mod_type.capitalize()}: {mod_name}",
                 "warning",
             )
 
@@ -186,14 +119,29 @@ def kernel_module_deny(mode, config, mod_type, mod_name):
         deny = [
             line for line in result.stdout.split("\n") if f"blacklist {mod_name}" in line
         ]
-    except subprocess.CalledProcessError as e:
-        # Handle the error as appropriate for your use case
+    except subprocess.CalledProcessError:
         deny = []
+        echo_and_log(
+            f"- [CHECK] - {mod_type.capitalize()}: {mod_name}",
+            "ERROR",
+            "bright_red",
+            f"(linux.py) - {mode.upper()} - Failed {mod_type.capitalize()}: {mod_name}",
+            "warning",
+        )
 
     return "DENIED" if deny else "ALLOWED"
 
 
 def scan_kernel_modules(mode, config, mod_type):
+    """
+    audit and harden mode: Initates the kernel module scan.
+
+    Returns:
+        None
+
+    Example Usage:
+        scan_kernel_modules(mode, config, "filesystems")
+    """
     click.echo(click.style("\n  Scanning Kernel Modules...", fg="yellow"))
     click.echo("  " + "-" * 80)
     logger.info(f"(linux.py) - {mode.upper()} - Scanning Kernel Modules")
@@ -240,15 +188,31 @@ def scan_kernel_modules(mode, config, mod_type):
                 mode, config, mod_type, km, kernel_module_loaded, status_map
             )
             process_kernel_check(
-                mode, config, mod_type, km, kernel_module_loadable, status_map
-            )
-            process_kernel_check(
                 mode, config, mod_type, km, kernel_module_deny, status_map
             )
 
 
 # Kernel Parameter Functions
 def kernel_param_set(config, param_type, ps, setting):
+    """
+    audit mode: Checks if the expected kernel parameter is the current parameter.
+    harden mode: Comments out incorrect settings if they exist and adds the expected parameter to the kernel parameter config file.
+
+    Returns:
+        str: target_path
+
+    Raises:
+        KeyError: The configuration file is structured incorrectly.
+        TypeError: The correct type isn't being received by the function.
+        ValueError: The value is wrong or improperly formatted.
+        FileNotFoundError: The kernel parameter config file is not found.
+        PermissionError: In harden mode, the script is not run with sudo.
+        Exception: A general problem exists.
+
+    Example Usage:
+        config_path = kernel_param_set(config, param_type, ps, setting)
+        print(config_path)
+    """
     try:
         sysctl_config_dir = config["global"]["sysctl_config"]
         sysctl_prefix = config["global"]["sysctl_config_prefix"]
@@ -305,16 +269,28 @@ def kernel_param_set(config, param_type, ps, setting):
         return target_path
 
     except KeyError as e:
-        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - [KEYERROR]")
+        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - [KEYERROR]")
     except (TypeError, ValueError, FileNotFoundError, PermissionError) as e:
-        logger.error(
-            f"(linux.py) - [CHECK] - {param_type}: {ps} - {type(e).__name__}: {e}"
-        )
+        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - {type(e).__name__}: {e}")
     except Exception as e:
-        logger.error(f"(linux.py) - [CHECK] - {param_type}: {ps} - Unexpected Error: {e}")
+        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - Unexpected Error: {e}")
 
 
 def kernel_param_check(mode, config, param_type, ps):
+    """
+    audit mode: Checks if a kernel parameter is the expected setting
+    harden mode: Calls kernel_param_set() and reloads sysctl with the new config
+
+    Returns:
+        str: ENABLED, DISABLED, WARNING, ERROR, MISCONFIGURED
+
+    Raises:
+        CalledProcessError: If the command fails.
+
+    Example Usage:
+        param = kernel_param_check(mode, config, param_type, ps)
+        print(param)
+    """
     settings = config[param_type][ps]["settings"]
     settings_num = 0
     result_list = []
@@ -348,9 +324,7 @@ def kernel_param_check(mode, config, param_type, ps):
                 )
                 ### LOG ###
                 logger.error(f"Failed to reload sysctl possibly: {e}")  # TODO Adjust text
-                logger.error(
-                    f"(linux.py) - [CHECK] - {param_type}: {ps} - [SUDO REQUIRED]"
-                )
+                logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - [SUDO REQUIRED]")
                 ###########
 
         # Audit Kernel Parameter
@@ -407,6 +381,15 @@ def kernel_param_check(mode, config, param_type, ps):
 
 
 def scan_kernel_params(mode, config, param_type):
+    """
+    audit and harden mode: Initates the kernel parameter scan.
+
+    Returns:
+        None
+
+    Example Usage:
+        scan_kernel_params(mode, config, "networks")
+    """
     click.echo(click.style("\n  Scanning Kernel Parameters...", fg="yellow"))
     click.echo("  " + "-" * 80)
     logger.info(f"(linux.py) - [{mode.upper()}] - Scanning Kernel Parameters")
@@ -446,6 +429,16 @@ def scan_kernel_params(mode, config, param_type):
 
 
 def scan_linux(mode, config):
+    """
+    Start the Linux based operating system scan.
+
+    Returns:
+        str: SCAN COMPLETE
+
+    Example Usage:
+        scan = scan_linux(mode, config)
+        print(scan)
+    """
     # Filesystem Scan
     scan_kernel_modules(mode, config, "filesystems")
     # Kernel Module Scan
@@ -459,121 +452,3 @@ def scan_linux(mode, config):
 
 
 # Holding Area
-
-
-# chatgpt output #1
-# def kernel_module_loadable(mode, config, mod_type, mod_name):
-#     mp_config = config["global"]["modprobe_config"]
-#     disable = config[mod_type][mod_name]["disable"]
-#     # conf_file = f"{mp_config}{mod_type}-{mod_name}.conf"
-#     conf_file = f"{mod_type}-{mod_name}.conf"
-
-#     if disable and mode == "harden":
-#         if not os.path.exists(conf_file):
-#             with open(conf_file, "w") as f:
-#                 pass  # create the file if it does not exist
-
-#         with open(conf_file, "r") as f:
-#             content = f.read()
-
-#         if "install /bin/true" not in content and "install /bin/false" not in content:
-#             try:
-#                 with open(conf_file, "a") as f:
-#                     f.write("install /bin/false\n")
-#                 return "UNLOADABLE"
-#             except Exception as e:
-#                 click.echo(
-#                     "  "
-#                     + "\t- "
-#                     + click.style("[SUDO REQUIRED]", fg="bright_red")
-#                     + f"- {mod_type} - {mod_name}"
-#                 )
-#                 logger.error(
-#                     f"(linux.py) - [CHECK] - {mod_type}: {mod_name} - [SUDO REQUIRED]"
-#                 )
-
-#     loadable = subprocess.getoutput(f"modprobe -n -v {mod_name}")
-#     loadable_lines = loadable.split("\n")
-#     loadable_lines = [line.strip() for line in loadable_lines]
-#     for line in loadable_lines:
-#         click.echo(line)
-#         if "install /bin/true" in line or "install /bin/false" in line:
-#             return "UNLOADABLE"
-#     return "LOADABLE"
-
-
-# original code
-# def kernel_module_loadable(mode, config, mod_type, mod_name):
-#     """
-#     audit mode: Checks if a kernel module is loadable.
-#     harden mode: Add "install /bin/false" to the kernel module config file.
-
-#     Returns:
-#         str: LOADABLE, UNLOADABLE, NOT FOUND
-
-#     Raises:
-#         CalledProcessError: If the command fails.
-
-#     Example Usage:
-#         loadable = kernel_module_loadable("audit", config, "fs", "squashfs")
-#         print(loadable)
-#     """
-#     mp_config = config["global"]["modprobe_config"]
-#     disable = config[mod_type][mod_name]["disable"]
-
-#     if disable and mode == "audit":
-#         # cmd = f"echo 'install /bin/false\n' >> {mp_config}{mod_type}-{mod_name}.conf"
-#         cmd = f"echo 'install /bin/false\n' >> {mod_type}-{mod_name}.conf"
-#         try:
-#             result = subprocess.run(
-#                 cmd, shell=True, check=True, capture_output=True, text=True
-#             )
-#             return "UNLOADABLE"
-#         except subprocess.CalledProcessError as e:
-#             click.echo(
-#                 "  "
-#                 + "\t- "
-#                 + click.style("[SUDO REQUIRED]", fg="bright_red")
-#                 + f"- {mod_type} - {mod_name}"
-#             )
-#             logger.error(
-#                 f"(linux.py) - [CHECK] - {mod_type}: {mod_name} - [SUDO REQUIRED]"
-#             )
-
-#     loadable = subprocess.getoutput(f"modprobe -n -v {mod_name}")
-#     loadable_lines = loadable.split("\n")
-#     loadable_lines = [line.strip() for line in loadable_lines]
-#     for line in loadable_lines:
-#         if "install /bin/true" in loadable_lines or "install /bin/false" in line:
-#             return "UNLOADABLE"
-#     return "LOADABLE"
-
-
-# original code
-# def kernel_module_deny(mode, config, mod_type, mod_name):
-
-#     mp_config = config["global"]["modprobe_config"]
-#     disable = config[mod_type][mod_name]["disable"]
-
-#     if disable and mode == "harden":
-#         cmd = f"echo 'blacklist {mod_name}\n' >> {mp_config}{mod_type}-{mod_name}.conf"
-#         try:
-#             result = subprocess.run(
-#                 cmd, shell=True, check=True, capture_output=True, text=True
-#             )
-#             return "DENIED"
-#         except subprocess.CalledProcessError as e:
-#             click.echo(
-#                 "  "
-#                 + "\t- "
-#                 + click.style("[SUDO REQUIRED]", fg="bright_red")
-#                 + f"- {mod_type} - {mod_name}"
-#             )
-#             logger.error(
-#                 f"(linux.py) - [CHECK] - {mod_type}: {mod_name} - [SUDO REQUIRED]"
-#             )
-
-#     deny = subprocess.getoutput(
-#         f"modprobe --showconfig | grep -P '^\s*blacklist\s+{mod_name}\b'"
-#     )
-#     return "DENIED" if deny else "ALLOWED"
