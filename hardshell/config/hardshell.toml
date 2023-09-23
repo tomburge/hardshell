@@ -174,31 +174,9 @@ mitre = "T1068,T1068.000 TA0002 M1050"
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6"
 
-[processes.aslrtest]
-skip = true
-set = true
-stack = "kernel"
-settings = ["kernel.randomize_va_space = 2"]
-cis = "level-1"
-disa = "CCI-000366"
-mitre = "T1068,T1068.000 TA0002 M1050"
-stig = ""
-source = "NIST SP 800-53 Rev. 5: CM-6"
-
 [processes.ptrace]
 skip = false
 set = true
-stack = "kernel"
-settings = ["kernel.yama.ptrace_scope = 1"]
-cis = "level-1"
-disa = ""
-mitre = "T1055.008 TA0005 M1040"
-stig = ""
-source = "NIST SP 800-53 Rev. 5: CM-6"
-
-[processes.ptracetest]
-skip = false
-set = false
 stack = "kernel"
 settings = ["kernel.yama.ptrace_scope = 1"]
 cis = "level-1"
