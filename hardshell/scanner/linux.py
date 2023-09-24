@@ -1,8 +1,6 @@
 #########################################################################################
 # Imports
 #########################################################################################
-# import glob
-# import re
 import os
 import subprocess
 
@@ -307,7 +305,7 @@ def kernel_param_check(mode, config, param_type, ps):
             try:
                 config_path = kernel_param_set(config, param_type, ps, setting)
                 if config_path is not None:
-                    subprocess.run(
+                    result = subprocess.run(
                         ["sysctl", "-p", config_path], check=True, capture_output=True
                     )
 
@@ -340,10 +338,10 @@ def kernel_param_check(mode, config, param_type, ps):
             param_name = split_setting[0].strip()
             param_value = split_setting[1].strip()
             try:
-                run_result = subprocess.run(
+                result = subprocess.run(
                     ["sysctl", param_name], capture_output=True, text=True, check=True
                 )
-                current_value = run_result.stdout.split("=")[1].strip()
+                current_value = result.stdout.split("=")[1].strip()
 
                 if current_value == param_value:
                     result_list.append("DISABLED")
@@ -352,7 +350,7 @@ def kernel_param_check(mode, config, param_type, ps):
 
                 ### LOG ###
                 logger.info(
-                    f"(linux.py) - [CHECK] - Current Kernel Parameter: {run_result.stdout}"
+                    f"(linux.py) - [CHECK] - Current Kernel Parameter: {result.stdout}"
                 )
                 ###########
 
@@ -428,7 +426,34 @@ def scan_kernel_params(mode, config, param_type):
             )
 
 
-def scan_linux(mode, config):
+# Package Functions
+def run_command(command):
+    try:
+        result = subprocess.run(command, capture_output=True, check=True, text=True)
+        return result
+    except subprocess.CalledProcessError:
+        return False
+
+
+def check_pkg_mgr(os_info, config):
+    click.echo(config["global"]["pkg_mgr"])
+    pkg_mgr = config["global"]["pkg_mgr"]
+    click.echo(os_info)
+    if os_info["id"].lower() in pkg_mgr:
+        click.echo("pkg mgr found")
+        click.echo(os_info["id"].lower())
+        click.echo(pkg_mgr[os_info["id"].lower()])
+        return os_info["id"].lower()
+    else:
+        return "ERROR"
+
+
+def scan_packages(mode, os_info, config):
+    result = check_pkg_mgr(os_info, config)
+    # click.echo(result)
+
+
+def scan_linux(mode, os_info, config):
     """
     Start the Linux based operating system scan.
 
@@ -446,6 +471,9 @@ def scan_linux(mode, config):
     # Kernel Parameter Scan
     scan_kernel_params(mode, config, "processes")
     scan_kernel_params(mode, config, "networks")
+
+    # Package Scan
+    scan_packages(mode, os_info, config)
 
     # Complete Scan
     return "SCAN COMPLETE"

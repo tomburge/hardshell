@@ -30,7 +30,7 @@ def scanner(mode, os_info, config):
     elif os_info["type"] == "linux":
         # Linux
         logger.info("(scanner.py) - Starting Linux Scanner")
-        scan = scan_linux(mode, config)
+        scan = scan_linux(mode, os_info, config)
         click.echo(click.style("-" * 80, fg="green"))
         click.echo(click.style(" " * 33 + scan, fg="green"))
         click.echo(click.style("-" * 80, fg="green"))

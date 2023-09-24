@@ -9,6 +9,35 @@ sysctl_config_prefix = "10-"
 # Uncomment the following to set your own sysctl config file name
 #sysctl_config_file = "10-example.conf"
 
+[global.pkg_mgr]
+amzn.manager = 'dnf'
+amzn.installed = ['dnf', 'list', '--installed']
+amzn.uninstall = ['dnf', 'remove']
+
+centos.manager = 'yum'
+centos.installed = ['yum', 'list']
+centos.uninstall = ['yum', 'remove']
+
+debian.manager = 'apt'
+debian.installed = ['apt', 'list']
+debian.uninstall = ['apt', 'remove']
+
+fedora.manager = 'dnf'
+fedora.installed = ['dnf', 'list', '--installed']
+fedora.uninstall = ['dnf', 'remove']
+
+rhel.manager = ''
+rhel.installed = []
+rhel.uninstall = []
+
+sles.manager = ''
+sles.installed = []
+sles.uninstall = []
+
+ubuntu.manager = 'apt'
+ubuntu.installed = ['apt', 'list']
+ubuntu.uninstall = ['apt', 'remove']
+
 #################################################
 # Filesystems Configuration
 #################################################
@@ -370,3 +399,560 @@ disa = ""
 mitre = "T1557,T1557.000 TA0006,TA0040 M1030,M1042"
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+#################################################
+# Packages Hardening
+#################################################
+[packages]
+
+
+########################
+# Admin Packages 
+########################
+[packages.admin]
+skip = false
+check = true
+
+[packages.admin.aide]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.audit]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.auditd]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.chrony]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.cron]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.cronie]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.libselinux]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.mcstrans]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.ntp]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.rsyslog]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.sudo]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.admin.systemd-journal-remote]
+skip = false
+check = true
+pkg_type = "admin"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# Client Packages
+########################
+
+[packages.client]
+skip = false
+check = true
+
+[packages.client.ftp]
+skip = false
+check = true
+pkg_type = "client"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.client.openldap-clients]
+skip = false
+check = true
+pkg_type = "client"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.client.telnet]
+skip = false
+check = true
+pkg_type = "client"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.client.telnet-client]
+skip = false
+check = true
+pkg_type = "client"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# Libs Packages 
+########################
+
+[packages.libs]
+skip = false
+check = true
+
+[packages.libs.nfs-utils]
+skip = false
+check = true
+pkg_type = "libs"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.libs.libnfs-utils]
+skip = false
+check = true
+pkg_type = "libs"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+
+########################
+# Mail Packages 
+########################
+
+[packages.mail]
+skip = false
+check = true
+
+[packages.mail.dovecot]
+skip = false
+check = true
+pkg_type = "mail"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.mail.dovecot-core]
+skip = false
+check = true
+pkg_type = "mail"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# Net Packages 
+########################
+
+[packages.net]
+skip = false
+check = true
+
+[packages.net.avahi]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.avahi-daemon]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.bind]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.bind9]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.cups]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.dnsmasq]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.net-snmp]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.nftables]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.openssh-server]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.rpcbind]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.rsync]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.rsync-daemon]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.samba]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.snmp]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.snmpd]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.telnetd]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.telnet-server]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.tftpd]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.tftp-server]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.net.vsftpd]
+skip = false
+check = true
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# Utilities Packages 
+########################
+
+[packages.utilities]
+skip = false
+check = true
+
+[packages.utilities.authselect]
+skip = false
+check = true
+pkg_type = "utilities"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.utilities.sssd]
+skip = false
+check = true
+pkg_type = "utilities"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# Web Packages 
+########################
+
+[packages.web]
+skip = false
+check = true
+
+[packages.web.apache2]
+skip = false
+check = true
+pkg_type = "web"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.web.httpd]
+skip = false
+check = true
+pkg_type = "web"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.web.nginx]
+skip = false
+check = true
+pkg_type = "web"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.web.squid]
+skip = false
+check = true
+pkg_type = "web"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+########################
+# X11 Packages 
+########################
+
+[packages.x11]
+skip = false
+check = true
+
+[packages.x11.xorg]
+skip = false
+check = true
+pkg_type = "x11"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+[packages.x11.xorg-x11-server-common]
+skip = false
+check = true
+pkg_type = "x11"
+cis = ""
+disa = ""
+mitre = ""
+stig = ""
+source = ""
+
+
+########################
+# Unused 
+########################
+
+# [packages.setroubleshoot]
