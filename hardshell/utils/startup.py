@@ -29,14 +29,14 @@ def init(mode, cmode):
     click.echo(click.style("\n".join(start_banner), fg="blue"))
 
     # Detect Operating System
-    is_os = detect_os()
+    os_info = detect_os()
     click.echo("  - Detecting OS..." + "\t" * 6 + "[DONE]")
-    logger.info(f"(startup.py) - Detecting OS: {is_os}")
+    logger.info(f"(startup.py) - Detecting OS: {os_info}")
 
     # Load Config
     click.echo("  - Checking for config..." + "\t" * 5 + "[DONE]")
     logger.info("(startup.py) - Checking for config")
-    config = init_config(os_info=is_os, admin=is_admin, cmode=cmode)
+    config = init_config(os_info=os_info, admin=is_admin, cmode=cmode)
     click.echo("  - Loading config..." + "\t" * 6 + "[DONE]")
     logger.info("(startup.py) - Loading config")
 
@@ -50,18 +50,18 @@ def init(mode, cmode):
     )
     click.echo(
         click.style(
-            "  " + f"Operating System: " + "\t" * 3 + f"{is_os['type'].capitalize()}",
+            "  " + f"Operating System: " + "\t" * 3 + f"{os_info['type'].capitalize()}",
             fg="blue",
         )
     )
     click.echo(
         click.style(
-            "  " + f"Operating System Name: " + "\t" * 2 + f"{is_os['name']}", fg="blue"
+            "  " + f"Operating System Name: " + "\t" * 2 + f"{os_info['name']}", fg="blue"
         )
     )
     click.echo(
         click.style(
-            "  " + f"Operating System Version: " + "\t" * 2 + f"{is_os['version']}",
+            "  " + f"Operating System Version: " + "\t" * 2 + f"{os_info['version']}",
             fg="blue",
         )
     )
@@ -80,7 +80,7 @@ def init(mode, cmode):
     click.echo(click.style("  " + "Starting Scanner...", fg="yellow"))
     click.echo("  " + "-" * 80)
     logger.info("(startup.py) - Starting Scanner")
-    scan = scanner(mode=mode, os_info=is_os, config=config)
+    scan = scanner(mode=mode, os_info=os_info, config=config)
 
     # Shutdown Banner
     stop_banner = shutdown_banner()
