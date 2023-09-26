@@ -165,6 +165,16 @@ mitre = "T1005,T1005.000 TA0005 M1050"
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
+[kernel.filesystem.usb-storage]
+check_skip = false
+check_set = true
+check_type = "filesystem"
+cis = ""
+disa = ""
+mitre = "T1052,T1052.001,T1091,T1091.000,T1200,T1200.000 TA0001,TA0010 M1034"
+stig = ""
+source = ""
+
 [kernel.filesystem.vfat]
 check_skip = false
 check_set = false
@@ -448,6 +458,55 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 [system]
 category_skip = false
 category_set = true
+
+#################################################
+# Storage Checks
+#################################################
+[system.storage]
+category_skip = false
+category_set = true
+
+[system.storage.devshm]
+check_skip = false
+check_set = true
+path = "/dev/shm"
+options = ["nodev", "noexec", "nosuid"]
+
+[system.storage.home]
+check_skip = false
+check_set = true
+path = "/home"
+options = ["nodev", "nosuid"]
+
+[system.storage.tmp]
+check_skip = false
+check_set = true
+path = "/tmp"
+options = ["nodev", "noexec", "nosuid"]
+
+[system.storage.var]
+check_skip = false
+check_set = true
+path = "/var"
+options = ["nodev", "nosuid"]
+
+[system.storage.varlog]
+check_skip = false
+check_set = true
+path = "/var/log"
+options = ["nodev", "noexec", "nosuid"]
+
+[system.storage.varlogaudit]
+check_skip = false
+check_set = true
+path = "/var/log/audit"
+options = ["nodev", "noexec", "nosuid"]
+
+[system.storage.vartmp]
+check_skip = false
+check_set = true
+path = "/var/tmp"
+options = ["nodev", "noexec", "nosuid"]
 
 #################################################
 # Package Checks
