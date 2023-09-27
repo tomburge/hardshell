@@ -1,29 +1,9 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
+# Site Settings
 title: Hardshell Docs
 email: tom@tomburge.org
 description: >- # this means to ignore newlines until "baseurl:"
   The hardshell project documentation site
-baseurl: "/hardshell" # the subpath of your site, e.g. /blog
-url: "https://tomburge.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://hardshell.wiki"
 twitter_username: tburge80
 github_username:  tomburge
 
@@ -33,14 +13,11 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
+
+# Global Configuration
+# destination: ./_site
+# disable_disk_cache: false
+encoding: utf-8
 # exclude:
 #   - .sass-cache/
 #   - .jekyll-cache/
@@ -52,3 +29,50 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+# ignore_theme_config: false
+# include:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+# keep_files:
+#   - ".gitignore"
+# safe: false
+# source: /docs
+timezone: America/Chicago
+
+
+# Build Configuration
+baseurl: ""
+# force_polling: false
+# future: false
+# incremental: false
+# layouts_dir: _layouts/
+# limit_posts: 0
+# lsi: false
+# plugins_dir: ["_plugins"]
+# profile: false
+# quiet: false
+# show_drafts: false
+# strict_front_matter: false
+# unpublished: false
+# verbose: false
+
+# Serve Configuration
+detach: false
+host: localhost
+livereload: true
+# livereload_ignore:
+#   - GLOB1
+# livereload_min_delay: 0
+# livereload_max_delay: 0
+open_url: true
+port: 4000
+show_dir_listing: false
+skip_initial_build: false
