@@ -6,8 +6,7 @@ from importlib.metadata import distribution
 import click
 import toml
 
-from hardshell.utils.core import handle_directory
-from hardshell.utils.logger import logger
+from hardshell.utils.utilities import log_status
 
 
 def load_config_file(file_path):
@@ -28,15 +27,30 @@ def load_config_file(file_path):
     try:
         with open(file_path, "r") as f:
             config = toml.load(f)
-        logger.info(f"(config.py) - Config File Path: {file_path}")
+        log_status(
+            " " * 8 + f"- Config File Path: {file_path}",
+            message_color="blue",
+            log_level="info",
+            log_only=True,
+        )
         return config
     except FileNotFoundError:
-        click.echo(f"Error: {file_path} not found.")
-        logger.error(f"(config.py) - Error: {file_path} not found.")
+        log_status(
+            " " * 8 + f"- Config File Path Not Found: {file_path}",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="info",
+        )
         return None
     except toml.TomlDecodeError:
-        click.echo(f"Error: Could not decode {file_path} as TOML.")
-        logger.error(f"(config.py) - Error: Could not decode {file_path} as TOML.")
+        log_status(
+            " " * 8 + f"- Config File TOML Decode: {file_path}",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="info",
+        )
         return None
 
 
@@ -52,21 +66,47 @@ def deploy_config_file(config_file, src_file):
         return config
     """
     if os.path.exists(config_file):
-        click.echo("\t- Config file..." + "\t" * 5 + "[FOUND]")
-        click.echo("\t  Location: " + config_file)
-        click.echo("\t- Loading config file..." + "\t" * 4 + "[DONE]")
+        log_status(
+            " " * 8 + "- Config file...",
+            message_color="blue",
+            status="FOUND",
+            status_color="bright_green",
+            log_level="info",
+        )
+        log_status(
+            " " * 8 + f"- Config File Path: {config_file}",
+            message_color="blue",
+            log_level="info",
+        )
         config = load_config_file(config_file)
         if config is not None:
-            logger.info(f"(config.py) - {config}")
+            log_status(
+                config,
+                log_level="info",
+                log_only=True,
+            )
             return config
     else:
-        click.echo("\t- Deploying config file..." + "\t" * 4 + "[DONE]")
+        log_status(
+            " " * 8 + "- Deploying...",
+            message_color="blue",
+            log_level="info",
+        )
         shutil.copy(src_file, config_file)
-        click.echo("\t- Config file deployed..." + "\t" * 4 + "[DONE]")
-        click.echo("\t- Loading config file..." + "\t" * 4 + "[DONE]")
+        log_status(
+            " " * 8 + "- Config file deployed...",
+            message_color="blue",
+            status="DONE",
+            status_color="bright_green",
+            log_level="info",
+        )
         config = load_config_file(config_file)
         if config is not None:
-            logger.info(f"(config.py) - {config}")
+            log_status(
+                config,
+                log_level="info",
+                log_only=True,
+            )
             return config
 
 
@@ -88,18 +128,63 @@ def generate_config_file(config_file, src_file):
         config = generate_config_file(config_file, src_file)
     """
     if os.path.exists(config_file):
-        click.echo("\t- Config file..." + "\t" * 5 + "[FOUND]")
-        logger.warning("(config.py) - Config file found")
-        click.echo("\t- Renaming config file..." + "\t" * 4 + "[DONE]")
-        logger.warning("(config.py) - Renaming config file")
+        log_status(
+            " " * 8 + "- Config file...",
+            message_color="blue",
+            status="FOUND",
+            status_color="bright_green",
+            log_level="info",
+        )
         timestamp = int(time.time())
         backup_file = f"{config_file}.{timestamp}.bak"
         os.rename(config_file, backup_file)
-    logger.info(f"(config.py) - Source Config: {src_file}")
-    logger.info(f"(config.py) - Destination Config: {config_file}")
-    click.echo("\t- Generating config file..." + "\t" * 4 + "[DONE]")
+        log_status(
+            " " * 8 + "- Renaming config file...",
+            message_color="blue",
+            status="DONE",
+            status_color="bright_green",
+            log_level="info",
+        )
+    log_status(f"- Source Config: {src_file}", log_level="info", log_only=True)
+    log_status(f"- Destination Config: {config_file}", log_level="info", log_only=True)
+    log_status(
+        " " * 8 + "- Generating config file...",
+        message_color="blue",
+        status="DONE",
+        status_color="bright_green",
+        log_level="info",
+    )
     shutil.copy(src_file, config_file)
-    logger.info(f"(config.py) - Generated config file: {config_file}")
+    log_status(f"- Generated config file: {config_file}", log_level="info", log_only=True)
+
+
+def handle_directory(dir_type, directory):
+    """
+    Checks if a directory exists and creates it if it does not.
+
+    Returns:
+        None
+
+    Example Usage:
+        handle_directory(dir)
+    """
+    if os.path.exists(directory):
+        log_status(
+            " " * 8 + f"- {dir_type.capitalize()} directory...",
+            message_color="blue",
+            status="FOUND",
+            status_color="bright_green",
+            log_level="info",
+        )
+    else:
+        os.makedirs(directory, exist_ok=False)
+        log_status(
+            " " * 8 + f"- Creating {dir_type} directory...",
+            message_color="blue",
+            status="DONE",
+            status_color="bright_green",
+            log_level="info",
+        )
 
 
 def init_config(os_info, admin, cmode="deploy"):
@@ -130,22 +215,25 @@ def init_config(os_info, admin, cmode="deploy"):
     if admin:
         win_dir = r"C:\\Program Files\\hardshell\\"
         lin_dir = r"/etc/hardshell/hardshell.toml"
-        logger.info("(config.py) - Detected Admin User")
+        log_status("- Detected Admin", log_level="info", log_only=True)
     else:
         if os_info["type"] == "windows":
             win_dir = os.path.expandvars(
                 r"C:\\Users\\%USERNAME%\\AppData\\Local\\hardshell\\"
             )
-            logger.info("(config.py) - Detected User - Windows")
+            log_status("- Detected Windows User", log_level="info", log_only=True)
         elif os_info["type"] == "linux":
             user_name = os.environ.get("USER") or pwd.getpwuid(os.getuid())[0]
             lin_dir = f"/home/{user_name}/.hardshell"
-            logger.info("(config.py) - Detected User - Linux")
+            log_status("- Detected Linux User", log_level="info", log_only=True)
 
     # Determine OS Type
     if os_info["type"] not in ["windows", "linux"]:
-        click.echo("Error: Unsupported OS type...")
-        logger.error("(config.py) - Unsupported OS Type")
+        log_status(
+            " " * 2 + "- Unsupported OS type...",
+            message_color="bright_red",
+            log_level="error",
+        )
 
     src_file = win_src if os_info["type"] == "windows" else lin_src
     config_dir = win_dir if os_info["type"] == "windows" else lin_dir
@@ -154,15 +242,15 @@ def init_config(os_info, admin, cmode="deploy"):
     handle_directory("config", config_dir)
 
     if cmode == "deploy":
-        logger.info("(config.py) - Detected Deploy Mode")
+        log_status("- Deploy Mode Detected", log_level="info", log_only=True)
         config = deploy_config_file(config_file, src_file)
-        logger.info("(config.py) - Config Deployed")
-        logger.info(f"(config.py) - {config}")
+        log_status("- Config Deployed", log_level="info", log_only=True)
+        log_status(f"- {config}", log_level="info", log_only=True)
         return config
     elif cmode == "generate":
-        logger.info("(config.py) - Detected Generate Mode")
+        log_status("- Generate Mode Detected", log_level="info", log_only=True)
         generate_config_file(config_file, src_file)
-        logger.info("(config.py) - Config Generated")
+        log_status("- Config Generated", log_level="info", log_only=True)
     elif cmode == "test":
         if os_info["type"] == "windows":
             test_config = ".\\hardshell\\config\\hardshell.toml"
@@ -186,6 +274,9 @@ def init_config(os_info, admin, cmode="deploy"):
             lin_src = "./hardshell/config/hardshell.toml"
             generate_config_file(config_file, lin_src)
     else:
-        click.echo("Error: Unsupported mode...")
-        logger.error("(config.py) - Unsupported Mode")
+        log_status(
+            " " * 2 + "- Unsupported Mode...",
+            message_color="bright_red",
+            log_level="error",
+        )
         return None

@@ -7,12 +7,9 @@ url: "https://hardshell.wiki"
 twitter_username: tburge80
 github_username:  tomburge
 
-# Build settings
-# theme: minima
-plugins:
-  - jekyll-feed
-  - jekyll-remote-theme
-  - jekyll-seo-tag
+# PostCSS Configuration
+postcss:
+  cache: false
 
 
 # Global Configuration
@@ -57,11 +54,17 @@ baseurl: ""
 # layouts_dir: _layouts/
 # limit_posts: 0
 # lsi: false
+plugins:
+  - jekyll-feed
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-postcss
 # plugins_dir: ["_plugins"]
 # profile: false
 # quiet: false
 # show_drafts: false
 # strict_front_matter: false
+# theme: minima
 # unpublished: false
 # verbose: false
 

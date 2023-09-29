@@ -164,3 +164,4 @@ cython_debug/
 .scripts
 .testing
 .utils
+.docsbackup

@@ -8,6 +8,8 @@ import click
 
 from hardshell import __name__, __version__
 
+# from hardshell.utils.utilities import log_status
+
 
 def startup_banner():
     """
@@ -21,18 +23,21 @@ def startup_banner():
         print(banner)  # Prints startup banner
     """
     banner = []
-    banner.append("  " + "#" * 80)
-    banner.append("  " + f"# {__name__} {__version__}")
-    banner.append("  " + "# " + "-" * 15)
+    banner.append(" " * 2 + "#" * 90)
+    banner.append(" " * 2 + f"# {__name__} {__version__}")
+    banner.append(" " * 2 + "# " + "-" * 15)
     banner.append(
-        "  "
+        " " * 2
         + f"# {__name__} comes with ABSOLUTELY NO WARRANTY. This is free software, and"
     )
     banner.append(
-        "  " + "# you are welcome to redistribute it under the terms of the MIT License."
+        " " * 2
+        + "# you are welcome to redistribute it under the terms of the MIT License."
     )
-    banner.append("  " + "# See the LICENSE file for details about using this software.")
-    banner.append("  " + "#" * 80 + "\n")
+    banner.append(
+        " " * 2 + "# See the LICENSE file for details about using this software."
+    )
+    banner.append(" " * 2 + "#" * 90 + "\n")
     return banner
 
 
@@ -126,20 +131,3 @@ def detect_os() -> Dict[str, Union[str, Dict[str, str]]]:
     system = platform.system()
 
     return os_detectors.get(system, lambda: {"Error": "Unsupported OS..."})()
-
-
-def handle_directory(dir_type, directory):
-    """
-    Checks if a directory exists and creates it if it does not.
-
-    Returns:
-        None
-
-    Example Usage:
-        handle_directory(dir)
-    """
-    if os.path.exists(directory):
-        click.echo(f"\t- {dir_type.capitalize()} directory..." + "\t" * 5 + "[FOUND]")
-    else:
-        os.makedirs(directory, exist_ok=False)
-        click.echo(f"\t- Creating {dir_type} directory..." + "\t" * 4 + "[DONE]")

@@ -8,78 +8,132 @@ import click
 from hardshell import __name__, __version__
 from hardshell.scanner.scanner import scanner
 from hardshell.utils.config import init_config
-from hardshell.utils.core import detect_admin, detect_os, shutdown_banner, startup_banner
-from hardshell.utils.logger import logger
+from hardshell.utils.core import (detect_admin, detect_os, shutdown_banner,
+                                  startup_banner)
+from hardshell.utils.utilities import log_status
 
 
 def init(mode, cmode):
     # Startup Banner
     start_banner = startup_banner()
+    click.echo(click.style("\n".join(start_banner), fg="blue"))
 
     # Detect Admin
     is_admin = detect_admin()
     if is_admin == True:
-        start_banner.append("  " + "#" * 40)
-        start_banner.append("  " + "\t" * 1 + f"PRIVILEGED SCAN {mode.upper()} MODE")
-        start_banner.append("  " + "#" * 40)
+        message = " " * 14 + "PRIVILEGED SCAN - " + mode.upper() + " MODE"
+        log_status(" " * 10 + "#" * 40, message_color="blue", log_level="info")
+        log_status(
+            message,
+            message_color="blue",
+            log_level="info",
+        )
+        log_status(" " * 10 + "#" * 40, message_color="blue", log_level="info")
     else:
-        start_banner.append("  " + "#" * 42)
-        start_banner.append("  " + "\t" * 1 + f"NON-PRIVILEGED SCAN {mode.upper()} MODE")
-        start_banner.append("  " + "#" * 42 + "\n")
-    click.echo(click.style("\n".join(start_banner), fg="blue"))
+        message = " " * 14 + "NON-PRIVILEGED SCAN - " + mode.upper() + " MODE"
+        log_status(" " * 10 + "#" * 40, message_color="blue", log_level="info")
+        log_status(
+            message,
+            message_color="blue",
+            log_level="info",
+        )
+        log_status(" " * 10 + "#" * 40, message_color="blue", log_level="info")
+
+    log_status("")
 
     # Detect Operating System
     os_info = detect_os()
-    click.echo("  - Detecting OS..." + "\t" * 6 + "[DONE]")
-    logger.info(f"(startup.py) - Detecting OS: {os_info}")
+    if os_info:
+        log_status(
+            " " * 2 + "- Detecting OS...",
+            message_color="blue",
+            status="DONE",
+            status_color="bright_green",
+            log_level="info",
+        )
+    else:
+        log_status(
+            " " * 2 + "- Detecting OS...",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="info",
+        )
 
-    # Load Config
-    click.echo("  - Checking for config..." + "\t" * 5 + "[DONE]")
-    logger.info("(startup.py) - Checking for config")
+    # Detect Config
+    log_status(
+        " " * 2 + "- Checking for config...",
+        message_color="blue",
+        log_level="info",
+    )
+
     config = init_config(os_info=os_info, admin=is_admin, cmode=cmode)
-    click.echo("  - Loading config..." + "\t" * 6 + "[DONE]")
-    logger.info("(startup.py) - Loading config")
+
+    if config:
+        log_status(
+            " " * 2 + "- Loading config...",
+            message_color="blue",
+            status="DONE",
+            status_color="bright_green",
+            log_level="info",
+        )
+    else:
+        log_status(
+            " " * 2 + "- Loading config...",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="info",
+        )
 
     # System Info
-    click.echo("  " + "-" * 80)
-    click.echo(
-        click.style(
-            "  " + f"{__name__.capitalize()} Version: " + "\t" * 3 + f"{__version__}",
-            fg="blue",
-        )
+    log_status("")
+    log_status(" " * 2 + "-" * 90, log_level="info")
+    log_status(
+        " " * 2 + f"{__name__.capitalize()} Version: ",
+        message_color="blue",
+        status=__version__,
+        status_color="bright_green",
+        log_level="info",
     )
-    click.echo(
-        click.style(
-            "  " + f"Operating System: " + "\t" * 3 + f"{os_info['type'].capitalize()}",
-            fg="blue",
-        )
+    log_status(
+        " " * 2 + f"Operating System Name: ",
+        message_color="blue",
+        status=os_info["name"],
+        status_color="bright_green",
+        log_level="info",
     )
-    click.echo(
-        click.style(
-            "  " + f"Operating System Name: " + "\t" * 2 + f"{os_info['name']}", fg="blue"
-        )
+    log_status(
+        " " * 2 + f"Operating System Version: ",
+        message_color="blue",
+        status=os_info["version"],
+        status_color="bright_green",
+        log_level="info",
     )
-    click.echo(
-        click.style(
-            "  " + f"Operating System Version: " + "\t" * 2 + f"{os_info['version']}",
-            fg="blue",
-        )
+    log_status(
+        " " * 2 + f"Operating System Architecture: ",
+        message_color="blue",
+        status=platform.machine(),
+        status_color="bright_green",
+        log_level="info",
     )
-    click.echo(
-        click.style(
-            "  " + f"Operating System Architecture: " + "\t" + f"{platform.machine()}",
-            fg="blue",
-        )
+    log_status(
+        " " * 2 + f"Hostname: ",
+        message_color="blue",
+        status=platform.node(),
+        status_color="bright_green",
+        log_level="info",
     )
-    click.echo(
-        click.style("  " + f"Hostname: " + "\t" * 4 + f"{platform.node()}", fg="blue")
-    )
-    click.echo("  " + "-" * 80)
+    log_status(" " * 2 + "-" * 90, log_level="info")
 
     # Scanner
-    click.echo(click.style("  " + "Starting Scanner...", fg="yellow"))
-    click.echo("  " + "-" * 80)
-    logger.info("(startup.py) - Starting Scanner")
+    log_status("")
+    log_status(
+        " " * 2 + "Starting Scanner...",
+        message_color="bright_green",
+        log_level="info",
+    )
+
     scan = scanner(mode=mode, os_info=os_info, config=config)
 
     # Shutdown Banner

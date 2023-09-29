@@ -6,9 +6,10 @@ import subprocess
 
 import click
 
-from hardshell.utils.core import detect_admin, detect_os
-from hardshell.utils.logger import logger
-from hardshell.utils.utlities import echo_and_log
+from hardshell.utils.core import detect_os
+from hardshell.utils.report import (add_to_dd_report, dd_report,
+                                    dd_report_to_report)
+from hardshell.utils.utilities import log_status
 
 
 # Global Run Command
@@ -24,15 +25,21 @@ def run_command(command):
 def process_kernel_check(
     mode, config, category, sub_category, check, check_function, status_map
 ):
+    check_name = config[category][sub_category][check]["check_name"]
     status = check_function(mode, config, category, sub_category, check)
-    color, log_level = status_map.get(status, ("bright_red", "info"))
-    echo_and_log(
-        f"- [CHECK] - {sub_category.capitalize()}: {check}",
-        status,
-        color,
-        f"(linux.py) - [CHECK] - {sub_category.capitalize()}: {check} - {status}",
-        log_level,
+    color, log_level = status_map.get(status[1], ("bright_red", "info"))
+    log_status(
+        " " * 4 + f"- [CHECK] - {sub_category.capitalize()}: {check_name}",
+        message_color="blue",
+        status=status[1],
+        status_color=color,
+        log_level=log_level,
     )
+
+    # # Reporting
+    # add_to_dd_report(
+    #     config, category=category, sub_category=sub_category, check=check, status=status
+    # )
 
 
 # Kernel Module Functions
@@ -42,7 +49,7 @@ def kernel_module_loaded(mode, config, category, sub_category, check):
     harden mode: Unloads a kernel module.
 
     Returns:
-        str: PASS, FAIL, SKIPPED, WARNING, SUDO REQUIRED
+        str: PASS, FAIL, SKIP, WARN, SUDO
 
     Raises:
         CalledProcessError: If the command fails.
@@ -53,32 +60,41 @@ def kernel_module_loaded(mode, config, category, sub_category, check):
     """
 
     os_info = detect_os()
-    if os_info["id"] == "ubuntu" and check == "squashfs":
-        return "SKIPPED"
+    check_name = config[category][sub_category][check]["check_name"]
+    if os_info["id"] == "ubuntu" and check_name == "squashfs":
+        # Reporting
+        add_to_dd_report(
+            config,
+            category=category,
+            sub_category=sub_category,
+            check=check,
+            status="SKIP",
+        )
+        return "LOADED", "SKIP"
 
     check_set = config[category][sub_category][check]["check_set"]
 
-    loaded = subprocess.getoutput(f"lsmod | grep {check}")
+    loaded = subprocess.getoutput(f"lsmod | grep {check_name}")
 
     if loaded and check_set and mode == "harden":
         try:
             result = subprocess.run(
-                ["modprobe", "-r", check], capture_output=True, text=True
+                ["modprobe", "-r", check_name], capture_output=True, text=True
             )
 
             if "not found" in result.stderr:
                 return "PASS"
 
-        except subprocess.CalledProcessError as e:
-            echo_and_log(
-                f"- [FIX] - {sub_category.capitalize()}: {check}",
-                "SUDO REQUIRED",
-                "bright_red",
-                f"(linux.py) - {mode.upper()} - Failed {sub_category.capitalize()}: {check}",
-                "warning",
+        except subprocess.CalledProcessError:
+            log_status(
+                " " * 2 + f"- [FIX] - {sub_category.capitalize()}: {check_name}: LOADED",
+                message_color="blue",
+                status="SUDO",
+                status_color="bright_red",
+                log_level="error",
             )
 
-    return "FAIL" if loaded else "PASS"
+    return "LOADED", "FAIL" if loaded else "PASS"
 
 
 def kernel_module_deny(mode, config, category, sub_category, check):
@@ -87,7 +103,7 @@ def kernel_module_deny(mode, config, category, sub_category, check):
     harden mode: Add "blacklist mod_name" to the kernel module config file.
 
     Returns:
-        str: PASS, FAIL, SKIPPED, WARNING, SUDO REQUIRED
+        str: PASS, FAIL, SKIP, WARN, SUDO
 
     Raises:
         CalledProcessError: If the command fails.
@@ -97,12 +113,21 @@ def kernel_module_deny(mode, config, category, sub_category, check):
         print(deny)
     """
     os_info = detect_os()
-    if os_info["id"] == "ubuntu" and check == "squashfs":
-        return "SKIPPED"
+    check_name = config[category][sub_category][check]["check_name"]
+    if os_info["id"] == "ubuntu" and check_name == "squashfs":
+        # Reporting
+        add_to_dd_report(
+            config,
+            category=category,
+            sub_category=sub_category,
+            check=check,
+            status="SKIP",
+        )
+        return "DENIED", "SKIP"
 
     mp_config = config["global"]["modprobe_config"]
     check_set = config[category][sub_category][check]["check_set"]
-    conf_file = f"{mp_config}{sub_category}-{check}.conf"
+    conf_file = f"{mp_config}{sub_category}-{check_name}.conf"
 
     if check_set and mode == "harden":
         try:
@@ -113,21 +138,21 @@ def kernel_module_deny(mode, config, category, sub_category, check):
             with open(conf_file, "r") as f:
                 content = f.read()
 
-            if f"blacklist {check}" not in content:
+            if f"blacklist {check_name}" not in content:
                 with open(conf_file, "a") as f:
-                    f.write(f"blacklist {check}\n")
-                return "PASS"
+                    f.write(f"blacklist {check_name}\n")
+                return "LOADED", "PASS"
 
-            if f"blacklist {check}" in content:
-                return "PASS"
+            if f"blacklist {check_name}" in content:
+                return "LOADED", "PASS"
 
         except Exception:
-            echo_and_log(
-                f"- [FIX] - {sub_category.capitalize()}: {check}",
-                "SUDO REQUIRED",
-                "bright_red",
-                f"(linux.py) - {mode.upper()} - Failed {sub_category.capitalize()}: {check}",
-                "warning",
+            log_status(
+                " " * 2 + f"- [FIX] - {sub_category.capitalize()}: {check_name}: DENIED",
+                message_color="blue",
+                status="SUDO",
+                status_color="bright_red",
+                log_level="error",
             )
 
     try:
@@ -135,19 +160,21 @@ def kernel_module_deny(mode, config, category, sub_category, check):
             ["modprobe", "--showconfig"], check=True, capture_output=True, text=True
         )
         deny = [
-            line for line in result.stdout.split("\n") if f"blacklist {check}" in line
+            line
+            for line in result.stdout.split("\n")
+            if f"blacklist {check_name}" in line
         ]
     except subprocess.CalledProcessError:
         deny = []
-        echo_and_log(
-            f"- [CHECK] - {sub_category.capitalize()}: {check}",
-            "ERROR",
-            "bright_red",
-            f"(linux.py) - {mode.upper()} - Failed {sub_category.capitalize()}: {check}",
-            "warning",
+        log_status(
+            " " * 4 + f"- [CHECK] - {sub_category.capitalize()}: {check_name}: DENIED",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="error",
         )
 
-    return "PASS" if deny else "FAIL"
+    return "DENIED", "PASS" if deny else "FAIL"
 
 
 # Kernel Parameter Functions
@@ -235,11 +262,23 @@ def kernel_param_set(config, param_type, ps, setting):
         return target_path
 
     except KeyError as e:
-        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - [KEYERROR]")
+        log_status(
+            f" - [FIX] - {param_type}: {ps} - [KEYERROR]",
+            log_level="error",
+            log_only=True,
+        )
     except (TypeError, ValueError, FileNotFoundError, PermissionError) as e:
-        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - {type(e).__name__}: {e}")
+        log_status(
+            f" - [FIX] - {param_type}: {ps} - {type(e).__name__}: {e}",
+            log_level="error",
+            log_only=True,
+        )
     except Exception as e:
-        logger.error(f"(linux.py) - [FIX] - {param_type}: {ps} - Unexpected Error: {e}")
+        log_status(
+            f" - [FIX] - {param_type}: {ps} - Unexpected Error: {e}",
+            log_level="error",
+            log_only=True,
+        )
 
 
 def kernel_param_check(mode, config, category, sub_category, check):
@@ -248,7 +287,7 @@ def kernel_param_check(mode, config, category, sub_category, check):
     harden mode: Calls kernel_param_set() and reloads sysctl with the new config
 
     Returns:
-        str: PASS, FAIL, SKIPPED, WARNING, SUDO REQUIRED
+        str: PASS, FAIL, SKIP, WARN, SUDO
 
     Raises:
         CalledProcessError: If the command fails.
@@ -257,139 +296,124 @@ def kernel_param_check(mode, config, category, sub_category, check):
         param = kernel_param_check(mode, config, param_type, ps)
         print(param)
     """
-    settings = config[category][sub_category][check]["settings"]
-    settings_num = 0
-    result_list = []
+    setting = config[category][sub_category][check]["setting"]
 
-    ### LOG ###
-    logger.info("---")
-    logger.info(f"(linux.py) - [CHECK] - Parameter: {check}")
-    ###########
+    log_status("---", log_level="info", log_only=True)
+    log_status(f" - [CHECK] - Parameter: {check}", log_level="info", log_only=True)
 
-    for setting in settings:
-        # Set Kernel Parameter
-        check_set = config[category][sub_category][check]["check_set"]
-        if check_set and mode == "harden":
-            try:
-                config_path = kernel_param_set(config, sub_category, check, setting)
-                if config_path is not None:
-                    result = subprocess.run(
-                        ["sysctl", "-p", config_path], check=True, capture_output=True
-                    )
-
-                ### LOG ###
-                logger.info("sysctl reloaded")  # TODO Adjust text
-                ###########
-
-            except subprocess.CalledProcessError as e:
-                ### LOG ###
-                logger.error(f"Failed to reload sysctl possibly: {e}")  # TODO Adjust text
-                logger.error(
-                    f"(linux.py) - [FIX] - {sub_category}: {check} - [SUDO REQUIRED]"
-                )
-                ###########
-
-        # Check Kernel Parameter
-        settings_num = settings_num + 1
-        split_setting = setting.split("=")
-
-        ### LOG ###
-        logger.info(f"(linux.py) - [CHECK] - Setting {settings_num}:")
-        logger.info(f"(linux.py) - [CHECK] - Expected Kernel Parameter: {setting}")
-        ###########
-
-        if len(split_setting) == 2:
-            param_name = split_setting[0].strip()
-            param_value = split_setting[1].strip()
-            try:
+    # Set Kernel Parameter
+    check_set = config[category][sub_category][check]["check_set"]
+    if check_set and mode == "harden":
+        try:
+            config_path = kernel_param_set(config, sub_category, check, setting)
+            if config_path is not None:
                 result = subprocess.run(
-                    ["sysctl", param_name], capture_output=True, text=True, check=True
+                    ["sysctl", "-p", config_path], check=True, capture_output=True
                 )
-                current_value = result.stdout.split("=")[1].strip()
 
-                if current_value == param_value:
-                    result_list.append("PASS")
-                else:
-                    result_list.append("FAIL")
+            log_status(
+                "sysctl reloaded", log_level="info", log_only=True
+            )  # TODO Adjust text
 
-                ### LOG ###
-                logger.info(
-                    f"(linux.py) - [CHECK] - Current Kernel Parameter: {result.stdout}"
-                )
-                ###########
-
-            except subprocess.CalledProcessError as e:
-                result_list.append("ERROR")
-                ### LOG ###
-                logger.error(f"Failed to retrieve kernel parameter: {e}")
-                ###########
-        else:
-            return "MISCONFIGURED"
-
-    if "PASS" in result_list and "FAIL" in result_list:
-        click.echo(
-            click.style(
-                f"  - [RESULT] - Mixed results for {check} exist. Check log.",
-                fg="magenta",
+        except subprocess.CalledProcessError as e:
+            log_status(
+                f"Failed to reload sysctl possibly: {e}",  # TODO Adjust text
+                log_level="error",
+                log_only=True,
             )
-        )
-        return "WARNING"
-    elif "ERROR" in result_list:
-        return "ERROR"
-    elif "FAIL" in result_list:
-        return "FAIL"
-    else:
-        return "PASS"
+            log_status(
+                f" - [FIX] - {sub_category}: {check} - [SUDO]",
+                log_level="error",
+                log_only=True,
+            )
+
+    # Check Kernel Parameter
+    split_setting = setting.split("=")
+
+    # log_status(
+    #     f" - [CHECK] - Setting {settings_num}:", log_level="info", log_only=True
+    # )
+    log_status(
+        f" - [CHECK] - Expected Kernel Parameter: {setting}",
+        log_level="info",
+        log_only=True,
+    )
+
+    if len(split_setting) == 2:
+        param_name = split_setting[0].strip()
+        param_value = split_setting[1].strip()
+        try:
+            result = subprocess.run(
+                ["sysctl", param_name], capture_output=True, text=True, check=True
+            )
+            current_value = result.stdout.split("=")[1].strip()
+
+            if current_value == param_value:
+                return param_name, "PASS"
+            else:
+                return param_name, "FAIL"
+
+        except subprocess.CalledProcessError as e:
+            log_status(
+                f"Failed to retrieve kernel parameter: {e}",
+                log_level="error",
+                log_only=True,
+            )
+            return param_name, "ERROR"
+
+    return param_name, "UNKNOWN"
 
 
 # Storage Functions
 def system_storage_check(mode, config, category, sub_category, check):
-    """
-    Checks storage mount points for partition and mount options.
-    """
     try:
         command = config["global"]["commands"]["find_mount"].copy()
         path = config[category][sub_category][check]["path"]
-        options = config[category][sub_category][check]["options"]
+        option = config[category][sub_category][check].get("option", "")
 
         command.append(path)
         result = run_command(command)
 
         if result:
-            echo_and_log(
-                f"- [CHECK] - {path}: Separate Partition",
-                "PASS",
-                "bright_green",
-                f"(linux.py) - [CHECK] - {path}: Separate Partition",
-                "info",
-            )
-            for option in options:
+            if not option:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {path}: Separate Partition",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            else:
                 if option in result.stdout:
-                    echo_and_log(
-                        f"- [CHECK] - {path}: {option}",
-                        "PASS",
-                        "bright_green",
-                        f"(linux.py) - [CHECK] - {path}: {option}",
-                        "info",
+                    log_status(
+                        " " * 4 + f"- [CHECK] - {path}: {option}",
+                        message_color="blue",
+                        status="PASS",
+                        status_color="bright_green",
+                        log_level="info",
                     )
                 else:
-                    echo_and_log(
-                        f"- [CHECK] - {path}: {option}",
-                        "FAIL",
-                        "bright_red",
-                        f"(linux.py) - [CHECK] - {path}: {option}",
-                        "info",
+                    log_status(
+                        " " * 4 + f"- [CHECK] - {path}: {option}",
+                        message_color="blue",
+                        status="FAIL",
+                        status_color="bright_red",
+                        log_level="error",
                     )
         else:
-            echo_and_log(
-                f"- [CHECK] - {path}: Separate Partition",
-                "FAIL",
-                "bright_red",
-                f"(linux.py) - [CHECK] - {path}: Separate Partition",
-                "info",
-            )
+            if not option:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {path}: Separate Partition",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="error",
+                )
+
     except Exception as e:
-        click.echo(e)
+        log_status(
+            f"An error occurred while checking system storage: {e}", log_level="error"
+        )
 
 
 # Package Functions
@@ -401,6 +425,11 @@ def check_pkg_mgr(config, os_info):
     if os_info["id"].lower() in pkg_mgr:
         return os_info["id"].lower()
     else:
+        log_status(
+            f"System Package Manager not found",
+            log_level="error",
+            log_only=True,
+        )
         return "ERROR"
 
 
@@ -409,17 +438,26 @@ def system_pkg_check(mode, config, category, sub_category, check):
     Checks to see if a package is installed using the system package manager.
     """
     # TODO add harden
+    # TODO check for whether packages should be installed
     os_info = detect_os()
     pkg_mgr = check_pkg_mgr(config, os_info)
 
     try:
+        pkg_name = config[category][sub_category][check]["check_name"]
         cmd = config["global"]["pkg_mgr"][pkg_mgr]["installed"].copy()
         if cmd:
-            cmd.append(check)
+            cmd.append(pkg_name)
             result = run_command(cmd)
-            return "FAIL" if "installed" in result.stdout else "PASS"
+            if sub_category == "reqpackage":
+                return "INSTALLED", "PASS" if "installed" in result.stdout else "FAIL"
+            else:
+                return "INSTALLED", "FAIL" if "installed" in result.stdout else "PASS"
     except Exception as e:
-        click.echo(e)
+        log_status(
+            f"{e}",
+            log_level="error",
+            log_only=True,
+        )
 
 
 def scan_checks(mode, config, category, sub_category):
@@ -432,70 +470,103 @@ def scan_checks(mode, config, category, sub_category):
     Example Usage:
         scan_kernel_modules(mode, config, "kernel filesystems", "filesystems")
     """
-    click.echo(
-        click.style(
-            f"\n  Scanning {sub_category.capitalize()}...",
-            fg="yellow",
-        )
+    log_status("")
+    log_status(
+        " " * 2 + f"Scanning Sub-Category: {sub_category.capitalize()}",
+        message_color="bright_magenta",
+        log_level="info",
     )
-    click.echo("  " + "-" * 80)
-    logger.info(f"(linux.py) - {mode.upper()} - Scanning {category.capitalize()}")
 
     for check in config[category][sub_category]:
-        if check == "category_skip" or check == "category_set":
-            if check == "category_skip" and config[category][check] == True:
-                echo_and_log(
-                    f"- [CATEGORY] - {category.capitalize()}",
-                    "SKIPPED",
-                    "bright_yellow",
-                    f"(linux.py) - {mode.upper()} - Skipped Category: {category.capitalize()}",
-                    "warning",
+        if (
+            check == "sub_category_id"
+            or check == "sub_category_skip"
+            or check == "sub_category_set"
+        ):
+            if (
+                check == "sub_category_skip"
+                and config[category][sub_category][check] == True
+            ):
+                # Logging
+                log_status(
+                    " " * 2 + f"- [CATEGORY] - {category.capitalize()}",
+                    message_color="blue",
+                    status="SKIP",
+                    status_color="bright_yellow",
+                    log_level="warning",
                 )
-            elif check == "category_set" and config[category][check] == False:
-                echo_and_log(
-                    f"- [CATEGORY] - {category.capitalize()}",
-                    "WARNING",
-                    "bright_yellow",
-                    f"(linux.py) - {mode.upper()} - Warning Category: {category.capitalize()}",
-                    "warning",
+
+                # Reporting
+                add_to_dd_report(
+                    config,
+                    category=category,
+                    sub_category=sub_category,
+                    status="SKIP",
+                )
+            elif (
+                check == "sub_category_set"
+                and config[category][sub_category][check] == False
+            ):
+                # Logging
+                log_status(
+                    " " * 2 + f"- [CATEGORY] - {category.capitalize()}",
+                    message_color="blue",
+                    status="WARN",
+                    status_color="bright_yellow",
+                    log_level="warning",
+                )
+
+                # Reporting
+                add_to_dd_report(
+                    config,
+                    category=category,
+                    sub_category=sub_category,
+                    status="WARN",
                 )
 
             continue
 
+        check_name = config[category][sub_category][check]["check_name"]
         check_skip = config[category][sub_category][check]["check_skip"]
         check_set = config[category][sub_category][check]["check_set"]
 
-        click.echo("")
+        # log_status("")
 
-        click.echo(
-            click.style(f"  - Checking {sub_category.capitalize()}: {check}", fg="yellow")
-        )
+        # log_status(
+        #     " " * 2 + f"- Checking {sub_category.capitalize()}: {check_name}",
+        #     message_color="yellow",
+        #     log_level="info",
+        # )
 
         if check_skip or not check_set:
-            check_status = "SKIPPED" if check_skip else "WARNING"
+            check_status = "SKIP" if check_skip else "WARN"
 
-            echo_and_log(
-                f"- [CHECK] - {sub_category.capitalize()}: {check}",
-                check_status,
-                "bright_yellow",
-                f"(linux.py) - {mode.upper()} - Skipped {sub_category.capitalize()}: {check}",
-                "warning",
+            log_status(
+                " " * 4 + f"- [CHECK] - {sub_category.capitalize()}: {check_name}",
+                message_color="blue",
+                status=check_status,
+                status_color="bright_yellow",
+                log_level="warning",
+            )
+
+            # Reporting
+            add_to_dd_report(
+                config,
+                category=category,
+                sub_category=sub_category,
+                check=check,
+                status=check_status,
             )
 
         else:
             status_map = {
                 "PASS": ("bright_green", "info"),
-                "FAIL": ("bright_red", "info"),
-                "SUDO": ("bright_red", "info"),
                 "SKIP": ("bright_yellow", "info"),
                 "WARN": ("bright_yellow", "info"),
-                # "DENIED": ("bright_green", "info"),
-                # "DISABLED": ("bright_green", "info"),
-                # "NOT FOUND": ("bright_green", "info"),
-                # "UNLOADED": ("bright_green", "info"),
-                # "ENABLED": ("bright_red", "info"),
-                # "INSTALLED": ("bright_red", "info"),
-                "MISCONFIGURED": ("bright_red", "info"),
+                "FAIL": ("bright_red", "info"),
+                "SUDO": ("bright_red", "info"),
+                "ERROR": ("bright_red", "info"),
+                # "MISCONFIGURED": ("bright_red", "info"),
             }
 
             kernel_modules = ["filesystem", "module"]
@@ -505,9 +576,14 @@ def scan_checks(mode, config, category, sub_category):
                 "network",
             ]
 
+            packages = [
+                "reqpackage",
+                "package",
+            ]
             system = ["storage"]
 
             if sub_category in kernel_modules:
+                # pass
                 process_kernel_check(
                     mode,
                     config,
@@ -544,20 +620,19 @@ def scan_checks(mode, config, category, sub_category):
                     sub_category,
                     check,
                 )
+            elif sub_category in packages:
+                process_kernel_check(
+                    mode,
+                    config,
+                    category,
+                    sub_category,
+                    check,
+                    system_pkg_check,
+                    status_map,
+                )
 
-            # elif sub_category == "package":
-            #     process_kernel_check(
-            #         mode,
-            #         config,
-            #         category,
-            #         sub_category,
-            #         check,
-            #         system_pkg_check,
-            #         status_map,
-            #     )
 
-
-def scan_linux(mode, os_info, config):
+def scan_linux(mode, config):
     """
     Start the Linux based operating system scan.
 
@@ -569,41 +644,66 @@ def scan_linux(mode, os_info, config):
         print(scan)
     """
     for category in config:
-        if category != "global":
-            click.echo(
-                click.style(f"\n  Scanning {category.capitalize()}...", fg="yellow")
+        if category != "global" and category != "category_id":
+            log_status("")
+            log_status(
+                " " * 2 + f"Scanning Category: {category.capitalize()}",
+                message_color="bright_magenta",
+                log_level="info",
             )
-            click.echo("  " + "-" * 80)
-            logger.info(f"(linux.py) - [{mode.upper()}] - Scanning ")
 
             for sub_category in config[category]:
-                if sub_category == "category_skip" or sub_category == "category_set":
+                if (
+                    sub_category == "category_id"
+                    or sub_category == "category_skip"
+                    or sub_category == "category_set"
+                ):
                     if (
                         sub_category == "category_skip"
                         and config[category][sub_category] == True
                     ):
-                        echo_and_log(
-                            f"- [CATEGORY] - {category.capitalize()}",
-                            "SKIPPED",
-                            "bright_yellow",
-                            f"(linux.py) - {mode.upper()} - Skipped Category: {category.capitalize()}",
-                            "warning",
+                        log_status(
+                            " " * 2 + f"- [CATEGORY] - {category.capitalize()}",
+                            message_color="yellow",
+                            status="SKIP",
+                            status_color="bright_yellow",
+                            log_level="warning",
+                        )
+
+                        # Reporting
+                        add_to_dd_report(
+                            config,
+                            category=category,
+                            sub_category=sub_category,
+                            status="SKIP",
                         )
                     elif (
                         sub_category == "category_set"
                         and config[category][sub_category] == False
                     ):
-                        echo_and_log(
-                            f"- [CATEGORY] - {category.capitalize()}",
-                            "WARNING",
-                            "bright_yellow",
-                            f"(linux.py) - {mode.upper()} - Warning Category: {category.capitalize()}",
-                            "warning",
+                        log_status(
+                            " " * 2 + f"- [CATEGORY] - {category.capitalize()}",
+                            message_color="yellow",
+                            status="WARN",
+                            status_color="bright_yellow",
+                            log_level="warning",
+                        )
+
+                        add_to_dd_report(
+                            config,
+                            category=category,
+                            sub_category=sub_category,
+                            status="WARN",
                         )
 
                     continue
 
                 scan_checks(mode, config, category, sub_category)
+
+    # click.echo(dd_report)
+    # click.echo(dd_report_to_report(dd_report))
+
+    log_status("")
 
     # Complete Scan
     return "SCAN COMPLETE"
