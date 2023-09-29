@@ -1,0 +1,82 @@
+# Site Settings
+title: Hardshell Docs
+email: tom@tomburge.org
+description: >- # this means to ignore newlines until "baseurl:"
+  The hardshell project documentation site
+url: "https://hardshell.wiki"
+twitter_username: tburge80
+github_username:  tomburge
+
+# PostCSS Configuration
+postcss:
+  cache: false
+
+
+# Global Configuration
+# destination: ./_site
+# disable_disk_cache: false
+encoding: utf-8
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+# ignore_theme_config: false
+# include:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+# keep_files:
+#   - ".gitignore"
+# safe: false
+# source: /docs
+timezone: America/Chicago
+
+
+# Build Configuration
+baseurl: ""
+# force_polling: false
+# future: false
+# incremental: false
+# layouts_dir: _layouts/
+# limit_posts: 0
+# lsi: false
+plugins:
+  - jekyll-feed
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-postcss
+# plugins_dir: ["_plugins"]
+# profile: false
+# quiet: false
+# show_drafts: false
+# strict_front_matter: false
+# theme: minima
+# unpublished: false
+# verbose: false
+
+# Serve Configuration
+detach: false
+host: localhost
+livereload: true
+# livereload_ignore:
+#   - GLOB1
+# livereload_min_delay: 0
+# livereload_max_delay: 0
+open_url: true
+port: 4000
+show_dir_listing: false
+skip_initial_build: false

@@ -4,10 +4,14 @@ import platform
 from pathlib import Path
 from typing import Callable, Dict, Union
 
+import click
+
 from hardshell import __name__, __version__
 
+# from hardshell.utils.utilities import log_status
 
-def get_banner():
+
+def startup_banner():
     """
     Gets the startup banner.
 
@@ -19,23 +23,26 @@ def get_banner():
         print(banner)  # Prints startup banner
     """
     banner = []
-    banner.append("  " + "#" * 80)
-    banner.append("  " + f"# {__name__} {__version__}")
-    banner.append("  " + "# " + "-" * 15)
+    banner.append(" " * 2 + "#" * 90)
+    banner.append(" " * 2 + f"# {__name__} {__version__}")
+    banner.append(" " * 2 + "# " + "-" * 15)
     banner.append(
-        "  "
+        " " * 2
         + f"# {__name__} comes with ABSOLUTELY NO WARRANTY. This is free software, and"
     )
     banner.append(
-        "  "
+        " " * 2
         + "# you are welcome to redistribute it under the terms of the MIT License."
     )
     banner.append(
-        "  " + "# See the LICENSE file for details about using this software."
+        " " * 2 + "# See the LICENSE file for details about using this software."
     )
-    banner.append("  " + "#" * 80)
-    banner.append("\n")
+    banner.append(" " * 2 + "#" * 90 + "\n")
     return banner
+
+
+def shutdown_banner():
+    pass
 
 
 def detect_admin() -> bool:

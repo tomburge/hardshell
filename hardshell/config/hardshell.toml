@@ -2,80 +2,2019 @@
 # Global Configuration
 #################################################
 [global]
-# modprobe Configuration File Locations
+# modprobe Configuration File Location
 modprobe_config = "/etc/modprobe.d/"
+# sysctl Configuration Files Location
+sysctl_config = "/etc/sysctl.d/"
+sysctl_config_prefix = "10-"
+# Uncomment the following to check_set your own sysctl config file name
+#sysctl_config_file = "10-denylist.conf"
+[global.commands]
+find_mount = ["findmnt", "-nk"]
+
+[global.pkg_mgr]
+amzn.manager = 'dnf'
+amzn.installed = ['dnf', 'list', '--installed']
+amzn.uninstall = ['dnf', 'remove']
+
+centos.manager = 'yum'
+centos.installed = ['yum', 'list']
+centos.uninstall = ['yum', 'remove']
+
+debian.manager = 'apt'
+debian.installed = ['apt', 'list']
+debian.uninstall = ['apt', 'remove']
+
+fedora.manager = 'dnf'
+fedora.installed = ['dnf', 'list', '--installed']
+fedora.uninstall = ['dnf', 'remove']
+
+rhel.manager = ''
+rhel.installed = []
+rhel.uninstall = []
+
+sles.manager = ''
+sles.installed = []
+sles.uninstall = []
+
+ubuntu.manager = 'apt'
+ubuntu.installed = ['apt', 'list']
+ubuntu.uninstall = ['apt', 'remove']
 
 #################################################
-# Filesystems Configuration
+# Kernel Hardening
 #################################################
-[filesystems.cramfs]
-skip = false
-disable = true
+[kernel]
+category_id = "KERNEL"
+category_skip = false
+category_set = true
+
+#################################################
+# Filesystem Checks
+#################################################
+[kernel.filesystem]
+sub_category_id = "FS"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.filesystem.001]
+check_id = "L-KERNEL-FS-001"
+check_name = "cramfs"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.fat]
-skip = false
-disable = false
+[kernel.filesystem.002]
+check_id = "L-KERNEL-FS-001"
+check_name = "fat"
+check_skip = false
+check_set = false
+check_type = "filesystem"
 cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
 stig = ""
+source = ""
 
-[filesystems.freevxfs]
-skip = false
-disable = true
+[kernel.filesystem.003]
+check_id = "L-KERNEL-FS-001"
+check_name = "freevxfs"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.gfs2]
-skip = false
-disable = false
+[kernel.filesystem.004]
+check_id = "L-KERNEL-FS-001"
+check_name = "gfs2"
+check_skip = false
+check_set = false
+check_type = "filesystem"
 cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
 stig = ""
+source = ""
 
-[filesystems.hfs]
-skip = false
-disable = true
+[kernel.filesystem.005]
+check_id = "L-KERNEL-FS-001"
+check_name = "hfs"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.hfsplus]
-skip = false
-disable = true
+[kernel.filesystem.006]
+check_id = "L-KERNEL-FS-001"
+check_name = "hfsplus"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.jffs2]
-skip = false
-disable = true
+[kernel.filesystem.007]
+check_id = "L-KERNEL-FS-001"
+check_name = "jffs2"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.nfs]
-skip = true
-disable = false
+[kernel.filesystem.008]
+check_id = "L-KERNEL-FS-001"
+check_name = "nfs"
+check_skip = true
+check_set = false
+check_type = "filesystem"
 cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
 stig = ""
+source = ""
 
-[filesystems.nfsv3]
-skip = true
-disable = false
+[kernel.filesystem.009]
+check_id = "L-KERNEL-FS-001"
+check_name = "nfsv3"
+check_skip = true
+check_set = false
+check_type = "filesystem"
 cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
 stig = ""
+source = ""
 
-[filesystems.squashfs]
-skip = false
-disable = true
+[kernel.filesystem.010]
+check_id = "L-KERNEL-FS-001"
+check_name = "squashfs"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.udf]
-skip = false
-disable = true
+[kernel.filesystem.011]
+check_id = "L-KERNEL-FS-001"
+check_name = "udf"
+check_skip = false
+check_set = true
+check_type = "filesystem"
 cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
-[filesystems.vfat]
-skip = false
-disable = false
-cis = ""
+[kernel.filesystem.012]
+check_id = "L-KERNEL-FS-001"
+check_name = "usb-storage"
+check_skip = false
+check_set = true
+check_type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1052", "T1052.001", "T1091", "T1091.000", "T1200", "T1200.000"]
+mitre_tac = ["TA0001", "TA0010"]
+mitre_mit = ["M1034"]
 stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-3"
+
+[kernel.filesystem.013]
+check_id = "L-KERNEL-FS-001"
+check_name = "vfat"
+check_skip = false
+check_set = false
+check_type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+#################################################
+# Module Checks
+#################################################
+[kernel.module]
+sub_category_id = "MOD"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.module.001]
+check_id = "L-KERNEL-MOD-001"
+check_name = "dccp"
+check_skip = false
+check_set = true
+check_type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.002]
+check_id = "L-KERNEL-MOD-001"
+check_name = "rds"
+check_skip = false
+check_set = true
+check_type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.003]
+check_id = "L-KERNEL-MOD-001"
+check_name = "sctp"
+check_skip = false
+check_set = true
+check_type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.004]
+check_id = "L-KERNEL-MOD-001"
+check_name = "tipc"
+check_skip = false
+check_set = true
+check_type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+#################################################
+# Parameter Checks
+#################################################
+[kernel.parameter]
+sub_category_id = "PARAM"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.parameter.001]
+check_id = "L-KERNEL-PARAM-001"
+check_name = "aslr"
+check_skip = false
+check_set = true
+check_type = "parameter"
+setting = "kernel.randomize_va_space = 2"
+cis = "level-1"
+disa = "CCI-000366"
+mitre_tec = ['T1068', 'T1068.000']
+mitre_tac = ['TA0002']
+mitre_mit = ['M1050']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[kernel.parameter.002]
+check_id = "L-KERNEL-PARAM-001"
+check_name = "ptrace"
+check_skip = false
+check_set = true
+check_type = "parameter"
+setting = "kernel.yama.ptrace_scope = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1055.008']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1040']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+
+#################################################
+# Network Checks
+#################################################
+[kernel.network]
+sub_category_id = "NET"
+sub_category_skip = false
+sub_category_set = true
+
+# IPv4
+[kernel.network.001]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 IP Forward"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.ip_forward = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.002a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Send Redirects (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.send_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.002b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Send Redirects (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.send_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.003a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Accept Source Route (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.003b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Accept Source Route (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.004a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Accept Redirects (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.004b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Accept Redirects (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.005a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Secure Redirects (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.secure_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.005b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Secure Redirects (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.secure_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.006a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Log Martians (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.log_martians = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
+
+[kernel.network.006b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Log Martians (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.log_martians = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
+
+[kernel.network.007]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 ICMP Ignore Broadcasts"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.icmp_echo_ignore_broadcasts = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1498', 'T1498.001']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1037']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.008]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Ignore Bogue Responses"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.icmp_ignore_bogus_error_responses = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1053']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.009a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Reverse Path Filter (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.all.rp_filter = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.009b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 Reverse Path Filter (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.conf.default.rp_filter = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.010]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv4 TCP Syn Cookies"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv4.tcp_syncookies = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1037']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+# IPv6
+[kernel.network.101]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Forwarding (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.all.forwarding = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.102a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Source Route (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.all.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.102b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Source Route (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.default.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.103a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Redirects (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.all.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.103b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Redirects (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.default.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.104a]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Router Avertisements (All)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.all.accept_ra = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.104b]
+check_id = "L-KERNEL-NET-001"
+check_name = "IPv6 Accept Router Avertisements (Default)"
+check_skip = false
+check_set = true
+check_type = "network"
+setting = "net.ipv6.conf.default.accept_ra = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+#################################################
+# System Hardening
+#################################################
+[system]
+category_id = "SYSTEM"
+category_skip = false
+category_set = true
+
+#################################################
+# Storage Checks
+#################################################
+[system.storage]
+sub_category_id = "STOR"
+sub_category_skip = false
+sub_category_set = true
+
+[system.storage.001a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/dev/shm: Separate Partition"
+check_skip = false
+check_set = true
+path = "/dev/shm"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.storage.001b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/dev/shm: Option: nodev"
+check_skip = false
+check_set = true
+path = "/dev/shm"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1038']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.001c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/dev/shm: Option: noexec"
+check_skip = false
+check_set = true
+path = "/dev/shm"
+option = "noexec"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1204', 'T1204.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.001d]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/dev/shm: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/dev/shm"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548', 'T1548.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.002a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/home: Separate Partition"
+check_skip = false
+check_set = true
+path = "/home"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[system.storage.002b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/home: Option: nodev"
+check_skip = false
+check_set = true
+path = "/home"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1038']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.002c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/home: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/home"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548', 'T1548.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.003a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/tmp: Separate Partition"
+check_skip = false
+check_set = true
+path = "/tmp"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.storage.003b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/tmp: Option: nodev"
+check_skip = false
+check_set = true
+path = "/tmp"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.storage.003c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/tmp: Option: noexec"
+check_skip = false
+check_set = true
+path = "/tmp"
+option = "noexec"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1204', 'T1204.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.003d]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/tmp: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/tmp"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548', 'T1548.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.004a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var: Separate Partition"
+check_skip = false
+check_set = true
+path = "/var"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: MP-2, AC-3"
+
+[system.storage.004b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var: Option: nodev"
+check_skip = false
+check_set = true
+path = "/var"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = ""
+
+[system.storage.004c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/var"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548', 'T1548.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.005a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log: Separate Partition"
+check_skip = false
+check_set = true
+path = "/var/log"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[system.storage.005b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log: Option: nodev"
+check_skip = false
+check_set = true
+path = "/var/log"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1038']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.005c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log: Option: noexec"
+check_skip = false
+check_set = true
+path = "/var/log"
+option = "noexec"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1204', 'T1204.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.005d]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/var/log"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548,', 'T1548,.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.006a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log/audit: Separate Partition"
+check_skip = false
+check_set = true
+path = "/var/log/audit"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[system.storage.006b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log/audit: Option: nodev"
+check_skip = false
+check_set = true
+path = "/var/log/audit"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1200', 'T1200.000']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.006c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log/audit: Option: noexec"
+check_skip = false
+check_set = true
+path = "/var/log/audit"
+option = "noexec"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1204', 'T1204.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.006d]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/log/audit: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/var/log/audit"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548,', 'T1548,.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.007a]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/tmp: Separate Partition"
+check_skip = false
+check_set = true
+path = "/var/tmp"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[system.storage.007b]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/tmp: Option: nodev"
+check_skip = false
+check_set = true
+path = "/var/tmp"
+option = "nodev"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.007c]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/tmp: Option: noexec"
+check_skip = false
+check_set = true
+path = "/var/tmp"
+option = "noexec"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1204', 'T1204.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.storage.007d]
+check_id = "L-SYSTEM-STOR-001"
+check_name = "/var/tmp: Option: nosuid"
+check_skip = false
+check_set = true
+path = "/var/tmp"
+option = "nosuid"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548,', 'T1548,.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+#################################################
+# Package Checks
+#################################################
+[system.reqpackage]
+sub_category_id = "REQPKG"
+sub_category_skip = false
+sub_category_set = true
+
+[system.reqpackage.001a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "aide"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1565', 'T1565.001']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2"
+
+[system.reqpackage.002a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "audit"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
+
+[system.reqpackage.002b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "auditd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
+
+[system.reqpackage.003a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "authselect"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "utilities"
+cis = "level-1"
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CA-5"
+
+[system.reqpackage.003b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "sssd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "utilities"
+cis = "level-1"
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CA-5"
+
+[system.reqpackage.004a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "chrony"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1070', 'T1070.002', 'T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3, AU-12"
+
+[system.reqpackage.004b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ntp"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1070', 'T1070.002', 'T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3, AU-12"
+
+[system.reqpackage.005a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "cron"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.reqpackage.005b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "cronie"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.reqpackage.006a]
+mitre_tec = ['T1068', 'T1068.000']
+check_id = "L-SYSTEM-PKG-001"
+check_name = "libselinux"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tac = ['TA0003']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.reqpackage.006b]
+mitre_tec = ['T1068', 'T1068.000']
+check_id = "L-SYSTEM-PKG-001"
+check_name = "libselinux1"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tac = ['TA0003']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.reqpackage.007a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "nftables"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.004']
+mitre_tac = ['TA0011']
+mitre_mit = ['M1031', 'M1037']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7, CA-9"
+
+[system.reqpackage.008a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "openssh-server"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.reqpackage.009a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "rsyslog"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1005', 'T1005.000', 'T1070', 'T1070.002']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3, AU-12, SI-5"
+
+[system.reqpackage.010a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "sudo"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.reqpackage.011a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "systemd-journal-remote"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1070', 'T1070.002', 'T1562', 'T1562.006']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1029']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
+
+[system.package]
+sub_category_id = "PKG"
+sub_category_skip = false
+sub_category_set = true
+
+[system.package.001a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "apache2"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.002a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "avahi"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = ""
+
+[system.package.002b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "avahi-daemon"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = ""
+
+[system.package.003a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "bind"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.003b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "bind9"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.004a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "cups"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.005a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "dnsmasq"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.006a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "dovecot"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "mail"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.006b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "dovecot-core"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "mail"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.007a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ftp"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "client"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.007b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ftpcopy"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "client"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.008a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ftpd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.008b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ftp-server"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.008c]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "ftp-ssl"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.008d]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "vsftpd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.009a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "httpd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.009b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "nginx"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.009c]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "squid"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.010a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "libnfs-utils"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "libs"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1005',
+    'T1005.000',
+    'T1039',
+    'T1039.000',
+    'T1083',
+    'T1083.000',
+    'T1135',
+    'T1135.000',
+    'T1210',
+    'T1210.000',
+]
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-7"
+
+[system.package.010b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "nfs-utils"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "libs"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1005',
+    'T1005.000',
+    'T1039',
+    'T1039.000',
+    'T1083',
+    'T1083.000',
+    'T1135',
+    'T1135.000',
+    'T1210',
+    'T1210.000',
+]
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-7"
+
+[system.package.011a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "mcstrans"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "admin"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1543', 'T1543.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1033']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4"
+
+[system.package.012a]
+check_id = "SYSTEM-PKG-001"
+check_name = "net-snmp"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.012b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "snmp"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.012c]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "snmpd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.013a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "openldap-clients"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "client"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.014a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "rpcbind"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-7"
+
+[system.package.015a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "samba"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1005',
+    'T1005.000',
+    'T1039',
+    'T1039.000',
+    'T1083',
+    'T1083.000',
+    'T1135',
+    'T1135.000',
+    'T1203',
+    'T1203.000',
+    'T1210',
+    'T1210.000',
+    'T1543',
+    'T1543.002',
+]
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.016a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "telnet"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "client"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1040', 'T1040.000', 'T1203', 'T1203.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0006', 'TA0008']
+mitre_mit = ['M1041', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.016b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "telnet-client"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "client"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1040', 'T1040.000', 'T1203', 'T1203.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0006', 'TA0008']
+mitre_mit = ['M1041', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.017a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "telnetd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.017b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "telnet-server"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.018a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "tftpd"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.018b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "tftp-server"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.019a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "rsync"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-7"
+
+[system.package.019b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "rsync-daemon"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-7"
+
+[system.package.020a]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "xorg"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "x11"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.020b]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "xorg-x11-server-common"
+check_skip = false
+check_set = true
+check_type = "package"
+pkg_type = "x11"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+
+########################
+# Unused 
+########################
+
+# [packages.setroubleshoot]
+
+
+########################
+# Testing
+########################
+
+# [test1]
+# category_id = 'test1'
+# category_skip = false
+# category_set = true
+
+# [test1.test1]
+# sub_category_id = 'test1.test1'
+# sub_category_skip = true
+# sub_category_set = true
+
+# [test1.test2]
+# sub_category_id = 'test1.test2'
+# sub_category_skip = false
+# sub_category_set = false
+
+# [test2]
+# category_id = 'test2'
+# category_skip = false
+# category_set = true
+
+# [test2.test1]
+# sub_category_id = 'test2.test1'
+# sub_category_skip = true
+# sub_category_set = true
+
+# [test2.test2]
+# sub_category_id = 'test2.test2'
+# sub_category_skip = false
+# sub_category_set = false
+
+# [test2.test3]
+# sub_category_id = 'test2.test3'
+# sub_category_skip = true
+# sub_category_set = false
+
+
+[system.package.test001]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "test-nginx"
+check_skip = true
+check_set = true
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.package.test002]
+check_id = "L-SYSTEM-PKG-001"
+check_name = "test-squid"
+check_skip = false
+check_set = false
+check_type = "package"
+pkg_type = "web"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1203', 'T1203.000', 'T1210', 'T1210.000', 'T1543', 'T1543.002']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
