@@ -183,10 +183,10 @@ def check_command(config, category, sub_category, check):
     check_cmd = config[category][sub_category][check]["command"]
     click.echo(check_name)
     # click.echo(check_cmd)
-    result = subprocess.run(
-        check_cmd, capture_output=True, check=True, shell=True, text=True
-    )
-    # result = run_command(check_cmd)
+    # result = subprocess.run(
+    #     check_cmd, capture_output=True, check=True, shell=True, text=True
+    # )
+    result = run_command(check_cmd)
     click.echo(result)
 
 
