@@ -299,6 +299,17 @@ def check_service(config, category, sub_category, check):
             status_color="bright_green",
             log_level="info",
         )
+    elif result and "enabled" not in result:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="error",
+        )
+        log_status(
+            f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
+        )
     else:
         log_status(
             " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
