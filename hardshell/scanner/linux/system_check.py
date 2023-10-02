@@ -203,6 +203,14 @@ def check_command(config, category, sub_category, check):
             status_color="bright_red",
             log_level="info",
         )
+    else:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="info",
+        )
 
 
 # Harden Functions
