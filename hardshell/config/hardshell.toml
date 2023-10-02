@@ -2079,7 +2079,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Access Limited (TODO)"
+check_name = "SSH Access Limited"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2095,7 +2095,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.006a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH LogLevel Configured (TODO)"
+check_name = "SSH LogLevel Configured"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2111,7 +2111,7 @@ source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
 
 [system.ssh.007a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH PAM Enabled (TODO)"
+check_name = "SSH PAM Enabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2127,7 +2127,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.008a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Root Login Disabled (TODO)"
+check_name = "SSH Root Login Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2143,7 +2143,7 @@ source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.ssh.009a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Host Based Auth Disabled (TODO)"
+check_name = "SSH Host Based Auth Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2159,7 +2159,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.010a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Permit Empty Passwords Disabled (TODO)"
+check_name = "SSH Permit Empty Passwords Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2175,7 +2175,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.011a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Permit User Environment Disabled (TODO)"
+check_name = "SSH Permit User Environment Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2191,7 +2191,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.012a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Ignore Rhosts Enabled (TODO)"
+check_name = "SSH Ignore Rhosts Enabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2207,7 +2207,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.013a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH X11 Forwarding Disabled (TODO)"
+check_name = "SSH X11 Forwarding Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2239,7 +2239,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "System Wide Crypto Policy No Override (TODO)"
+check_name = "System Wide Crypto Policy No Override"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2255,7 +2255,7 @@ source = "NIST SP 800-53 Rev. 5: SC-8, IA-5, AC-17"
 
 [system.ssh.016a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Warning Banner Configured (TODO)"
+check_name = "SSH Warning Banner Configured"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2271,7 +2271,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.017a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Auth Retries 4 or Less (TODO)"
+check_name = "SSH Max Auth Retries 4 or Less"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2287,7 +2287,7 @@ source = "NIST SP 800-53 Rev. 5: AU-3"
 
 [system.ssh.018a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Startups (TODO)"
+check_name = "SSH Max Startups"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2303,7 +2303,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.019a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Sessions 10 or Less (TODO)"
+check_name = "SSH Max Sessions 10 or Less"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2319,7 +2319,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.020a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Login Grace Time 1 min or Less (TODO)"
+check_name = "SSH Login Grace Time 1 min or Less"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2335,7 +2335,7 @@ source = "NIST SP 800-53 Rev. 5: CM-6"
 
 [system.ssh.021a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Idle Timeout Interval Configured (TODO)"
+check_name = "SSH Idle Timeout Interval Configured"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2351,7 +2351,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.021b]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Idle Timeout Max Configured (TODO)"
+check_name = "SSH Idle Timeout Max Configured"
 check_skip = false
 check_set = true
 check_type = "command"

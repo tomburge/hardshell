@@ -193,7 +193,7 @@ def check_command(config, category, sub_category, check):
             status_color="bright_green",
             log_level="info",
         )
-    else:
+    elif check_setting not in result or result == False:
         log_status(
             " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
             message_color="blue",
