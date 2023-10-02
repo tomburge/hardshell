@@ -14,16 +14,10 @@ def run_command(command):
         click.echo(result.stdout)
         click.echo(result.stderr)
         return result.stdout
-    except subprocess.CalledProcessError:
-        click.echo(result)
-        click.echo(result.stdout)
-        click.echo(result.stderr)
-        return result.stderr
-    except Exception:
-        click.echo(result)
-        click.echo(result.stdout)
-        click.echo(result.stderr)
-        return result.stderr
+    except subprocess.CalledProcessError as error:
+        return error.output
+    except Exception as error:
+        return error.output
 
 
 def file_exists(path):
