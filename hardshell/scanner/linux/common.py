@@ -18,7 +18,7 @@ def run_command(command):
         click.echo(result)
         click.echo(result.stdout)
         click.echo(result.stderr)
-        return False
+        return result.stderr
 
 
 def file_exists(path):

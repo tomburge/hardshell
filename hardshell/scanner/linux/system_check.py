@@ -186,7 +186,7 @@ def check_command(config, category, sub_category, check):
     # click.echo(check_name)
     # click.echo(check_cmd)
     # click.echo(check_setting)
-    # click.echo(result)
+    click.echo(result)
     if check_setting.lower() in result.lower():
         log_status(
             " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
