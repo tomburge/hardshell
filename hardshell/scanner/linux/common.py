@@ -19,6 +19,11 @@ def run_command(command):
         click.echo(result.stdout)
         click.echo(result.stderr)
         return result.stderr
+    except Exception:
+        click.echo(result)
+        click.echo(result.stdout)
+        click.echo(result.stderr)
+        return result.stderr
 
 
 def file_exists(path):
