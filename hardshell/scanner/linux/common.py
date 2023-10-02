@@ -13,6 +13,9 @@ def run_command(command):
         # click.echo(result.stdout)
         return result.stdout
     except subprocess.CalledProcessError:
+        click.echo(result)
+        click.echo(result.stdout)
+        click.echo(result.stderr)
         return False
 
 
