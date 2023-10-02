@@ -306,12 +306,12 @@ def check_service(config, category, sub_category, check):
     click.echo(f"Result: {result}")
     # click.echo("failed")
 
-    if result.returncode != 1:
-        click.echo(result.returncode)
-        click.echo("failed")
-        status = "PASS" if result and "enabled" in result else "FAIL"
-        status_color = "bright_green" if status == "PASS" else "bright_red"
-        log_level = "info" if status == "PASS" else "error"
+    # if result.returncode != 1:
+    #     click.echo(result.returncode)
+    #     click.echo("failed")
+    status = "PASS" if result.returncode != 1 and "enabled" in result else "FAIL"
+    status_color = "bright_green" if status == "PASS" else "bright_red"
+    log_level = "info" if status == "PASS" else "error"
 
     log_status(
         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
