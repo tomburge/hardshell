@@ -289,12 +289,19 @@ def check_service(config, category, sub_category, check):
     # click.echo(f"command: {svc_enabled}")
     result = run_command(svc_enabled)
 
-    if result:
+    if result and "enabled" in result:
         click.echo(f"result: {result}")
         click.echo(f"result type: {type(result)}")
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+            message_color="blue",
+            status="PASS",
+            status_color="bright_green",
+            log_level="info",
+        )
     else:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}:",
+            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
             message_color="blue",
             status="FAIL",
             status_color="bright_red",
