@@ -305,7 +305,7 @@ def check_service(config, category, sub_category, check):
     click.echo(f"Command: {svc_enabled}")
     click.echo(f"Result: {result}")
 
-    status = "PASS" if result and "enabled" in result else "FAIL"
+    status = "PASS" if result and "Result: enabled" in result else "FAIL"
     status_color = "bright_green" if status == "PASS" else "bright_red"
     log_level = "info" if status == "PASS" else "error"
 
