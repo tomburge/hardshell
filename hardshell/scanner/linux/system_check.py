@@ -277,50 +277,89 @@ def check_command(config, category, sub_category, check):
 
 
 def check_service(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
-    svc_name = config[category][sub_category][check]["svc_name"]
-    svc_enabled = config["global"]["commands"]["svc_enabled"].copy()
-    svc_status = config["global"]["commands"]["svc_status"].copy()
+    try:
+        check_name = config[category][sub_category][check]["check_name"]
+        svc_name = config[category][sub_category][check]["svc_name"]
+        svc_enabled = config["global"]["commands"]["svc_enabled"].copy()
+        svc_status = config["global"]["commands"]["svc_status"].copy()
+    except KeyError as error:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="error",
+        )
+        log_status(f"- [CHECK] - {check_name}: {error}", log_level="error", log_only=True)
+
     click.echo(check_name)
     click.echo(svc_name)
     # click.echo(svc_enabled)
     # click.echo(svc_status)
+
     svc_enabled.append(svc_name)
-    # click.echo(f"command: {svc_enabled}")
+
     result = run_command(svc_enabled)
 
-    if result and "enabled" in result:
-        click.echo(f"result: {result}")
-        click.echo(f"result type: {type(result)}")
-        log_status(
-            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-            message_color="blue",
-            status="PASS",
-            status_color="bright_green",
-            log_level="info",
-        )
-    elif result and "enabled" not in result:
-        log_status(
-            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-            message_color="blue",
-            status="FAIL",
-            status_color="bright_red",
-            log_level="error",
-        )
-        log_status(
-            f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
-        )
-    else:
-        log_status(
-            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-            message_color="blue",
-            status="FAIL",
-            status_color="bright_red",
-            log_level="error",
-        )
+    # Log the command and its result
+    click.echo(f"Command: {svc_enabled}")
+    click.echo(f"Result: {result}")
+
+    status = "PASS" if result and "enabled" in result else "FAIL"
+    status_color = "bright_green" if status == "PASS" else "bright_red"
+    log_level = "info" if status == "PASS" else "error"
+
+    log_status(
+        " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+        message_color="blue",
+        status=status,
+        status_color=status_color,
+        log_level=log_level,
+    )
+
+    if status == "FAIL":
         log_status(
             f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
         )
+
+    # click.echo(f"command: {svc_enabled}")
+
+    # result = run_command(svc_enabled)
+
+    # if result and "enabled" in result:
+
+    #     click.echo(f"result: {result}")
+    #     click.echo(f"result type: {type(result)}")
+
+    #     log_status(
+    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+    #         message_color="blue",
+    #         status="PASS",
+    #         status_color="bright_green",
+    #         log_level="info",
+    #     )
+    # elif result and "enabled" not in result:
+    #     log_status(
+    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+    #         message_color="blue",
+    #         status="FAIL",
+    #         status_color="bright_red",
+    #         log_level="error",
+    #     )
+    #     log_status(
+    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
+    #     )
+    # else:
+    #     log_status(
+    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+    #         message_color="blue",
+    #         status="FAIL",
+    #         status_color="bright_red",
+    #         log_level="error",
+    #     )
+    #     log_status(
+    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
+    #     )
 
 
 # Harden Functions
