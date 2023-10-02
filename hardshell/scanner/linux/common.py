@@ -9,8 +9,8 @@ def run_command(command):
         result = subprocess.run(
             command, capture_output=True, check=True, shell=True, text=True
         )
-        click.echo(result)
-        click.echo(result.stdout)
+        # click.echo(result)
+        # click.echo(result.stdout)
         return result
     except subprocess.CalledProcessError:
         return False
