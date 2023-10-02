@@ -185,7 +185,7 @@ def check_command(config, category, sub_category, check):
     click.echo(check_name)
     result = run_command(check_cmd)
     click.echo(result)
-    if result == check_setting:
+    if check_setting in result:
         click.echo("PASS")
     else:
         click.echo("FAIL")
