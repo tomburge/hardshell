@@ -27,6 +27,64 @@ def check_pkg_mgr(config, os_info):
 
 
 # Audit Functions
+def check_command(config, category, sub_category, check):
+    check_name = config[category][sub_category][check]["check_name"]
+    check_cmd = config[category][sub_category][check]["command"]
+    check_setting = config[category][sub_category][check]["setting"]
+    # click.echo(f"check name: {check_name}")
+    # click.echo(f"check cmd: {check_cmd}")
+
+    result = run_command(check_cmd)
+
+    if result:
+        # click.echo(result)
+
+        if check_setting == "review":
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="REVIEW",
+                status_color="bright_yellow",
+                log_level="info",
+            )
+
+        elif check_setting.lower() in result.lower():
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="PASS",
+                status_color="bright_green",
+                log_level="info",
+            )
+        elif check_setting not in result or result == False:
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+    else:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="error",
+        )
+        log_status(
+            f"- [CHECK] - {check_name}: {check_cmd}", log_level="error", log_only=True
+        )
+
+
 def check_package(config, category, sub_category, check):
     """
     Checks to see if a package is installed using the system package manager.
@@ -40,30 +98,19 @@ def check_package(config, category, sub_category, check):
         cmd = config["global"]["pkg_mgr"][pkg_mgr]["installed"].copy()
         if cmd:
             cmd.append(pkg_name)
-            # click.echo(cmd)
             result = run_command(cmd)
-            # click.echo(result)
-            if "installed" in result:
-                log_status(
-                    " " * 4 + f"- [CHECK] - Package {check_name}: INSTALLED",
-                    message_color="blue",
-                    status="PASS",
-                    status_color="bright_green",
-                    log_level="info",
-                )
-            else:
-                log_status(
-                    " " * 4 + f"- [CHECK] - Package {check_name}: INSTALLED",
-                    message_color="blue",
-                    status="FAIL",
-                    status_color="bright_red",
-                    log_level="info",
-                )
 
-            # if sub_category == "reqpackage":
-            #     return "INSTALLED", "PASS" if "installed" in result.stdout else "FAIL"
-            # else:
-            #     return "INSTALLED", "FAIL" if "installed" in result.stdout else "PASS"
+            status = "PASS" if "installed" in result else "FAIL"
+            status_color = "bright_green" if status == "PASS" else "bright_red"
+            log_level = "info" if status == "PASS" else "error"
+
+            log_status(
+                " " * 4 + f"- [CHECK] - Package {check_name}: INSTALLED",
+                message_color="blue",
+                status=status,
+                status_color=status_color,
+                log_level=log_level,
+            )
 
     except Exception as error:
         log_status(
@@ -219,63 +266,6 @@ def check_keys(config, category, sub_category, check):
                 )
 
 
-def check_command(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
-    check_cmd = config[category][sub_category][check]["command"]
-    check_setting = config[category][sub_category][check]["setting"]
-    # click.echo(f"check name: {check_name}")
-    # click.echo(f"check cmd: {check_cmd}")
-
-    result = run_command(check_cmd)
-
-    if result:
-        # click.echo(result)
-        if check_setting == "review":
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
-                message_color="blue",
-                status="REVIEW",
-                status_color="bright_yellow",
-                log_level="info",
-            )
-
-        elif check_setting.lower() in result.lower():
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
-                message_color="blue",
-                status="PASS",
-                status_color="bright_green",
-                log_level="info",
-            )
-        elif check_setting not in result or result == False:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
-                message_color="blue",
-                status="FAIL",
-                status_color="bright_red",
-                log_level="info",
-            )
-        else:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
-                message_color="blue",
-                status="FAIL",
-                status_color="bright_red",
-                log_level="info",
-            )
-    else:
-        log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
-            message_color="blue",
-            status="FAIL",
-            status_color="bright_red",
-            log_level="error",
-        )
-        log_status(
-            f"- [CHECK] - {check_name}: {check_cmd}", log_level="error", log_only=True
-        )
-
-
 def check_service(config, category, sub_category, check):
     try:
         check_name = config[category][sub_category][check]["check_name"]
@@ -292,54 +282,13 @@ def check_service(config, category, sub_category, check):
         )
         log_status(f"- [CHECK] - {check_name}: {error}", log_level="error", log_only=True)
 
-    click.echo(check_name)
-    click.echo(svc_name)
-
     svc_enabled.append(svc_name)
 
     result = run_command(svc_enabled)
-    click.echo(f"Command: {svc_enabled}")
-    click.echo(f"Result: {result}")
-
-    # try:
-    #     result = run_command(svc_enabled)
-
-    #     # click.echo(result.strip().lower())
-
-    #     # If the command was successful, set status to "PASS"
-    #     status = "PASS"
-    # except Exception as e:
-    #     # If an exception occurred, log it and set status to "FAIL"
-    #     click.echo(f"An error occurred: {e}")
-    #     status = "FAIL"
 
     status = "PASS" if "enabled" in result else "FAIL"
     status_color = "bright_green" if status == "PASS" else "bright_red"
     log_level = "info" if status == "PASS" else "error"
-
-    click.echo(f"status: {status}")
-    click.echo(f"status color: {status_color}")
-    click.echo(f"log level: {log_level}")
-
-    # # Log the command and its result
-    # click.echo(f"Command: {svc_enabled}")
-    # click.echo(f"Result1: {result}")
-    # click.echo(f"Result2: {result.stdout}")
-    # click.echo(f"Return Code: {result.returncode}")
-    # click.echo(f"Is 'enabled' in result: {'enabled' in result}")
-
-    # status = "FAIL" if result.returncode in [0, 1] else "FAIL"
-    # status_color = "bright_green" if status == "PASS" else "bright_red"
-    # log_level = "info" if status == "PASS" else "error"
-
-    # click.echo(status)
-    # click.echo(status_color)
-    # click.echo(log_level)
-
-    # status = (
-    #     "PASS" if result.returncode in [0, 1] and "enabled" in result.stdout else "FAIL"
-    # )
-    # status = "PASS" if "enabled" in result else "FAIL"
 
     log_status(
         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
@@ -348,50 +297,6 @@ def check_service(config, category, sub_category, check):
         status_color=status_color,
         log_level=log_level,
     )
-
-    # if status == "FAIL":
-    #     log_status(
-    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
-    #     )
-
-    # click.echo(f"command: {svc_enabled}")
-
-    # result = run_command(svc_enabled)
-
-    # if result and "enabled" in result:
-
-    #     click.echo(f"result: {result}")
-    #     click.echo(f"result type: {type(result)}")
-
-    #     log_status(
-    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-    #         message_color="blue",
-    #         status="PASS",
-    #         status_color="bright_green",
-    #         log_level="info",
-    #     )
-    # elif result and "enabled" not in result:
-    #     log_status(
-    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-    #         message_color="blue",
-    #         status="FAIL",
-    #         status_color="bright_red",
-    #         log_level="error",
-    #     )
-    #     log_status(
-    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
-    #     )
-    # else:
-    #     log_status(
-    #         " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-    #         message_color="blue",
-    #         status="FAIL",
-    #         status_color="bright_red",
-    #         log_level="error",
-    #     )
-    #     log_status(
-    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
-    #     )
 
 
 # Harden Functions
@@ -405,30 +310,31 @@ def scan_system(mode, config, category, sub_category, check):
         check_type = config[category][sub_category][check]["check_type"]
         if mode == "audit":
             if check_type == "command":
-                pass
+                # pass
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
-                # check_command(config, category, sub_category, check)
+                check_command(config, category, sub_category, check)
 
             elif check_type == "dir" or check_type == "file":
-                pass
+                # pass
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
-                # check_permissions(config, category, sub_category, check)
+                check_permissions(config, category, sub_category, check)
 
             elif check_type == "keys":
-                pass
+                # pass
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
-                # check_keys(config, category, sub_category, check)
+                check_keys(config, category, sub_category, check)
 
             elif check_type == "package":
-                pass
+                # pass
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
-                # check_package(config, category, sub_category, check)
+                check_package(config, category, sub_category, check)
 
             elif check_type == "service":
+                # pass
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
                 check_service(config, category, sub_category, check)

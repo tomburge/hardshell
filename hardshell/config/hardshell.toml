@@ -736,7 +736,7 @@ source = "NIST SP 800-53 Rev. 5: AU-2"
 
 [system.aide.002a]
 check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide service enabled"
+check_name = "aide.service"
 check_skip = false
 check_set = true
 check_type = "service"
@@ -751,7 +751,7 @@ source = "NIST SP 800-53 Rev. 5: AU-2"
 
 [system.aide.002b]
 check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide timer enabled"
+check_name = "aide.timer"
 check_skip = false
 check_set = true
 check_type = "service"
@@ -1010,7 +1010,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.002a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "cron daemon enabled"
+check_name = "cron"
 check_skip = false
 check_set = true
 check_type = "service"
