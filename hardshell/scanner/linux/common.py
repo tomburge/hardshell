@@ -20,6 +20,13 @@ def file_exists(path):
         pass
 
 
+def get_gid(group_name):
+    try:
+        return os.getgrnam(group_name).gr_gid
+    except KeyError:
+        return None
+
+
 def get_permissions(path):
     try:
         st = os.stat(path)

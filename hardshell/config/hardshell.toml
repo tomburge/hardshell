@@ -2031,13 +2031,13 @@ path = "/etc/ssh/sshd_config"
 permissions = "600"
 owner = "root"
 group = "root"
-cis = ""
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1098', 'T1098.004', 'T1543', 'T1543.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.003a]
 check_id = "L-SYSTEM-SSH-001"
@@ -2045,6 +2045,7 @@ check_name = ""
 check_skip = false
 check_set = true
 check_type = "ssh"
+path = "/etc/ssh"
 permissions = ""
 owner = ""
 group = ""

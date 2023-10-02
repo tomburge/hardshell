@@ -1,6 +1,11 @@
 import click
 
-from hardshell.scanner.linux.common import file_exists, get_permissions, run_command
+from hardshell.scanner.linux.common import (
+    file_exists,
+    get_gid,
+    get_permissions,
+    run_command,
+)
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
@@ -62,6 +67,11 @@ def check_perms(config, category, sub_category, check):
 
 
 # Audit Functions
+def check_files(path):
+    for file in path.glob("**/*"):
+        if not file.is_file():
+            continue
+        click.echo(file)
 
 
 # Harden Functions
@@ -85,7 +95,8 @@ def scan_system(mode, config, category, sub_category, check):
                 # click.echo(f"check type: {check_type}")
                 check_perms(config, category, sub_category, check)
             elif check_type == "file":
-                pass
+                check_path = config[category][sub_category][check]["check_type"]
+                check_files(check_path)
 
         elif mode == "harden":
             pass
