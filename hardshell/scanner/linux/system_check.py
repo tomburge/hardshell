@@ -182,13 +182,25 @@ def check_command(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_cmd = config[category][sub_category][check]["command"]
     check_setting = config[category][sub_category][check]["setting"]
-    click.echo(check_name)
+    # click.echo(check_name)
     result = run_command(check_cmd)
-    click.echo(result)
+    # click.echo(result)
     if check_setting in result:
-        click.echo("PASS")
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            message_color="blue",
+            status="PASS",
+            status_color="bright_green",
+            log_level="info",
+        )
     else:
-        click.echo("FAIL")
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="info",
+        )
 
 
 # Harden Functions
