@@ -120,6 +120,7 @@ def scan_checks(mode, config, category, sub_category):
 
             system = [
                 "aide",
+                "audit",
                 "banner",
                 "cron",
                 "ssh",

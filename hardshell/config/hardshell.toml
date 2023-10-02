@@ -780,6 +780,41 @@ mitre_mit = ['M1022']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2"
 
+[system.audit]
+sub_category_id = "AUDIT"
+sub_category_name = "Audit"
+sub_category_skip = false
+sub_category_set = true
+
+[system.audit.001a]
+check_id = "L-SYSTEM-AUDIT-001"
+check_name = "audit"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.audit.002a]
+check_id = "L-SYSTEM-AUDIT-001"
+check_name = "audit"
+check_skip = false
+check_set = true
+check_type = "service"
+svc_name = "auditd.service"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
 [system.banner]
 sub_category_id = "BANN"
 sub_category_name = "Banner"

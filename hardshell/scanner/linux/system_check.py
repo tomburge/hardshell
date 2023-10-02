@@ -283,15 +283,26 @@ def check_service(config, category, sub_category, check):
     svc_status = config["global"]["commands"]["svc_status"].copy()
     click.echo(check_name)
     click.echo(svc_name)
-    click.echo(svc_enabled)
-    click.echo(svc_status)
+    # click.echo(svc_enabled)
+    # click.echo(svc_status)
     svc_enabled.append(svc_name)
-    click.echo(f"command: {svc_enabled}")
+    # click.echo(f"command: {svc_enabled}")
     result = run_command(svc_enabled)
 
     if result:
         click.echo(f"result: {result}")
         click.echo(f"result type: {type(result)}")
+    else:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}:",
+            message_color="blue",
+            status="FAIL",
+            status_color="bright_red",
+            log_level="error",
+        )
+        log_status(
+            f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
+        )
 
 
 # Harden Functions
