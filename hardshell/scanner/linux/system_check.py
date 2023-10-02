@@ -299,33 +299,38 @@ def check_service(config, category, sub_category, check):
 
     result = run_command(svc_enabled)
 
-    # Log the command and its result
-    click.echo(f"Command: {svc_enabled}")
+    # # Log the command and its result
+    # click.echo(f"Command: {svc_enabled}")
     click.echo(f"Result1: {result}")
-    click.echo(f"Result2: {result.stdout}")
-    # click.echo(result.returncode)
-    click.echo(f"Return Code: {result.returncode}")
-    click.echo(f"Is 'enabled' in result: {'enabled' in result}")
+    # click.echo(f"Result2: {result.stdout}")
+    # click.echo(f"Return Code: {result.returncode}")
+    # click.echo(f"Is 'enabled' in result: {'enabled' in result}")
+
+    # status = "FAIL" if result.returncode in [0, 1] else "FAIL"
+    # status_color = "bright_green" if status == "PASS" else "bright_red"
+    # log_level = "info" if status == "PASS" else "error"
+
+    # click.echo(status)
+    # click.echo(status_color)
+    # click.echo(log_level)
+
     # status = (
     #     "PASS" if result.returncode in [0, 1] and "enabled" in result.stdout else "FAIL"
     # )
     # status = "PASS" if "enabled" in result else "FAIL"
-    status = "FAIL" if result.returncode in [0, 1] else "FAIL"
-    status_color = "bright_green" if status == "PASS" else "bright_red"
-    log_level = "info" if status == "PASS" else "error"
 
-    log_status(
-        " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-        message_color="blue",
-        status=status,
-        status_color=status_color,
-        log_level=log_level,
-    )
+    # log_status(
+    #     " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+    #     message_color="blue",
+    #     status=status,
+    #     status_color=status_color,
+    #     log_level=log_level,
+    # )
 
-    if status == "FAIL":
-        log_status(
-            f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
-        )
+    # if status == "FAIL":
+    #     log_status(
+    #         f"- [CHECK] - {check_name}: {svc_enabled}", log_level="error", log_only=True
+    #     )
 
     # click.echo(f"command: {svc_enabled}")
 
