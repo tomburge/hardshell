@@ -298,10 +298,32 @@ def check_service(config, category, sub_category, check):
     svc_enabled.append(svc_name)
 
     result = run_command(svc_enabled)
+    click.echo(f"Command: {svc_enabled}")
+    click.echo(f"Result: {result}")
+
+    # try:
+    #     result = run_command(svc_enabled)
+
+    #     # click.echo(result.strip().lower())
+
+    #     # If the command was successful, set status to "PASS"
+    #     status = "PASS"
+    # except Exception as e:
+    #     # If an exception occurred, log it and set status to "FAIL"
+    #     click.echo(f"An error occurred: {e}")
+    #     status = "FAIL"
+
+    status = "PASS" if "enabled" in result else "FAIL"
+    status_color = "bright_green" if status == "PASS" else "bright_red"
+    log_level = "info" if status == "PASS" else "error"
+
+    click.echo(f"status: {status}")
+    click.echo(f"status color: {status_color}")
+    click.echo(f"log level: {log_level}")
 
     # # Log the command and its result
     # click.echo(f"Command: {svc_enabled}")
-    click.echo(f"Result1: {result}")
+    # click.echo(f"Result1: {result}")
     # click.echo(f"Result2: {result.stdout}")
     # click.echo(f"Return Code: {result.returncode}")
     # click.echo(f"Is 'enabled' in result: {'enabled' in result}")
@@ -319,13 +341,13 @@ def check_service(config, category, sub_category, check):
     # )
     # status = "PASS" if "enabled" in result else "FAIL"
 
-    # log_status(
-    #     " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
-    #     message_color="blue",
-    #     status=status,
-    #     status_color=status_color,
-    #     log_level=log_level,
-    # )
+    log_status(
+        " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+        message_color="blue",
+        status=status,
+        status_color=status_color,
+        log_level=log_level,
+    )
 
     # if status == "FAIL":
     #     log_status(
