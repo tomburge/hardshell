@@ -2041,19 +2041,19 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.003a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Private Host Key Files Permissions"
 check_skip = false
 check_set = true
-check_type = "ssh"
+check_type = "file"
 path = "/etc/ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+permissions = "600"
+owner = "root"
+group = "root"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1552', 'T1552.004']
+mitre_tac = ['TA0003', 'TA0006']
+mitre_mit = ['M1022']
 stig = ""
 source = ""
 
