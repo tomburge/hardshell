@@ -13,23 +13,23 @@ def run_command(command):
         result = subprocess.run(
             command, capture_output=True, check=True, shell=True, text=True
         )
-        # click.echo(result)
-        # click.echo(result.stdout)
-        # click.echo(result.stderr)
+        click.echo(result)
+        click.echo(result.stdout)
+        click.echo(result.stderr)
         return result.stdout
     except subprocess.CalledProcessError as error:
-        # click.echo(f"error: {error}")
-        # click.echo(f"error output: {error.output}")
-        # click.echo(f"error type: {type(error)}")
-        # click.echo(f"error output type: {type(error.output)}")
+        click.echo(f"error: {error}")
+        click.echo(f"error output: {error.output}")
+        click.echo(f"error type: {type(error)}")
+        click.echo(f"error output type: {type(error.output)}")
         return error
         # return error.output
 
     except Exception as error:
-        # click.echo(f"error: {error}")
-        # click.echo(f"error output: {error.output}")
-        # click.echo(f"error type: {type(error)}")
-        # click.echo(f"error output type: {type(error.output)}")
+        click.echo(f"error: {error}")
+        click.echo(f"error output: {error.output}")
+        click.echo(f"error type: {type(error)}")
+        click.echo(f"error output type: {type(error.output)}")
         return error
         # return error.output
 
