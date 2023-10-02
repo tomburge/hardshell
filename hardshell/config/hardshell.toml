@@ -2079,7 +2079,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Access Limited (TODO)"
+check_name = "SSH Access Limited"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2239,7 +2239,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "System Wide Crypto Policy No Override (TODO)"
+check_name = "System Wide Crypto Policy No Override"
 check_skip = false
 check_set = true
 check_type = "command"
