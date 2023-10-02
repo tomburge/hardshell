@@ -2079,7 +2079,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Access Limited"
+check_name = "SSH Access Limited (TODO)"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2100,7 +2100,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
-setting = "loglevel INFO"                                                                                                              # loglevel INFO or loglevel VERBOSE
+setting = "LogLevel INFO"                                                                                                              # loglevel INFO or loglevel VERBOSE
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.006']
@@ -2116,7 +2116,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
-setting = "usepam yes"
+setting = "UsePAM yes"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1021', 'T1021.004']
@@ -2132,7 +2132,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
-setting = "permitrootlogin no"
+setting = "PermitRootLogin no"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1078']
@@ -2148,7 +2148,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
-setting = "hostbasedauthentication no"
+setting = "HostbasedAuthentication no"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
@@ -2164,7 +2164,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitemptypasswords"
-setting = "permitemptypasswords no"
+setting = "PermitEmptyPasswords no"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1021', 'T1021.000']
@@ -2180,7 +2180,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permituserenvironment"
-setting = "permituserenvironment no"
+setting = "PermitUserEnvironment no"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1021', 'T1021.000']
@@ -2196,7 +2196,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep ignorerhosts"
-setting = "ignorerhosts yes"
+setting = "IgnoreRhosts yes"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
@@ -2212,7 +2212,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i x11forwarding"
-setting = "x11forwarding no"
+setting = "X11Forwarding no"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1210', 'T1210.000']
@@ -2228,7 +2228,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i allowtcpforwarding"
-setting = "allowtcpforwarding no"
+setting = "AllowTcpForwarding no"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1048', 'T1048.002', 'T1572', 'T1572.000']
@@ -2239,7 +2239,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "System Wide Crypto Policy No Override"
+check_name = "System Wide Crypto Policy No Override (TODO)"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -2260,7 +2260,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
-setting = "banner /etc/issue.net"
+setting = "Banner /etc/issue.net"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
@@ -2276,7 +2276,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep maxauthtries"
-setting = "maxauthtries 4"
+setting = "MaxAuthTries 4"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
@@ -2292,7 +2292,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxstartups"
-setting = "maxstartups 10:30:60"
+setting = "MaxStartups 10:30:60"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1499', 'T1499.002']
@@ -2308,7 +2308,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxsessions"
-setting = "maxsessions 10"
+setting = "MaxSessions 10"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1499', 'T1499.002']
@@ -2324,7 +2324,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep logingracetime"
-setting = "logingracetime 60"
+setting = "LoginGraceTime 60"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1110', 'T1110.001', 'T1110.003', 'T1110.004']
@@ -2340,7 +2340,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientaliveinterval"
-setting = "clientaliveinterval 15"
+setting = "ClientAliveInterval 15"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
@@ -2356,7 +2356,7 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientalivecountmax"
-setting = "clientalivecountmax 3"
+setting = "ClientAliveCountMax 3"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
