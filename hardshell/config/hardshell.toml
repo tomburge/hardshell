@@ -2083,7 +2083,7 @@ check_name = "SSH Access Limited (TODO)"
 check_skip = false
 check_set = true
 check_type = "command"
-command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -Pi '^\\h*(allow|deny)(users|groups)\\h+\\H+(\\h+.*)?$'"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -Pi '^\\h*(allow|deny)(users|groups)\\h+\\H+(\\h+.*)?$'"
 setting = ""
 cis = "level-1"
 disa = ""
@@ -2131,7 +2131,7 @@ check_name = "SSH Root Login Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
-command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
 setting = "PermitRootLogin no"
 cis = "level-1"
 disa = ""
@@ -2147,7 +2147,7 @@ check_name = "SSH Host Based Auth Disabled"
 check_skip = false
 check_set = true
 check_type = "command"
-command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
 setting = "HostbasedAuthentication no"
 cis = "level-1"
 disa = ""
