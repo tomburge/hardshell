@@ -7,6 +7,8 @@ import click
 def run_command(command):
     try:
         result = subprocess.run(command, capture_output=True, check=True, text=True)
+        click.echo(result)
+        click.echo(result.stdout)
         return result
     except subprocess.CalledProcessError:
         return False
