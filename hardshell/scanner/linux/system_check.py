@@ -307,7 +307,7 @@ def check_service(config, category, sub_category, check):
     # click.echo("failed")
 
     # if result.returncode != 1:
-    #     click.echo(result.returncode)
+    click.echo(result.returncode)
     #     click.echo("failed")
     status = "PASS" if result.returncode != 1 and "enabled" in result else "FAIL"
     status_color = "bright_green" if status == "PASS" else "bright_red"
