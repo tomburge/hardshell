@@ -309,7 +309,8 @@ def check_service(config, category, sub_category, check):
     # status = (
     #     "PASS" if result.returncode in [0, 1] and "enabled" in result.stdout else "FAIL"
     # )
-    status = "PASS" if "enabled" in result else "FAIL"
+    # status = "PASS" if "enabled" in result else "FAIL"
+    status = "FAIL" if result.returncode in [0, 1] else "FAIL"
     status_color = "bright_green" if status == "PASS" else "bright_red"
     log_level = "info" if status == "PASS" else "error"
 
