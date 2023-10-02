@@ -188,7 +188,7 @@ def check_command(config, category, sub_category, check):
             check_cmd, capture_output=True, check=True, shell=True, text=True
         )
     except Exception as e:
-        click.echo(e)
+        click.echo(f"Command returned non-zero exit status {e.returncode}: {e.output}")
     # click.echo(check_name)
     # click.echo(check_cmd)
     # click.echo(check_setting)
