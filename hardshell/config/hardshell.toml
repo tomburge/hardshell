@@ -2023,14 +2023,14 @@ source = ""
 
 [system.ssh.002a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "/etc/ssh/sshd_config permissions"
+check_name = "/etc/ssh/sshd_config"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "file"
 path = "/etc/ssh/sshd_config"
 permissions = "600"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1098', 'T1098.004', 'T1543', 'T1543.002']
@@ -2041,327 +2041,329 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.003a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Private Host Key Files Permissions"
+check_name = "SSH Private Host Key Files"
 check_skip = false
 check_set = true
-check_type = "file"
+check_type = "keys"
+check_file_type = "private key"
 path = "/etc/ssh"
 permissions = "600"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1552', 'T1552.004']
 mitre_tac = ['TA0003', 'TA0006']
 mitre_mit = ['M1022']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.004a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Public Host Key Files"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "keys"
+check_file_type = "public key"
+path = "/etc/ssh"
+permissions = "644"
+owner = "0"
+group = "0"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1552', 'T1552.004']
+mitre_tac = ['TA0003', 'TA0006']
+mitre_mit = ['M1022']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Access Limited (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -Pi '^\\h*(allow|deny)(users|groups)\\h+\\H+(\\h+.*)?$'"
+setting = ""
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1021', 'T1021.004']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1018']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.006a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH LogLevel Configured (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
+setting = "loglevel INFO"                                                                                                              # loglevel INFO or loglevel VERBOSE
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
 mitre_mit = []
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
 
 [system.ssh.007a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH PAM Enabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
+setting = "usepam yes"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1021', 'T1021.004']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1035']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.008a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Root Login Disabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
+setting = "permitrootlogin no"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1078']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.ssh.009a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Host Based Auth Disabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sudo sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
+setting = "hostbasedauthentication no"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.010a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Permit Empty Passwords Disabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitemptypasswords"
+setting = "permitemptypasswords no"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1021', 'T1021.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.011a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Permit User Environment Disabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permituserenvironment"
+setting = "permituserenvironment no"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1021', 'T1021.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.012a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH Ignore Rhosts Enabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep ignorerhosts"
+setting = "ignorerhosts yes"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.013a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "sshd_config permissions"
+check_name = "SSH X11 Forwarding Disabled (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = "600"
-owner = "root"
-group = "root"
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i x11forwarding"
+setting = "x11forwarding no"
+cis = "level-2"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [system.ssh.014a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Allow TCP Forwarding Disabled"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i allowtcpforwarding"
+setting = "allowtcpforwarding no"
+cis = "level-2"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1048', 'T1048.002', 'T1572', 'T1572.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "System Wide Crypto Policy No Override (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "grep -i '^\\s*CRYPTO_POLICY=' /etc/sysconfig/sshd"
+setting = ""
+cis = "level-1"
 disa = ""
 mitre_tec = []
 mitre_tac = []
 mitre_mit = []
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: SC-8, IA-5, AC-17"
 
 [system.ssh.016a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Warning Banner Configured (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
+setting = "banner /etc/issue.net"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0001', 'TA0007']
+mitre_mit = ['M1035']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.017a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Max Auth Retries 4 or Less (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep maxauthtries"
+setting = "maxauthtries 4"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1036']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
 
 [system.ssh.018a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Max Startups (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxstartups"
+setting = "maxstartups 10:30:60"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1499', 'T1499.002']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1036']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.019a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Max Sessions 10 or Less (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxsessions"
+setting = "maxsessions 10"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1499', 'T1499.002']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1036']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.020a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Login Grace Time 1 min or Less (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep logingracetime"
+setting = "logingracetime 60"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003', 'T1110.004']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1036']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
 
 [system.ssh.021a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = ""
+check_name = "SSH Idle Timeout Interval Configured (TODO)"
 check_skip = false
 check_set = true
-check_type = "ssh"
-permissions = ""
-owner = ""
-group = ""
-cis = ""
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientaliveinterval"
+setting = "clientaliveinterval 15"
+cis = "level-1"
 disa = ""
-mitre_tec = []
-mitre_tac = []
-mitre_mit = []
+mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.021b]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "SSH Idle Timeout Max Configured (TODO)"
+check_skip = false
+check_set = true
+check_type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientalivecountmax"
+setting = "clientalivecountmax 3"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.cron]
 sub_category_id = "CRON"
@@ -2413,14 +2415,14 @@ source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.003a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/crontab permissions"
+check_name = "/etc/crontab"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "file"
 path = "/etc/crontab"
 permissions = "600"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2431,14 +2433,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.004a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.hourly permissions"
+check_name = "/etc/cron.hourly"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "dir"
 path = "/etc/cron.hourly"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2449,14 +2451,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.005a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.daily permissions"
+check_name = "/etc/cron.daily"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "dir"
 path = "/etc/cron.daily"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2467,14 +2469,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.006a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.weekly permissions"
+check_name = "/etc/cron.weekly"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "dir"
 path = "/etc/cron.weekly"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2485,14 +2487,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.007a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.monthly permissions"
+check_name = "/etc/cron.monthly"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "dir"
 path = "/etc/cron.monthly"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2503,14 +2505,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.008a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.d permissions"
+check_name = "/etc/cron.d"
 check_skip = false
 check_set = true
-check_type = "permission"
+check_type = "dir"
 path = "/etc/cron.d"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2521,14 +2523,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.009a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.allow used"
+check_name = "/etc/cron.allow"
 check_skip = false
 check_set = true
 check_type = "file"
 path = "/etc/cron.allow"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2539,14 +2541,14 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.009b]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.deny used"
+check_name = "/etc/cron.deny"
 check_skip = false
 check_set = true
 check_type = "file"
 path = "/etc/cron.deny"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2577,8 +2579,8 @@ check_set = true
 check_type = "file"
 path = "/etc/at.allow"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2595,8 +2597,8 @@ check_set = true
 check_type = "file"
 path = "/etc/at.deny"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2613,8 +2615,8 @@ check_set = true
 check_type = "file"
 path = "/etc/at.allow"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']
@@ -2631,8 +2633,8 @@ check_set = false
 check_type = "file"
 path = "/etc/at.deny"
 permissions = "700"
-owner = "root"
-group = "root"
+owner = "0"
+group = "0"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1053', 'T1053.003']

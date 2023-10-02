@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+import click
+
 
 def run_command(command):
     try:
@@ -11,13 +13,11 @@ def run_command(command):
 
 
 def file_exists(path):
-    try:
-        if os.path.exists(path):
-            pass
-    except FileNotFoundError:
-        return f"{path} does not exist"
-    except Exception as error:
-        pass
+    # try:
+    if os.path.exists(path):
+        return True
+    else:
+        return False
 
 
 def get_gid(group_name):
@@ -33,4 +33,5 @@ def get_permissions(path):
         octal_permissions = oct(st.st_mode & 0o777)
         return octal_permissions[-3:]
     except FileNotFoundError:
+        click.echo(f"{path} does not exist")
         return f"{path} does not exist"
