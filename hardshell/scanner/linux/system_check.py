@@ -183,16 +183,6 @@ def check_command(config, category, sub_category, check):
     check_cmd = config[category][sub_category][check]["command"]
     check_setting = config[category][sub_category][check]["setting"]
     result = run_command(check_cmd)
-    # try:
-    #     result = subprocess.run(
-    #         check_cmd, capture_output=True, check=True, shell=True, text=True
-    #     )
-    # except Exception as e:
-    #     click.echo(f"Command returned non-zero exit status {e.returncode}: {e.output}")
-    # click.echo(check_name)
-    # click.echo(check_cmd)
-    # click.echo(check_setting)
-    click.echo(result)
     if check_setting.lower() in result.lower():
         log_status(
             " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",

@@ -6,13 +6,9 @@ import click
 
 def run_command(command):
     try:
-        # click.echo(command)
         result = subprocess.run(
             command, capture_output=True, check=True, shell=True, text=True
         )
-        # click.echo(result)
-        # click.echo(result.stdout)
-        # click.echo(result.stderr)
         return result.stdout
     except subprocess.CalledProcessError as error:
         return error.output
