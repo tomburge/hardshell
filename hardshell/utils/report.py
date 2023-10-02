@@ -55,5 +55,5 @@ def add_to_dd_report(config, **kwargs):
                     dd_report[os_info["id"]][category][sub_category][check][
                         "source"
                     ] = current_check["source"]
-    except Exception as e:
-        click.echo(e)
+    except Exception as error:
+        click.echo(error)

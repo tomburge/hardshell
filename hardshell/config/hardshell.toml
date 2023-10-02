@@ -11,6 +11,8 @@ sysctl_config_prefix = "10-"
 #sysctl_config_file = "10-denylist.conf"
 [global.commands]
 find_mount = ["findmnt", "-nk"]
+svc_enable = ["systemctl", "--now", "enable"]
+svc_enabled = ["systemctl", "is-enabled"]
 
 [global.pkg_mgr]
 amzn.manager = 'dnf'
@@ -46,6 +48,7 @@ ubuntu.uninstall = ['apt', 'remove']
 #################################################
 [kernel]
 category_id = "KERNEL"
+category_name = "Kernel"
 category_skip = false
 category_set = true
 
@@ -54,6 +57,7 @@ category_set = true
 #################################################
 [kernel.filesystem]
 sub_category_id = "FS"
+sub_category_name = "File System"
 sub_category_skip = false
 sub_category_set = true
 
@@ -244,6 +248,7 @@ source = ""
 #################################################
 [kernel.module]
 sub_category_id = "MOD"
+sub_category_name = "Module"
 sub_category_skip = false
 sub_category_set = true
 
@@ -308,6 +313,7 @@ source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
 #################################################
 [kernel.parameter]
 sub_category_id = "PARAM"
+sub_category_name = "Parameter"
 sub_category_skip = false
 sub_category_set = true
 
@@ -347,6 +353,7 @@ source = "NIST SP 800-53 Rev. 5: CM-6"
 #################################################
 [kernel.network]
 sub_category_id = "NET"
+sub_category_name = "Network"
 sub_category_skip = false
 sub_category_set = true
 
@@ -702,6 +709,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 #################################################
 [system]
 category_id = "SYSTEM"
+category_name = "System"
 category_skip = false
 category_set = true
 
@@ -710,6 +718,7 @@ category_set = true
 #################################################
 [system.storage]
 sub_category_id = "STOR"
+sub_category_name = "Storage"
 sub_category_skip = false
 sub_category_set = true
 
@@ -1099,12 +1108,13 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 #################################################
 # Package Checks
 #################################################
-[system.reqpackage]
-sub_category_id = "REQPKG"
+[system.required]
+sub_category_id = "REQ"
+sub_category_name = "Required"
 sub_category_skip = false
 sub_category_set = true
 
-[system.reqpackage.001a]
+[system.required.001a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "aide"
 check_skip = false
@@ -1119,7 +1129,7 @@ mitre_mit = ['M1022']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2"
 
-[system.reqpackage.002a]
+[system.required.002a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "audit"
 check_skip = false
@@ -1134,7 +1144,7 @@ mitre_mit = []
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
 
-[system.reqpackage.002b]
+[system.required.002b]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "auditd"
 check_skip = false
@@ -1149,7 +1159,7 @@ mitre_mit = []
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
 
-[system.reqpackage.003a]
+[system.required.003a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "authselect"
 check_skip = false
@@ -1164,7 +1174,7 @@ mitre_mit = []
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CA-5"
 
-[system.reqpackage.003b]
+[system.required.003b]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "sssd"
 check_skip = false
@@ -1179,7 +1189,7 @@ mitre_mit = []
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CA-5"
 
-[system.reqpackage.004a]
+[system.required.004a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "chrony"
 check_skip = false
@@ -1194,7 +1204,7 @@ mitre_mit = ['M1022']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3, AU-12"
 
-[system.reqpackage.004b]
+[system.required.004b]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "ntp"
 check_skip = false
@@ -1209,37 +1219,8 @@ mitre_mit = ['M1022']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3, AU-12"
 
-[system.reqpackage.005a]
-check_id = "L-SYSTEM-PKG-001"
-check_name = "cron"
-check_skip = false
-check_set = true
-check_type = "package"
-pkg_type = "admin"
-cis = "level-1"
-disa = ""
-mitre_tec = ['T1562', 'T1562.001']
-mitre_tac = ['TA0005']
-mitre_mit = ['M1018']
-stig = ""
-source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
-[system.reqpackage.005b]
-check_id = "L-SYSTEM-PKG-001"
-check_name = "cronie"
-check_skip = false
-check_set = true
-check_type = "package"
-pkg_type = "admin"
-cis = "level-1"
-disa = ""
-mitre_tec = ['T1562', 'T1562.001']
-mitre_tac = ['TA0005']
-mitre_mit = ['M1018']
-stig = ""
-source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
-
-[system.reqpackage.006a]
+[system.required.006a]
 mitre_tec = ['T1068', 'T1068.000']
 check_id = "L-SYSTEM-PKG-001"
 check_name = "libselinux"
@@ -1254,7 +1235,7 @@ mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
-[system.reqpackage.006b]
+[system.required.006b]
 mitre_tec = ['T1068', 'T1068.000']
 check_id = "L-SYSTEM-PKG-001"
 check_name = "libselinux1"
@@ -1269,7 +1250,7 @@ mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
-[system.reqpackage.007a]
+[system.required.007a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "nftables"
 check_skip = false
@@ -1284,7 +1265,7 @@ mitre_mit = ['M1031', 'M1037']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7, CA-9"
 
-[system.reqpackage.008a]
+[system.required.008a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "openssh-server"
 check_skip = false
@@ -1299,7 +1280,7 @@ mitre_mit = []
 stig = ""
 source = ""
 
-[system.reqpackage.009a]
+[system.required.009a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "rsyslog"
 check_skip = false
@@ -1314,7 +1295,7 @@ mitre_mit = []
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3, AU-12, SI-5"
 
-[system.reqpackage.010a]
+[system.required.010a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "sudo"
 check_skip = false
@@ -1329,7 +1310,7 @@ mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
-[system.reqpackage.011a]
+[system.required.011a]
 check_id = "L-SYSTEM-PKG-001"
 check_name = "systemd-journal-remote"
 check_skip = false
@@ -1346,6 +1327,7 @@ source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
 
 [system.package]
 sub_category_id = "PKG"
+sub_category_name = "Package"
 sub_category_skip = false
 sub_category_set = true
 
@@ -2018,3 +2000,642 @@ mitre_tac = ['TA0008']
 mitre_mit = ['M1042']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.ssh]
+sub_category_id = "SSH"
+sub_category_name = "OpenSSH"
+sub_category_skip = false
+sub_category_set = true
+
+[system.ssh.001a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "openssh-server"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.002a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "/etc/ssh/sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/ssh/sshd_config"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.003a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.004a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.005a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.006a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.007a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.008a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.009a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.010a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.011a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.012a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.013a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "sshd_config permissions"
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.014a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.015a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.016a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.017a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.018a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.019a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.020a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.021a]
+check_id = "L-SYSTEM-SSH-001"
+check_name = ""
+check_skip = false
+check_set = true
+check_type = "ssh"
+permissions = ""
+owner = ""
+group = ""
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.cron]
+sub_category_id = "CRON"
+sub_category_name = "Cron"
+sub_category_skip = false
+sub_category_set = true
+
+[system.cron.001a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "cron"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.001b]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "cronie"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.002a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "cron daemon enabled"
+check_skip = false
+check_set = true
+check_type = "service"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.003a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/crontab permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/crontab"
+permissions = "600"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.004a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.hourly permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/cron.hourly"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.005a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.daily permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/cron.daily"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.006a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.weekly permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/cron.weekly"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.007a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.monthly permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/cron.monthly"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.008a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.d permissions"
+check_skip = false
+check_set = true
+check_type = "permission"
+path = "/etc/cron.d"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']                        # Why is this one different?
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.009a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.allow used"
+check_skip = false
+check_set = true
+check_type = "file"
+path = "/etc/cron.allow"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.009b]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/cron.deny used"
+check_skip = false
+check_set = true
+check_type = "file"
+path = "/etc/cron.deny"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.010a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "at"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.011a]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/at.allow used"
+check_skip = false
+check_set = true
+check_type = "file"
+path = "/etc/at.allow"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.011b]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/at.deny used"
+check_skip = false
+check_set = true
+check_type = "file"
+path = "/etc/at.deny"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.test001]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/at.allow used - TEST"
+check_skip = true
+check_set = true
+check_type = "file"
+path = "/etc/at.allow"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.test002]
+check_id = "L-SYSTEM-CRON-001"
+check_name = "/etc/at.deny used - TEST"
+check_skip = false
+check_set = false
+check_type = "file"
+path = "/etc/at.deny"
+permissions = "700"
+owner = "root"
+group = "root"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"

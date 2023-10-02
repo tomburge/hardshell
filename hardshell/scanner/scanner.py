@@ -3,9 +3,9 @@
 #########################################################################################
 import click
 
-from hardshell.scanner.linux import scan_linux
-from hardshell.scanner.windows import scan_windows
-from hardshell.utils.utilities import log_status
+from hardshell.scanner.linux.linux import scan_linux
+from hardshell.scanner.windows.windows import scan_windows
+from hardshell.utils.common import log_status
 
 
 def scanner(mode, os_info, config):

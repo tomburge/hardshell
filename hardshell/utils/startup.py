@@ -7,10 +7,9 @@ import click
 
 from hardshell import __name__, __version__
 from hardshell.scanner.scanner import scanner
+from hardshell.utils.common import log_status
 from hardshell.utils.config import init_config
-from hardshell.utils.core import (detect_admin, detect_os, shutdown_banner,
-                                  startup_banner)
-from hardshell.utils.utilities import log_status
+from hardshell.utils.core import detect_admin, detect_os, shutdown_banner, startup_banner
 
 
 def init(mode, cmode):
@@ -90,7 +89,7 @@ def init(mode, cmode):
     log_status("")
     log_status(" " * 2 + "-" * 90, log_level="info")
     log_status(
-        " " * 2 + f"{__name__.capitalize()} Version: ",
+        " " * 2 + f"{__name__} Version: ",
         message_color="blue",
         status=__version__,
         status_color="bright_green",

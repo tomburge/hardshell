@@ -118,8 +118,8 @@ def detect_os() -> Dict[str, Union[str, Dict[str, str]]]:
                 os_release = {"Error": "File /etc/os-release not found"}
         except FileNotFoundError:
             os_release = {"Error": "File /etc/os-release not found"}
-        except Exception as e:
-            os_release = {"Error": f"An error occurred: {e}"}
+        except Exception as error:
+            os_release = {"Error": f"An error occurred: {error}"}
 
         return os_release
 

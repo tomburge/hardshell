@@ -6,7 +6,7 @@ from importlib.metadata import distribution
 import click
 import toml
 
-from hardshell.utils.utilities import log_status
+from hardshell.utils.common import log_status
 
 
 def load_config_file(file_path):
@@ -170,7 +170,7 @@ def handle_directory(dir_type, directory):
     """
     if os.path.exists(directory):
         log_status(
-            " " * 8 + f"- {dir_type.capitalize()} directory...",
+            " " * 8 + f"- {dir_type} directory...",
             message_color="blue",
             status="FOUND",
             status_color="bright_green",
