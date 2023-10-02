@@ -181,13 +181,14 @@ def check_keys(config, category, sub_category, check):
 def check_command(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_cmd = config[category][sub_category][check]["command"]
+    check_setting = config[category][sub_category][check]["setting"]
     click.echo(check_name)
-    # click.echo(check_cmd)
-    # result = subprocess.run(
-    #     check_cmd, capture_output=True, check=True, shell=True, text=True
-    # )
     result = run_command(check_cmd)
     click.echo(result)
+    if result == check_setting:
+        click.echo("PASS")
+    else:
+        click.echo("FAIL")
 
 
 # Harden Functions
