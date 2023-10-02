@@ -8,28 +8,6 @@ from hardshell.scanner.linux.system_check import scan_system
 from hardshell.utils.common import log_status
 from hardshell.utils.report import add_to_dd_report, dd_report, dd_report_to_report
 
-# Global Run Command
-
-
-# Process Kernel Checks
-def process_check(
-    mode, config, category, sub_category, check, check_function, status_map
-):
-    check_name = config[category][sub_category][check]["check_name"]
-    status = check_function(mode, config, category, sub_category, check)
-    color, log_level = status_map.get(status[1], ("bright_red", "info"))
-    click.echo(status)
-    log_status(
-        " " * 4 + f"- [CHECK] - {sub_category}: {check_name}",
-        message_color="blue",
-        status=status[1],
-        status_color=color,
-        log_level=log_level,
-    )
-
-
-# Storage Functions
-
 
 def scan_checks(mode, config, category, sub_category):
     """
@@ -124,14 +102,14 @@ def scan_checks(mode, config, category, sub_category):
             )
 
         else:
-            status_map = {
-                "PASS": ("bright_green", "info"),
-                "SKIP": ("bright_yellow", "info"),
-                "WARN": ("bright_yellow", "info"),
-                "FAIL": ("bright_red", "info"),
-                "SUDO": ("bright_red", "info"),
-                "ERROR": ("bright_red", "info"),
-            }
+            # status_map = {
+            #     "PASS": ("bright_green", "info"),
+            #     "SKIP": ("bright_yellow", "info"),
+            #     "WARN": ("bright_yellow", "info"),
+            #     "FAIL": ("bright_red", "info"),
+            #     "SUDO": ("bright_red", "info"),
+            #     "ERROR": ("bright_red", "info"),
+            # }
 
             kernel = [
                 "filesystem",
@@ -140,14 +118,12 @@ def scan_checks(mode, config, category, sub_category):
                 "network",
             ]
 
-            packages = [
-                "reqpackage",
-                "package",
-            ]
             system = [
+                "aide",
+                "banner",
                 "cron",
                 "ssh",
-                "storage",
+                "sudo",  # "storage"
             ]
 
             if sub_category in kernel:
