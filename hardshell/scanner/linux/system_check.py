@@ -302,6 +302,7 @@ def check_service(config, category, sub_category, check):
     # Log the command and its result
     click.echo(f"Command: {svc_enabled}")
     click.echo(f"Result: {result}")
+    click.echo(f"Result: {result.stdout}")
     click.echo(result.returncode)
     click.echo(f"Return Code: {result.returncode}")
     click.echo(f"Is 'enabled' in result: {'enabled' in result.stdout}")
