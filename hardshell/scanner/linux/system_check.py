@@ -4,7 +4,8 @@ from pathlib import Path
 
 import click
 
-from hardshell.scanner.linux.common import file_exists, get_permissions, run_command
+from hardshell.scanner.linux.common import (file_exists, get_permissions,
+                                            run_command)
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
@@ -31,9 +32,9 @@ def check_command(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_cmd = config[category][sub_category][check]["command"]
     check_setting = config[category][sub_category][check]["setting"]
-    click.echo(f"check name: {check_name}")
-    click.echo(f"check cmd: {check_cmd}")
-    click.echo(f"check setting: {check_setting}")
+    # click.echo(f"check name: {check_name}")
+    # click.echo(f"check cmd: {check_cmd}")
+    # click.echo(f"check setting: {check_setting}")
 
     result = run_command(check_cmd)
 

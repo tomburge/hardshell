@@ -6,7 +6,8 @@ import click
 from hardshell.scanner.linux.kernel_check import scan_kernel
 from hardshell.scanner.linux.system_check import scan_system
 from hardshell.utils.common import log_status
-from hardshell.utils.report import add_to_dd_report, dd_report, dd_report_to_report
+from hardshell.utils.report import (add_to_dd_report, dd_report,
+                                    dd_report_to_report)
 
 
 def scan_checks(mode, config, category, sub_category):
