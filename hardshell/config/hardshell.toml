@@ -793,13 +793,27 @@ check_name = "audit"
 check_skip = false
 check_set = true
 check_type = "package"
-cis = ""
+cis = "level-2"
 disa = ""
-mitre_tec = []
-mitre_tac = []
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
 mitre_mit = []
 stig = ""
-source = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
+
+[system.audit.001b]
+check_id = "L-SYSTEM-AUDIT-001"
+check_name = "auditd"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
 
 [system.audit.002a]
 check_id = "L-SYSTEM-AUDIT-001"
