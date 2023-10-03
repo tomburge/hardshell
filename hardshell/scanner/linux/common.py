@@ -36,7 +36,7 @@ def run_command(command):
         # click.echo(f"error output: {error.output}")
         # click.echo(f"error type: {type(error)}")
         # click.echo(f"error output type: {type(error.output)}")
-        return error
+        return error.with_traceback()
         # return error.output
 
 
