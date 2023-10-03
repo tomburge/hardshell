@@ -1198,7 +1198,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.011a]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/at.allow used"
+check_name = "/etc/at.allow"
 check_skip = false
 check_set = true
 check_type = "file"
@@ -1216,7 +1216,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.011b]
 check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/at.deny used"
+check_name = "/etc/at.deny"
 check_skip = false
 check_set = true
 check_type = "file"
@@ -1470,7 +1470,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
 check_id = "L-SYSTEM-SSH-001"
-check_name = "System Wide Crypto Policy No Override"
+check_name = "System Wide Crypto Policy No Override (FIX)"
 check_skip = false
 check_set = true
 check_type = "command"
@@ -1677,6 +1677,22 @@ check_skip = false
 check_set = true
 check_type = "command"
 command = "grep -roP \"timestamp_timeout=\\K[0-9]*\" /etc/sudoers*"
+setting = "15"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.sudo.005b]
+check_id = "L-SYSTEM-SSH-001"
+check_name = "Sudo Timeout Configured (FIX)"
+check_skip = false
+check_set = true
+check_type = "command"
+command = "sudo -V | grep \"Authentication timestamp timeout:\""
 setting = ""
 cis = "level-1"
 disa = ""
