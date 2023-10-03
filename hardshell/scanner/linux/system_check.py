@@ -4,8 +4,7 @@ from pathlib import Path
 
 import click
 
-from hardshell.scanner.linux.common import (file_exists, get_permissions,
-                                            run_command)
+from hardshell.scanner.linux.common import file_exists, get_permissions, run_command
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
@@ -39,7 +38,7 @@ def check_command(config, category, sub_category, check):
     result = run_command(check_cmd)
 
     if result:
-        click.echo(f"result: {result}")
+        # click.echo(f"result: {result}")
 
         if check_setting == "review":
             log_status(
