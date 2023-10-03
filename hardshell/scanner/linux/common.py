@@ -13,9 +13,9 @@ def run_command(command):
         result = subprocess.run(
             command, capture_output=True, check=True, shell=True, text=True
         )
-        click.echo(result)
-        click.echo(result.stdout)
-        click.echo(result.stderr)
+        # click.echo(result)
+        # click.echo(result.stdout)
+        # click.echo(result.stderr)
         return result.stdout
     except subprocess.CalledProcessError as error:
         # click.echo(f"sp error: {error}")
