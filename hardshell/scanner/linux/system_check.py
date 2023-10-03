@@ -100,7 +100,7 @@ def check_package(config, category, sub_category, check):
             cmd.append(pkg_name)
             result = run_command(cmd)
 
-            status = "PASS" if "installed" in result else "FAIL"
+            status = "PASS" if "installed" in result.lower() else "FAIL"
             status_color = "bright_green" if status == "PASS" else "bright_red"
             log_level = "info" if status == "PASS" else "error"
 
