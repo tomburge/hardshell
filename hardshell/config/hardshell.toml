@@ -1244,7 +1244,30 @@ sub_category_set = true
 
 [system.pam.001a]
 check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Minimum Length Configured"
+check_name = "libpam-pwquality"
+check_skip = false
+check_set = true
+check_type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002a]
+check_id = "L-SYSTEM-PAM-001"
+check_name = "Password Minimum Length"
 check_skip = false
 check_set = true
 check_type = "grep_file"
@@ -1267,9 +1290,9 @@ mitre_mit = ['M1027']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
-[system.pam.001b]
+[system.pam.002b]
 check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Minimum Class Configured"
+check_name = "Password Minimum Class"
 check_skip = false
 check_set = true
 check_type = "grep_file"
@@ -1292,35 +1315,105 @@ mitre_mit = ['M1027']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
-# [system.pam.001c]
-# check_id = "L-SYSTEM-PAM-001"
-# check_name = "Password Classes Configured"
-# check_skip = false
-# check_set = true
-# check_type = "command"
-# command = "grep -E \"^\\s*\\Scredit\\s*=\" /etc/security/pwquality.conf"
-# setting = """
-# dcredit = -1\n
-# ucredit = -1\n
-# lcredit = -1\n
-# ocredit = -1
-# """
-# cis = "level-1"
-# disa = ""
-# mitre_tec = [
-#     'T1110',
-#     'T1110.001',
-#     'T1110.002',
-#     'T1110.003',
-#     'T1178.001',
-#     'T1178.002',
-#     'T1178.003',
-#     'T1178.004',
-# ]
-# mitre_tac = ['TA0006']
-# mitre_mit = ['M1027']
-# stig = ""
-# source = "NIST SP 800-53 Rev. 5: IA-5"
+[system.pam.002c]
+check_id = "L-SYSTEM-PAM-001"
+check_name = "Password Character: Digits"
+check_skip = false
+check_set = true
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
+setting = "dcredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002d]
+check_id = "L-SYSTEM-PAM-001"
+check_name = "Password Character: Lower Case"
+check_skip = false
+check_set = true
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
+setting = "lcredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002e]
+check_id = "L-SYSTEM-PAM-001"
+check_name = "Password Character: Upper Case"
+check_skip = false
+check_set = true
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
+setting = "ucredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002f]
+check_id = "L-SYSTEM-PAM-001"
+check_name = "Password Character: Other"
+check_skip = false
+check_set = true
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
+setting = "ocredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.ssh]
 sub_category_id = "SSH"

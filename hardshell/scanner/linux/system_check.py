@@ -95,19 +95,13 @@ def check_file(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_file = config[category][sub_category][check]["file"]
     check_setting = config[category][sub_category][check]["setting"]
-    # click.echo(f"check name: {check_name}")
-    # click.echo(f"file: {check_file}")
-    # click.echo(f"setting: {check_setting}")
+
     result = run_grep(check_file, check_setting)
 
-    # click.echo(f"result: {result}")
-
     if result:
-        # click.echo(f"result: {result}")
-
         if check_setting == "review":
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {check_name}",
                 message_color="blue",
                 status="REVIEW",
                 status_color="bright_yellow",
@@ -116,7 +110,7 @@ def check_file(config, category, sub_category, check):
 
         elif result == "PASS":
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {check_name}",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
@@ -124,7 +118,7 @@ def check_file(config, category, sub_category, check):
             )
     else:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            " " * 4 + f"- [CHECK] - {check_name}",
             message_color="blue",
             status="FAIL",
             status_color="bright_red",
