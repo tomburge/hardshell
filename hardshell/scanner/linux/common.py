@@ -42,8 +42,8 @@ def run_command(command):
 
 def run_grep(file, setting):
     try:
-        if os.path.exists(file):
-            pass
+        # if os.path.exists(file):
+        #     pass
         with open(file, "r") as file:
             lines = file.readlines()
 

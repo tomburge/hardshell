@@ -93,20 +93,22 @@ def check_command(config, category, sub_category, check):
 
 def check_file(config, category, sub_category, check):
     os_info = detect_os()
-    if os_info["id"] == "ubuntu" and config[category][sub_category][check]["ubuntu_file"]:
-        check_file = config[category][sub_category][check]["ubuntu_file"]
-        # click.echo(check_file)
+    if (
+        os_info["id"] == "ubuntu"
+        and "ubuntu_file" in config[category][sub_category][check]
+    ):
+        grep_file = config[category][sub_category][check]["ubuntu_file"]
     else:
-        check_file = config[category][sub_category][check]["default_file"]
+        grep_file = config[category][sub_category][check]["default_file"]
 
     check_name = config[category][sub_category][check]["check_name"]
     check_setting = config[category][sub_category][check]["setting"]
 
     # click.echo(f"check name: {check_name}")
-    # click.echo(f"check file: {check_file}")
+    # click.echo(f"check file: {grep_file}")
     # click.echo(f"check setting: {check_setting}")
 
-    result = run_grep(check_file, check_setting)
+    result = run_grep(grep_file, check_setting)
 
     if result:
         if check_setting == "review":
