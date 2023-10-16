@@ -38,7 +38,7 @@ def check_command(config, category, sub_category, check):
     result = run_command(check_cmd)
 
     if result:
-        # click.echo(f"result: {result}")
+        click.echo(f"result: {result}")
 
         if check_setting == "review":
             log_status(

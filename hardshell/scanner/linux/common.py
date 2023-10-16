@@ -9,16 +9,16 @@ def run_command(command):
         # click.echo(f"command: {command}")
         if type(command) == list:
             command = " ".join(command)
-        # click.echo(f"command: {command}")
+        click.echo(f"command: {command}")
         result = subprocess.run(
             command, capture_output=True, check=True, shell=True, text=True
         )
-        # click.echo(result)
+        click.echo(result)
         # click.echo(result.stdout)
         # click.echo(result.stderr)
         return result.stdout
     except subprocess.CalledProcessError as error:
-        # click.echo(f"sp error: {error}")
+        click.echo(f"sp error: {error}")
         # click.echo(f"sp error returncode: {error.returncode}")
         # click.echo(f"sp error cmd: {error.cmd}")
         # click.echo(f"sp error stderr: {error.stderr}")
@@ -29,7 +29,7 @@ def run_command(command):
         # return error.output
 
     except Exception as error:
-        # click.echo(f"error: {error}")
+        click.echo(f"error: {error}")
         # click.echo(f"error returncode: {error.returncode}")
         # click.echo(f"error cmd: {error.cmd}")
         # click.echo(f"error stderr: {error.stderr}")
