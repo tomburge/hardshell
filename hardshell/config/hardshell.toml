@@ -1294,7 +1294,7 @@ check_name = "Password Minimum Length"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "minlen = 14"
 cis = "level-1"
 disa = ""
@@ -1319,7 +1319,7 @@ check_name = "Password Minimum Class"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "minclass = 4"
 cis = "level-1"
 disa = ""
@@ -1344,7 +1344,7 @@ check_name = "Password Character: Digits"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "dcredit = -1"
 cis = "level-1"
 disa = ""
@@ -1369,7 +1369,7 @@ check_name = "Password Character: Lower Case"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "lcredit = -1"
 cis = "level-1"
 disa = ""
@@ -1394,7 +1394,7 @@ check_name = "Password Character: Upper Case"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "ucredit = -1"
 cis = "level-1"
 disa = ""
@@ -1419,7 +1419,7 @@ check_name = "Password Character: Other"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/pwquality.conf"
+default_file = "/etc/security/pwquality.conf"
 setting = "ocredit = -1"
 cis = "level-1"
 disa = ""
@@ -1444,7 +1444,7 @@ check_name = "Account Lockout Attempts"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/faillock.conf"
+default_file = "/etc/security/faillock.conf"
 setting = "deny = 3"
 cis = "level-1"
 disa = ""
@@ -1460,7 +1460,7 @@ check_name = "Account Failure Time"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/faillock.conf"
+default_file = "/etc/security/faillock.conf"
 setting = "fail_interval = 900"
 cis = "level-1"
 disa = ""
@@ -1476,7 +1476,7 @@ check_name = "Account Unlock Time"
 check_skip = false
 check_set = true
 check_type = "grep_file"
-file = "/etc/security/faillock.conf"
+default_file = "/etc/security/faillock.conf"
 setting = "unlock_time = 600"
 cis = "level-1"
 disa = ""
@@ -1488,12 +1488,12 @@ source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
 
 [system.pam.004a]
 check_id = "L-SYSTEM-PAM-001"
-check_name = "Account Password History"
+check_name = "Account Password History (FIX)"
 check_skip = false
 check_set = true
 check_type = "grep_file"
+default_file = "/etc/pam.d/system-auth"
 ubuntu_file = "/etc/pam.d/common-password"
-file = "/etc/pam.d/system-auth"
 setting = "remember=5"
 cis = "level-1"
 disa = ""

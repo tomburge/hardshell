@@ -53,8 +53,6 @@ def run_grep(file, setting):
 
             if setting in line:
                 return "PASS"
-            # else:
-            #     return "FAIL"
 
     except FileNotFoundError as error:
         return error.output
