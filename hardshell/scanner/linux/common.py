@@ -19,23 +19,23 @@ def run_command(command):
         return result.stdout
     except subprocess.CalledProcessError as error:
         click.echo(f"sp error: {error}")
-        # click.echo(f"sp error returncode: {error.returncode}")
-        # click.echo(f"sp error cmd: {error.cmd}")
-        # click.echo(f"sp error stderr: {error.stderr}")
-        # click.echo(f"sp error output: {error.output}")
-        # click.echo(f"sp error type: {type(error)}")
-        # click.echo(f"sp error output type: {type(error.output)}")
+        click.echo(f"sp error returncode: {error.returncode}")
+        click.echo(f"sp error cmd: {error.cmd}")
+        click.echo(f"sp error stderr: {error.stderr}")
+        click.echo(f"sp error output: {error.output}")
+        click.echo(f"sp error type: {type(error)}")
+        click.echo(f"sp error output type: {type(error.output)}")
         return error.stderr
         # return error.output
 
     except Exception as error:
         click.echo(f"error: {error}")
-        # click.echo(f"error returncode: {error.returncode}")
-        # click.echo(f"error cmd: {error.cmd}")
-        # click.echo(f"error stderr: {error.stderr}")
-        # click.echo(f"error output: {error.output}")
-        # click.echo(f"error type: {type(error)}")
-        # click.echo(f"error output type: {type(error.output)}")
+        click.echo(f"error returncode: {error.returncode}")
+        click.echo(f"error cmd: {error.cmd}")
+        click.echo(f"error stderr: {error.stderr}")
+        click.echo(f"error output: {error.output}")
+        click.echo(f"error type: {type(error)}")
+        click.echo(f"error output type: {type(error.output)}")
         return error.with_traceback()
         # return error.output
 
