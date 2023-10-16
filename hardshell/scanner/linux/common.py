@@ -41,10 +41,25 @@ def run_command(command):
 
 
 def run_grep(file, setting):
-    if os.path.exists(file):
-        click.echo("file exists")
-    else:
-        click.echo("does not exist")
+    try:
+        if os.path.exists(file):
+            pass
+        with open(file, "r") as file:
+            lines = file.readlines()
+
+        for line in lines:
+            if line.startswith("#"):
+                continue
+
+            if setting in line:
+                return "PASS"
+            else:
+                return "FAIL"
+
+    except FileNotFoundError as error:
+        return error.output
+    except Exception as error:
+        return error.output
 
 
 def file_exists(path):
@@ -60,7 +75,6 @@ def get_gid(group_name):
     except KeyError as error:
         return error
     except Exception as error:
-        # click.echo(error)
         return error.output
 
 
@@ -70,10 +84,6 @@ def get_permissions(path):
         octal_permissions = oct(st.st_mode & 0o777)
         return octal_permissions[-3:]
     except FileNotFoundError as error:
-        # click.echo(error)
         return error.output
     except Exception as error:
-        # click.echo(error)
         return error.output
-        # click.echo(f"{path} does not exist")
-        # return f"{path} does not exist"

@@ -95,10 +95,50 @@ def check_file(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_file = config[category][sub_category][check]["file"]
     check_setting = config[category][sub_category][check]["setting"]
-    click.echo(f"check name: {check_name}")
-    click.echo(f"file: {check_file}")
-    click.echo(f"setting: {check_setting}")
-    run_grep(check_file, check_setting)
+    # click.echo(f"check name: {check_name}")
+    # click.echo(f"file: {check_file}")
+    # click.echo(f"setting: {check_setting}")
+    result = run_grep(check_file, check_setting)
+
+    if result:
+        # click.echo(f"result: {result}")
+
+        if check_setting == "review":
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="REVIEW",
+                status_color="bright_yellow",
+                log_level="info",
+            )
+
+        elif result == "PASS":
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="PASS",
+                status_color="bright_green",
+                log_level="info",
+            )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+    else:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="error",
+        )
+        log_status(
+            f"- [CHECK] - {check_name}: {check_file}", log_level="error", log_only=True
+        )
 
 
 def check_package(config, category, sub_category, check):
