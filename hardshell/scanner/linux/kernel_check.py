@@ -96,7 +96,7 @@ def kernel_denied(config, category, sub_category, check):
             )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: ALLOWED",
+                " " * 4 + f"- [CHECK] - {check_name}: DENIED",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
