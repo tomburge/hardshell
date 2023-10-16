@@ -112,20 +112,20 @@ def scan_checks(mode, config, category, sub_category):
             # }
 
             kernel = [
-                "filesystem",
-                "module",
-                "parameter",
-                "network",
+                # "filesystem",
+                # "module",
+                # "parameter",
+                # "network",
             ]
 
             system = [
-                "aide",
-                "audit",
-                "banner",
-                "cron",
+                # "aide",
+                # "audit",
+                # "banner",
+                # "cron",
                 "pam",
-                "ssh",
-                "sudo",  # "storage"
+                # "ssh",
+                # "sudo",  # "storage"
             ]
 
             if sub_category in kernel:

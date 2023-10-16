@@ -19,7 +19,7 @@ def run_command(command):
         return result.stdout
     except subprocess.CalledProcessError as error:
         # click.echo(f"sp error: {error}")
-        click.echo(f"sp error returncode: {error.returncode}")
+        # click.echo(f"sp error returncode: {error.returncode}")
         # click.echo(f"sp error cmd: {error.cmd}")
         # click.echo(f"sp error stderr: {error.stderr}")
         # click.echo(f"sp error output: {error.output}")
@@ -30,7 +30,7 @@ def run_command(command):
 
     except Exception as error:
         # click.echo(f"error: {error}")
-        click.echo(f"error returncode: {error.returncode}")
+        # click.echo(f"error returncode: {error.returncode}")
         # click.echo(f"error cmd: {error.cmd}")
         # click.echo(f"error stderr: {error.stderr}")
         # click.echo(f"error output: {error.output}")
@@ -38,6 +38,13 @@ def run_command(command):
         # click.echo(f"error output type: {type(error.output)}")
         return error.with_traceback()
         # return error.output
+
+
+def run_grep(file, setting):
+    if os.path.exists(file):
+        click.echo("file exists")
+
+    click.echo("does not exist")
 
 
 def file_exists(path):

@@ -4,7 +4,12 @@ from pathlib import Path
 
 import click
 
-from hardshell.scanner.linux.common import file_exists, get_permissions, run_command
+from hardshell.scanner.linux.common import (
+    file_exists,
+    get_permissions,
+    run_command,
+    run_grep,
+)
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
@@ -31,16 +36,14 @@ def check_command(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_cmd = config[category][sub_category][check]["command"]
     check_setting = config[category][sub_category][check]["setting"]
-    click.echo(f"check name: {check_name}")
-    click.echo(f"check cmd: {check_cmd}")
-    click.echo(f"check setting: {check_setting}")
+    # click.echo(f"check name: {check_name}")
+    # click.echo(f"check cmd: {check_cmd}")
+    # click.echo(f"check setting: {check_setting}")
 
     result = run_command(check_cmd)
 
-    click.echo(f"result: {result}")
-
     if result:
-        click.echo(f"result: {result}")
+        # click.echo(f"result: {result}")
 
         if check_setting == "review":
             log_status(
@@ -86,6 +89,16 @@ def check_command(config, category, sub_category, check):
         log_status(
             f"- [CHECK] - {check_name}: {check_cmd}", log_level="error", log_only=True
         )
+
+
+def check_file(config, category, sub_category, check):
+    check_name = config[category][sub_category][check]["check_name"]
+    check_file = config[category][sub_category][check]["file"]
+    check_setting = config[category][sub_category][check]["setting"]
+    click.echo(f"check name: {check_name}")
+    click.echo(f"file: {check_file}")
+    click.echo(f"setting: {check_setting}")
+    run_grep(check_file, check_setting)
 
 
 def check_package(config, category, sub_category, check):
@@ -323,6 +336,12 @@ def scan_system(mode, config, category, sub_category, check):
                 # click.echo(f"check name: {check_name}")
                 # click.echo(f"check type: {check_type}")
                 check_permissions(config, category, sub_category, check)
+
+            elif check_type == "grep_file":
+                # pass
+                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check type: {check_type}")
+                check_file(config, category, sub_category, check)
 
             elif check_type == "keys":
                 # pass

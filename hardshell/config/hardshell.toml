@@ -1247,8 +1247,8 @@ check_id = "L-SYSTEM-PAM-001"
 check_name = "Password Minimum Length Configured"
 check_skip = false
 check_set = true
-check_type = "command"
-command = "grep ^minlen /etc/security/pwquality.conf"
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
 setting = "minlen = 14"
 cis = "level-1"
 disa = ""
@@ -1272,8 +1272,8 @@ check_id = "L-SYSTEM-PAM-001"
 check_name = "Password Minimum Class Configured"
 check_skip = false
 check_set = true
-check_type = "command"
-command = "grep ^minclass /etc/security/pwquality.conf"
+check_type = "grep_file"
+file = "/etc/security/pwquality.conf"
 setting = "minclass = 4"
 cis = "level-1"
 disa = ""
