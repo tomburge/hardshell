@@ -43,8 +43,8 @@ def run_command(command):
 def run_grep(file, setting):
     if os.path.exists(file):
         click.echo("file exists")
-
-    click.echo("does not exist")
+    else:
+        click.echo("does not exist")
 
 
 def file_exists(path):
