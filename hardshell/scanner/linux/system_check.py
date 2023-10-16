@@ -31,9 +31,9 @@ def check_command(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     check_cmd = config[category][sub_category][check]["command"]
     check_setting = config[category][sub_category][check]["setting"]
-    # click.echo(f"check name: {check_name}")
-    # click.echo(f"check cmd: {check_cmd}")
-    # click.echo(f"check setting: {check_setting}")
+    click.echo(f"check name: {check_name}")
+    click.echo(f"check cmd: {check_cmd}")
+    click.echo(f"check setting: {check_setting}")
 
     result = run_command(check_cmd)
 
