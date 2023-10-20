@@ -388,10 +388,10 @@ def check_regex(config, category, sub_category, check):
     pattern = config[category][sub_category][check]["pattern"]
     setting = config[category][sub_category][check]["setting"]
 
-    # click.echo(name)
-    # click.echo(file)
-    # click.echo(pattern)
-    # click.echo(setting)
+    click.echo(name)
+    click.echo(file)
+    click.echo(pattern)
+    click.echo(setting)
 
     # result, message = run_regex("/etc/ssh/sshd_config", pattern)
     result = run_regex(file, pattern)
