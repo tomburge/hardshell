@@ -381,21 +381,38 @@ def check_regex(config, category, sub_category, check):
     pattern = config[category][sub_category][check]["pattern"]
     setting = config[category][sub_category][check]["setting"]
 
-    # result = run_regex(file, pattern)
-
-    # click.echo(file1)
-    # click.echo(file2)
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
-    # click.echo(files1)
-    # click.echo(files2)
-
     all_files = files1 + files2
 
     for f in all_files:
-        print(f)
         result = run_regex(f, pattern)
         click.echo(result)
+
+        if result == True:
+            log_status(
+                " " * 4 + f"- [CHECK] - {name}",
+                message_color="blue",
+                status="PASS",
+                status_color="bright_green",
+                log_level="info",
+            )
+        elif result == False:
+            log_status(
+                " " * 4 + f"- [CHECK] - {name}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {name}",
+                message_color="blue",
+                status="ERROR",
+                status_color="bright_red",
+                log_level="error",
+            )
 
 
 def check_service(config, category, sub_category, check):
