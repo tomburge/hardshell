@@ -114,36 +114,11 @@ def get_permissions(path):
 
 
 def run_regex(file, pattern):
-    # click.echo(file)
-    # click.echo(pattern)
-    # with open(file, "r") as file:
-    #     for line_num, line in enumerate(file, 1):
-    #         if re.match(pattern, line.strip()):
-    #             return True
-    #         else:
-    #             return False
-    test_string = [
-        " AllowTcpForwarding no",
-        "AllowTcpForwarding yes",
-        "Banner /etc/issue.net",
-        "Banner /etc/issue.net",
-        "HostbasedAuthentication no",
-        "HostbasedAuthentication yes",
-        "IgnoreRhosts yes",
-        "IgnoreRhosts no",
-        "PermitEmptyPasswords no",
-        "PermitEmptyPasswords yes",
-        "PermitRootLogin no",
-        "PermitRootLogin yes",
-        "PermitUserEnvironment no",
-        "PermitUserEnvironment yes",
-        "UsePAM yes",
-        "UsePAM no",
-        "X11Forwarding no",
-        "X11Forwarding yes",
-    ]
-
-    for test in test_string:
-        print(test)
-        print(pattern)
-        print(re.match(pattern, test))
+    click.echo(file)
+    click.echo(pattern)
+    with open(file, "r") as file:
+        for line_num, line in enumerate(file, 1):
+            if re.match(pattern, line.strip()):
+                return True
+            else:
+                return False

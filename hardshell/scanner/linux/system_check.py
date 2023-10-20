@@ -1,3 +1,4 @@
+import codecs
 import os
 import subprocess
 from pathlib import Path
@@ -381,7 +382,9 @@ def check_regex(config, category, sub_category, check):
 
     name = config[category][sub_category][check]["name"]
     file = config[category][sub_category][check]["file"]
-    pattern = config[category][sub_category][check]["pattern"]
+    pattern = codecs.decode(
+        config[category][sub_category][check]["pattern"], "unicode_escape"
+    )
     setting = config[category][sub_category][check]["setting"]
 
     # click.echo(name)

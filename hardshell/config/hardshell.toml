@@ -1805,7 +1805,8 @@ skip = false
 set = true
 type = "regex"
 file = "/etc/ssh/sshd_config"
-pattern = "^\s*(?i:Banner)[ \t]*/etc/issue\\.net\b"# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
+pattern = "^\\s*(?i:Banner)[ \t]*/etc/issue\\.net\b"
 setting = "Banner /etc/issue.net"
 cis = "level-1"
 disa = ""
