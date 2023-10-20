@@ -1607,7 +1607,7 @@ source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
 id = "L-SYSTEM-SSH-001"
-name = "SSH Access Limited"
+name = "SSH Access Limited (FIX)"
 skip = false
 set = true
 type = "command"
@@ -1627,10 +1627,8 @@ name = "SSH LogLevel"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
 pattern = "^\\s*(?i:LogLevel)\\s+(VERBOSE|INFO)\\b"
-setting = "LogLevel INFO"                           # loglevel INFO or loglevel VERBOSE
+setting = "LogLevel INFO"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.006']
@@ -1645,8 +1643,6 @@ name = "SSH PAM"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
 pattern = "^\\s*(?i:UsePAM)\\s+yes\\b"
 setting = "UsePAM yes"
 cis = "level-1"
@@ -1663,8 +1659,6 @@ name = "SSH Root Login"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
 pattern = "^\\s*(?i:PermitRootLogin)\\s+no\\b"
 setting = "PermitRootLogin no"
 cis = "level-1"
@@ -1681,8 +1675,6 @@ name = "SSH Host Based Auth"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
 pattern = "^\\s*(?i:HostbasedAuthentication)\\s+no\\b"
 setting = "HostbasedAuthentication no"
 cis = "level-1"
@@ -1699,8 +1691,6 @@ name = "SSH Permit Empty Passwords"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitemptypasswords"
 pattern = "^\\s*(?i:PermitEmptyPasswords)\\s+no\\b"
 setting = "PermitEmptyPasswords no"
 cis = "level-1"
@@ -1717,8 +1707,6 @@ name = "SSH Permit User Environment"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permituserenvironment"
 pattern = "^\\s*(?i:PermitUserEnvironment)\\s+no\\b"
 setting = "PermitUserEnvironment no"
 cis = "level-1"
@@ -1735,8 +1723,6 @@ name = "SSH Ignore Rhosts"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep ignorerhosts"
 pattern = "^\\s*(?i:IgnoreRhosts)\\s+yes\\b"
 setting = "IgnoreRhosts yes"
 cis = "level-1"
@@ -1753,8 +1739,6 @@ name = "SSH X11 Forwarding"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i x11forwarding"
 pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
 setting = "X11Forwarding no"
 cis = "level-2"
@@ -1771,8 +1755,6 @@ name = "SSH Allow TCP Forwarding"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i allowtcpforwarding"
 pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
 setting = "AllowTcpForwarding no"
 cis = "level-2"
@@ -1805,8 +1787,6 @@ name = "SSH Warning Banner"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
 pattern = "^\\s*(?i:Banner)\\s+/etc/issue\\.net\\b"
 setting = "Banner /etc/issue.net"
 cis = "level-1"
@@ -1823,8 +1803,6 @@ name = "SSH Max Auth Retries 4 or Less"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep maxauthtries"
 pattern = "^(?i:MaxAuthTries)\\s+([1-4])\\b"
 setting = "MaxAuthTries 4"
 cis = "level-1"
@@ -1841,8 +1819,6 @@ name = "SSH Max Startups"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxstartups"
 pattern = "^(?i:MaxStartups)\\s+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\\b"
 setting = "MaxStartups 10:30:60"
 cis = "level-1"
@@ -1859,8 +1835,6 @@ name = "SSH Max Sessions 10 or Less"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxsessions"
 pattern = "^(?i:MaxSessions)\\s+([1-9]|10)\\b"
 setting = "MaxSessions 10"
 cis = "level-1"
@@ -1877,8 +1851,6 @@ name = "SSH Login Grace Time 1 min or Less"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep logingracetime"
 pattern = "^(?i:LoginGraceTime)\\s+([1-9]|[1-5][0-9]|60)\\b"
 setting = "LoginGraceTime 60"
 cis = "level-1"
@@ -1895,8 +1867,6 @@ name = "SSH Idle Timeout Interval"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientaliveinterval"
 pattern = "^\\s*(?i:ClientAliveInterval)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveInterval 15"
 cis = "level-1"
@@ -1913,8 +1883,6 @@ name = "SSH Idle Timeout Max"
 skip = false
 set = true
 type = "regex"
-file = "/etc/ssh/sshd_config"
-# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientalivecountmax"
 pattern = "^\\s*(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveCountMax 3"
 cis = "level-1"

@@ -390,7 +390,7 @@ def check_regex(config, category, sub_category, check):
 
         if result == True:
             log_status(
-                " " * 4 + f"- [CHECK] - {name}",
+                " " * 4 + f"- [CHECK] - {name}: {f}",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
@@ -398,7 +398,7 @@ def check_regex(config, category, sub_category, check):
             )
         elif result == False:
             log_status(
-                " " * 4 + f"- [CHECK] - {name}",
+                " " * 4 + f"- [CHECK] - {name}: {f}",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -406,7 +406,7 @@ def check_regex(config, category, sub_category, check):
             )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {name}",
+                " " * 4 + f"- [CHECK] - {name}: {f}",
                 message_color="blue",
                 status="ERROR",
                 status_color="bright_red",
