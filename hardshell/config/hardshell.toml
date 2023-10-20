@@ -1628,8 +1628,8 @@ set = true
 type = "regex"
 file = "/etc/ssh/sshd_config"
 # command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
-pattern = "^\\s*(?i:LogLevel)[ \t]+(VERBOSE|INFO)\b"
-setting = "LogLevel INFO"                            # loglevel INFO or loglevel VERBOSE
+pattern = "^\\s*(?i:LogLevel)[ ]+(VERBOSE|INFO)\b"
+setting = "LogLevel INFO"                           # loglevel INFO or loglevel VERBOSE
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.006']
