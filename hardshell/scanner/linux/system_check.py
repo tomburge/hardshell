@@ -382,9 +382,10 @@ def check_regex(config, category, sub_category, check):
 
     name = config[category][sub_category][check]["name"]
     file = config[category][sub_category][check]["file"]
-    pattern = codecs.decode(
-        config[category][sub_category][check]["pattern"], "unicode_escape"
-    )
+    # pattern = codecs.decode(
+    #     config[category][sub_category][check]["pattern"], "unicode_escape"
+    # )
+    pattern = config[category][sub_category][check]["pattern"], "unicode_escape"
     setting = config[category][sub_category][check]["setting"]
 
     # click.echo(name)
