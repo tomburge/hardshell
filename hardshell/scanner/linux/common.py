@@ -142,6 +142,8 @@ def run_regex(file, pattern):
         "X11Forwarding no",
         "X11Forwarding yes",
     ]
-    print(pattern)
+
     for test in test_string:
+        print(test)
+        print(pattern)
         print(re.match(pattern, test))
