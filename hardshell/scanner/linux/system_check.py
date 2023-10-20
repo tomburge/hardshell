@@ -387,7 +387,6 @@ def check_regex(config, category, sub_category, check):
 
     for f in all_files:
         result = run_regex(f, pattern)
-        click.echo(result)
 
         if result == True:
             log_status(
