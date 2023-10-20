@@ -394,6 +394,8 @@ def check_regex(config, category, sub_category, check):
 
     for f in all_files:
         print(f)
+        result = run_regex(f, pattern)
+        click.echo(result)
 
 
 def check_service(config, category, sub_category, check):
