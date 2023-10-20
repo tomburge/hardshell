@@ -129,14 +129,24 @@ def get_permissions(path):
 #     return False  # Return False if no matches after iterating through the file
 
 
-def run_regex(file, pattern):
-    click.echo(file)
-    click.echo(pattern)
-    pattern = pattern.replace("\\\\", "\\")
-    click.echo(pattern)
-    with open(file, "r") as file:
+def run_regex(file_path, pattern):
+    with open(file_path, "r") as file:
         for line_num, line in enumerate(file, 1):
-            if re.match(pattern, line.strip()):
-                return True
-            else:
-                return False
+            stripped_line = line.strip()
+            match = re.match(pattern, stripped_line)
+            if match:
+                return True, f"Matched line {line_num}: {stripped_line}"
+    return False, "No match found."
+
+
+# def run_regex(file, pattern):
+#     click.echo(file)
+#     click.echo(pattern)
+#     pattern = pattern.replace("\\\\", "\\")
+#     click.echo(pattern)
+#     with open(file, "r") as file:
+#         for line_num, line in enumerate(file, 1):
+#             if re.match(pattern, line.strip()):
+#                 return True
+#             else:
+#                 return False

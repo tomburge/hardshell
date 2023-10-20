@@ -393,9 +393,11 @@ def check_regex(config, category, sub_category, check):
     # click.echo(pattern)
     # click.echo(setting)
 
-    result = run_regex(file, pattern)
+    result, message = run_regex("/etc/ssh/sshd_config", pattern)
+    # result = run_regex(file, pattern)
 
     click.echo(result)
+    click.echo(message)
 
 
 def check_service(config, category, sub_category, check):
