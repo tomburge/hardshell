@@ -7,8 +7,10 @@ import click
 from hardshell.scanner.linux.common import (
     file_exists,
     get_permissions,
+    grep_directory,
+    grep_file,
     run_command,
-    run_grep,
+    run_regex,
 )
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
@@ -33,38 +35,38 @@ def check_pkg_mgr(config, os_info):
 
 # Audit Functions
 def check_command(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
-    check_cmd = config[category][sub_category][check]["command"]
-    check_setting = config[category][sub_category][check]["setting"]
-    # click.echo(f"check name: {check_name}")
-    # click.echo(f"check cmd: {check_cmd}")
-    # click.echo(f"check setting: {check_setting}")
+    name = config[category][sub_category][check]["name"]
+    cmd = config[category][sub_category][check]["command"]
+    setting = config[category][sub_category][check]["setting"]
+    # click.echo(f"check name: {name}")
+    # click.echo(f"check cmd: {cmd}")
+    # click.echo(f"check setting: {setting}")
 
-    result = run_command(check_cmd)
+    result = run_command(cmd)
 
     if result:
         # click.echo(f"result: {result}")
 
-        if check_setting == "review":
+        if setting == "review":
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="REVIEW",
                 status_color="bright_yellow",
                 log_level="info",
             )
 
-        elif check_setting.lower() in result.lower():
+        elif setting.lower() in result.lower():
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
                 log_level="info",
             )
-        elif check_setting not in result or result == False:
+        elif setting not in result or result == False:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -72,7 +74,7 @@ def check_command(config, category, sub_category, check):
             )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -80,15 +82,71 @@ def check_command(config, category, sub_category, check):
             )
     else:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: {check_setting}",
+            " " * 4 + f"- [CHECK] - {name}",
             message_color="blue",
             status="ERROR",
             status_color="bright_red",
             log_level="error",
         )
-        log_status(
-            f"- [CHECK] - {check_name}: {check_cmd}", log_level="error", log_only=True
-        )
+        log_status(f"- [CHECK] - {name}: {cmd}", log_level="error", log_only=True)
+
+
+def check_directory(config, category, sub_category, check):
+    name = config[category][sub_category][check]["name"]
+    directory = config[category][sub_category][check]["default_directory"]
+    file = config[category][sub_category][check]["default_file"]
+    setting1 = config[category][sub_category][check]["setting1"]
+    setting2 = config[category][sub_category][check]["setting2"]
+
+    # click.echo(f"check name: {name}")
+    # click.echo(f"check directory: {directory}")
+    # click.echo(f"check file: {file}")
+    # click.echo(f"check setting1: {setting1}")
+    # click.echo(f"check setting2: {setting2}")
+
+    try:
+        result = grep_directory(directory, file, setting1, setting2)
+
+        # click.echo(f"result: {result}")
+
+        if result:
+            # click.echo(f"result: {result}")
+
+            if setting1 == "review" or setting2 == "review":
+                log_status(
+                    " " * 4 + f"- [CHECK] - {name}",
+                    message_color="blue",
+                    status="REVIEW",
+                    status_color="bright_yellow",
+                    log_level="info",
+                )
+
+            elif result == "PASS":
+                log_status(
+                    " " * 4 + f"- [CHECK] - {name}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            elif result == "ERROR":
+                log_status(
+                    " " * 4 + f"- [CHECK] - {name}",
+                    message_color="blue",
+                    status="ERROR",
+                    status_color="bright_red",
+                    log_level="error",
+                )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {name}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+    except Exception as error:
+        click.echo(error)
 
 
 def check_file(config, category, sub_category, check):
@@ -97,23 +155,23 @@ def check_file(config, category, sub_category, check):
         os_info["id"] == "ubuntu"
         and "ubuntu_file" in config[category][sub_category][check]
     ):
-        grep_file = config[category][sub_category][check]["ubuntu_file"]
+        file = config[category][sub_category][check]["ubuntu_file"]
     else:
-        grep_file = config[category][sub_category][check]["default_file"]
+        file = config[category][sub_category][check]["default_file"]
 
-    check_name = config[category][sub_category][check]["check_name"]
-    check_setting = config[category][sub_category][check]["setting"]
+    name = config[category][sub_category][check]["name"]
+    setting = config[category][sub_category][check]["setting"]
 
-    # click.echo(f"check name: {check_name}")
-    # click.echo(f"check file: {grep_file}")
-    # click.echo(f"check setting: {check_setting}")
+    # click.echo(f"check name: {name}")
+    # click.echo(f"check file: {file}")
+    # click.echo(f"check setting: {setting}")
 
-    result = run_grep(grep_file, check_setting)
+    result = grep_file(file, setting)
 
     if result:
-        if check_setting == "review":
+        if setting == "review":
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="REVIEW",
                 status_color="bright_yellow",
@@ -122,7 +180,7 @@ def check_file(config, category, sub_category, check):
 
         elif result == "PASS":
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}",
+                " " * 4 + f"- [CHECK] - {name}",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
@@ -130,7 +188,7 @@ def check_file(config, category, sub_category, check):
             )
     else:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}",
+            " " * 4 + f"- [CHECK] - {name}",
             message_color="blue",
             status="FAIL",
             status_color="bright_red",
@@ -146,8 +204,8 @@ def check_package(config, category, sub_category, check):
     pkg_mgr = check_pkg_mgr(config, os_info)
 
     try:
-        check_name = config[category][sub_category][check]["check_name"]
-        pkg_name = config[category][sub_category][check]["check_name"]
+        name = config[category][sub_category][check]["name"]
+        pkg_name = config[category][sub_category][check]["name"]
         cmd = config["global"]["pkg_mgr"][pkg_mgr]["installed"].copy()
         if cmd:
             cmd.append(pkg_name)
@@ -158,7 +216,7 @@ def check_package(config, category, sub_category, check):
             log_level = "info" if status == "PASS" else "error"
 
             log_status(
-                " " * 4 + f"- [CHECK] - Package {check_name}: INSTALLED",
+                " " * 4 + f"- [CHECK] - Package {name}: INSTALLED",
                 message_color="blue",
                 status=status,
                 status_color=status_color,
@@ -175,23 +233,22 @@ def check_package(config, category, sub_category, check):
 
 def check_permissions(config, category, sub_category, check):
     try:
-        check_name = config[category][sub_category][check]["check_name"]
-        check_path = config[category][sub_category][check]["path"]
-        check_permissions = config[category][sub_category][check]["permissions"]
-        check_owner = config[category][sub_category][check]["owner"]
-        check_group = config[category][sub_category][check]["group"]
+        name = config[category][sub_category][check]["name"]
+        path = config[category][sub_category][check]["path"]
+        permissions = config[category][sub_category][check]["permissions"]
+        owner = config[category][sub_category][check]["owner"]
+        group = config[category][sub_category][check]["group"]
 
-        file_true = file_exists(check_path)
+        file_true = file_exists(path)
 
         if file_true:
-            permissions = get_permissions(check_path)
-            owner = str(os.stat(check_path).st_uid)
-            group = str(os.stat(check_path).st_gid)
+            permissions = get_permissions(path)
+            owner = str(os.stat(path).st_uid)
+            group = str(os.stat(path).st_gid)
 
-            if permissions == check_permissions:
+            if permissions == permissions:
                 log_status(
-                    " " * 4
-                    + f"- [CHECK] - {check_name} Permissions: {check_permissions}",
+                    " " * 4 + f"- [CHECK] - {name} Permissions: {permissions}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -199,16 +256,15 @@ def check_permissions(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4
-                    + f"- [CHECK] - {check_name} Permissions: {check_permissions}",
+                    " " * 4 + f"- [CHECK] - {name} Permissions: {permissions}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
-            if owner == check_owner:
+            if owner == owner:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {check_owner}",
+                    " " * 4 + f"- [CHECK] - {name} Owner: {owner}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -216,15 +272,15 @@ def check_permissions(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {check_owner}",
+                    " " * 4 + f"- [CHECK] - {name} Owner: {owner}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
-            if group == check_group:
+            if group == group:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {check_group}",
+                    " " * 4 + f"- [CHECK] - {name} Group: {group}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -232,7 +288,7 @@ def check_permissions(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {check_group}",
+                    " " * 4 + f"- [CHECK] - {name} Group: {group}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
@@ -240,7 +296,7 @@ def check_permissions(config, category, sub_category, check):
                 )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: File Not Found",
+                " " * 4 + f"- [CHECK] - {name}: File Not Found",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -251,25 +307,24 @@ def check_permissions(config, category, sub_category, check):
 
 
 def check_keys(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
-    check_file_type = config[category][sub_category][check]["check_file_type"]
-    check_path = Path(config[category][sub_category][check]["path"])
-    check_permissions = config[category][sub_category][check]["permissions"]
-    check_owner = config[category][sub_category][check]["owner"]
-    check_group = config[category][sub_category][check]["group"]
-    for file in check_path.glob("**/*"):
+    name = config[category][sub_category][check]["name"]
+    file_type = config[category][sub_category][check]["file_type"]
+    path = Path(config[category][sub_category][check]["path"])
+    permissions = config[category][sub_category][check]["permissions"]
+    owner = config[category][sub_category][check]["owner"]
+    group = config[category][sub_category][check]["group"]
+    for file in path.glob("**/*"):
         if not file.is_file():
             continue
-        file_info = subprocess.check_output(["file", str(file)], text=True)
-        if check_file_type in file_info:
-            permissions = get_permissions(check_path)
+        file_info = subprocess.output(["file", str(file)], text=True)
+        if file_type in file_info:
+            permissions = get_permissions(path)
             owner = str(os.stat(file).st_uid)
             group = str(os.stat(file).st_gid)
 
-            if permissions == check_permissions:
+            if permissions == permissions:
                 log_status(
-                    " " * 4
-                    + f"- [CHECK] - {check_name} Permissions: {check_permissions}",
+                    " " * 4 + f"- [CHECK] - {name} Permissions: {permissions}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -277,17 +332,16 @@ def check_keys(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4
-                    + f"- [CHECK] - {check_name} Permissions: {check_permissions}",
+                    " " * 4 + f"- [CHECK] - {name} Permissions: {permissions}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
 
-            if owner == check_owner:
+            if owner == owner:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {check_owner}",
+                    " " * 4 + f"- [CHECK] - {name} Owner: {owner}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -295,15 +349,15 @@ def check_keys(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {check_owner}",
+                    " " * 4 + f"- [CHECK] - {name} Owner: {owner}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
-            if group == check_group:
+            if group == group:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {check_group}",
+                    " " * 4 + f"- [CHECK] - {name} Group: {group}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -311,29 +365,50 @@ def check_keys(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {check_group}",
+                    " " * 4 + f"- [CHECK] - {name} Group: {group}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
+
+
+def check_regex(config, category, sub_category, check):
+    # click.echo(config)
+    # click.echo(category)
+    # click.echo(sub_category)
+    # click.echo(check)
+
+    name = config[category][sub_category][check]["name"]
+    file = config[category][sub_category][check]["file"]
+    pattern = config[category][sub_category][check]["pattern"]
+    setting = config[category][sub_category][check]["setting"]
+
+    # click.echo(name)
+    # click.echo(file)
+    # click.echo(pattern)
+    # click.echo(setting)
+
+    result = run_regex(file, pattern)
+
+    click.echo(result)
 
 
 def check_service(config, category, sub_category, check):
     try:
-        check_name = config[category][sub_category][check]["check_name"]
+        name = config[category][sub_category][check]["name"]
         svc_name = config[category][sub_category][check]["svc_name"]
         svc_enabled = config["global"]["commands"]["svc_enabled"].copy()
         svc_status = config["global"]["commands"]["svc_status"].copy()
     except KeyError as error:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+            " " * 4 + f"- [CHECK] - {name} Service Enabled: {svc_name}",
             message_color="blue",
             status="ERROR",
             status_color="bright_red",
             log_level="error",
         )
-        log_status(f"- [CHECK] - {check_name}: {error}", log_level="error", log_only=True)
+        log_status(f"- [CHECK] - {name}: {error}", log_level="error", log_only=True)
 
     svc_enabled.append(svc_name)
 
@@ -344,7 +419,7 @@ def check_service(config, category, sub_category, check):
     log_level = "info" if status == "PASS" else "error"
 
     log_status(
-        " " * 4 + f"- [CHECK] - {check_name} Service Enabled: {svc_name}",
+        " " * 4 + f"- [CHECK] - {name} Service Enabled: {svc_name}",
         message_color="blue",
         status=status,
         status_color=status_color,
@@ -358,43 +433,55 @@ def check_service(config, category, sub_category, check):
 # Scan Function
 def scan_system(mode, config, category, sub_category, check):
     try:
-        os_info = detect_os()
-        check_name = config[category][sub_category][check]["check_name"]
-        check_type = config[category][sub_category][check]["check_type"]
+        # os_info = detect_os()
+        name = config[category][sub_category][check]["name"]
+        check_type = config[category][sub_category][check]["type"]
         if mode == "audit":
             if check_type == "command":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_command(config, category, sub_category, check)
 
-            elif check_type == "dir" or check_type == "file":
+            elif check_type == "dir" or type == "file":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_permissions(config, category, sub_category, check)
 
+            elif check_type == "grep_directory":
+                # pass
+                # click.echo(f"check name: {name}")
+                # click.echo(f"check type: {check_type}")
+                check_directory(config, category, sub_category, check)
+
             elif check_type == "grep_file":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_file(config, category, sub_category, check)
 
             elif check_type == "keys":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_keys(config, category, sub_category, check)
 
             elif check_type == "package":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_package(config, category, sub_category, check)
 
+            elif check_type == "regex":
+                # pass
+                # click.echo(f"check name: {name}")
+                # click.echo(f"check type: {check_type}")
+                check_regex(config, category, sub_category, check)
+
             elif check_type == "service":
                 # pass
-                # click.echo(f"check name: {check_name}")
+                # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
                 check_service(config, category, sub_category, check)
 

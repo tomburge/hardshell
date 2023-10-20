@@ -44,8 +44,8 @@ def add_to_dd_report(config, **kwargs):
                     status = kwargs["status"]
                     current_check = config[category][sub_category][check]
                     dd_report[os_info["id"]][category][sub_category][check][
-                        "check_id"
-                    ] = current_check["check_id"]
+                        "id"
+                    ] = current_check["id"]
                     dd_report[os_info["id"]][category][sub_category][check][
                         "status"
                     ] = status

@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 
 import click
@@ -40,10 +41,35 @@ def run_command(command):
         # return error.output
 
 
-def run_grep(file, setting):
+def grep_directory(directory, file, setting1, setting2):
+    # click.echo(f"check directory: {directory}")
+    # click.echo(f"check file: {file}")
+    # click.echo(f"check setting1: {setting1}")
+    # click.echo(f"check setting2: {setting2}")
+    for dirpath, _, filenames in os.walk(directory):
+        for filename in filenames:
+            if filename.startswith(file):
+                filepath = os.path.join(dirpath, filename)
+                try:
+                    with open(filepath, "r", errors="ignore") as file:
+                        lines = file.readlines()
+
+                        for line in lines:
+                            if line.startswith("#"):
+                                continue
+
+                            if setting1 in line and setting2 in line:
+                                return "PASS"
+                except PermissionError as error:
+                    # click.echo(f"error: {error}")
+                    # click.echo(f"error stderr: {error.strerror}")
+                    return "ERROR"
+                except Exception as error:
+                    return "ERROR"
+
+
+def grep_file(file, setting):
     try:
-        # if os.path.exists(file):
-        #     pass
         with open(file, "r") as file:
             lines = file.readlines()
 
@@ -85,3 +111,12 @@ def get_permissions(path):
         return error.output
     except Exception as error:
         return error.output
+
+
+def run_regex(file, pattern):
+    with open(file, "r") as file:
+        for line_num, line in enumerate(file, 1):
+            if re.match(pattern, line.strip()):
+                return True
+            else:
+                return False

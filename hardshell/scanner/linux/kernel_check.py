@@ -25,13 +25,13 @@ def kernel_loaded(config, category, sub_category, check):
         print(loaded)
     """
     try:
-        check_name = config[category][sub_category][check]["check_name"]
+        name = config[category][sub_category][check]["name"]
 
-        loaded = subprocess.getoutput(f"lsmod | grep {check_name}")
+        loaded = subprocess.getoutput(f"lsmod | grep {name}")
 
         if not loaded:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: UNLOADED",
+                " " * 4 + f"- [CHECK] - {name}: UNLOADED",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
@@ -39,7 +39,7 @@ def kernel_loaded(config, category, sub_category, check):
             )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: LOADED",
+                " " * 4 + f"- [CHECK] - {name}: LOADED",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -48,14 +48,14 @@ def kernel_loaded(config, category, sub_category, check):
 
     except Exception as error:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: ERROR",
+            " " * 4 + f"- [CHECK] - {name}: ERROR",
             message_color="blue",
             status="ERROR",
             status_color="bright_red",
             log_level="error",
         )
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: {error}",
+            " " * 4 + f"- [CHECK] - {name}: {error}",
             log_level="error",
             log_only=True,
         )
@@ -77,18 +77,14 @@ def kernel_denied(config, category, sub_category, check):
         print(deny)
     """
     try:
-        check_name = config[category][sub_category][check]["check_name"]
+        name = config[category][sub_category][check]["name"]
         result = subprocess.run(
             ["modprobe", "--showconfig"], check=True, capture_output=True, text=True
         )
-        deny = [
-            line
-            for line in result.stdout.split("\n")
-            if f"blacklist {check_name}" in line
-        ]
+        deny = [line for line in result.stdout.split("\n") if f"blacklist {name}" in line]
         if deny:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: DENIED",
+                " " * 4 + f"- [CHECK] - {name}: DENIED",
                 message_color="blue",
                 status="PASS",
                 status_color="bright_green",
@@ -96,7 +92,7 @@ def kernel_denied(config, category, sub_category, check):
             )
         else:
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: DENIED",
+                " " * 4 + f"- [CHECK] - {name}: DENIED",
                 message_color="blue",
                 status="FAIL",
                 status_color="bright_red",
@@ -105,7 +101,7 @@ def kernel_denied(config, category, sub_category, check):
     except subprocess.CalledProcessError:
         deny = []
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: ERROR",
+            " " * 4 + f"- [CHECK] - {name}: ERROR",
             message_color="blue",
             status="ERROR",
             status_color="bright_red",
@@ -129,7 +125,7 @@ def kernel_parameter(config, category, sub_category, check):
         print(param)
     """
     try:
-        check_name = config[category][sub_category][check]["check_name"]
+        name = config[category][sub_category][check]["name"]
         setting = config[category][sub_category][check]["setting"]
 
         log_status("---", log_level="info", log_only=True)
@@ -153,7 +149,7 @@ def kernel_parameter(config, category, sub_category, check):
                 current_value = result.stdout.split("=")[1].strip()
                 if current_value == param_value:
                     log_status(
-                        " " * 4 + f"- [CHECK] - {check_name}",
+                        " " * 4 + f"- [CHECK] - {name}",
                         message_color="blue",
                         status="PASS",
                         status_color="bright_green",
@@ -161,7 +157,7 @@ def kernel_parameter(config, category, sub_category, check):
                     )
                 else:
                     log_status(
-                        " " * 4 + f"- [CHECK] - {check_name}",
+                        " " * 4 + f"- [CHECK] - {name}",
                         message_color="blue",
                         status="FAIL",
                         status_color="bright_red",
@@ -169,7 +165,7 @@ def kernel_parameter(config, category, sub_category, check):
                     )
             except subprocess.CalledProcessError as error:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name}",
+                    " " * 4 + f"- [CHECK] - {name}",
                     message_color="blue",
                     status="ERROR",
                     status_color="bright_red",
@@ -182,14 +178,14 @@ def kernel_parameter(config, category, sub_category, check):
                 )
     except Exception as error:
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: ERROR",
+            " " * 4 + f"- [CHECK] - {name}: ERROR",
             message_color="blue",
             status="ERROR",
             status_color="bright_red",
             log_level="error",
         )
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: {error}",
+            " " * 4 + f"- [CHECK] - {name}: {error}",
             log_level="error",
             log_only=True,
         )
@@ -197,19 +193,17 @@ def kernel_parameter(config, category, sub_category, check):
 
 # Harden Functions
 def kernel_unload(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
+    name = config[category][sub_category][check]["name"]
 
     try:
-        result = subprocess.run(
-            ["modprobe", "-r", check_name], capture_output=True, text=True
-        )
+        result = subprocess.run(["modprobe", "-r", name], capture_output=True, text=True)
 
         if "not found" in result.stderr:
             return "PASS"
 
     except subprocess.CalledProcessError:
         log_status(
-            " " * 2 + f"- [FIX] - {sub_category}: {check_name}: LOADED",
+            " " * 2 + f"- [FIX] - {sub_category}: {name}: LOADED",
             message_color="blue",
             status="SUDO",
             status_color="bright_red",
@@ -219,8 +213,8 @@ def kernel_unload(config, category, sub_category, check):
 
 def kernel_deny(config, category, sub_category, check):
     mp_config = config["global"]["modprobe_config"]
-    conf_file = f"{mp_config}{sub_category}-{check_name}.conf"
-    check_name = config[category][sub_category][check]["check_name"]
+    conf_file = f"{mp_config}{sub_category}-{name}.conf"
+    name = config[category][sub_category][check]["name"]
 
     try:
         if not os.path.exists(conf_file):
@@ -230,17 +224,17 @@ def kernel_deny(config, category, sub_category, check):
         with open(conf_file, "r") as f:
             content = f.read()
 
-        if f"blacklist {check_name}" not in content:
+        if f"blacklist {name}" not in content:
             with open(conf_file, "a") as f:
-                f.write(f"blacklist {check_name}\n")
+                f.write(f"blacklist {name}\n")
             return "LOADED", "PASS"
 
-        if f"blacklist {check_name}" in content:
+        if f"blacklist {name}" in content:
             return "LOADED", "PASS"
 
     except Exception:
         log_status(
-            " " * 2 + f"- [FIX] - {sub_category}: {check_name}: DENIED",
+            " " * 2 + f"- [FIX] - {sub_category}: {name}: DENIED",
             message_color="blue",
             status="SUDO",
             status_color="bright_red",
@@ -251,8 +245,8 @@ def kernel_deny(config, category, sub_category, check):
 # Scan Function
 def scan_kernel(mode, config, category, sub_category, check):
     os_info = detect_os()
-    check_name = config[category][sub_category][check]["check_name"]
-    if os_info["id"] == "ubuntu" and check_name == "squashfs":
+    name = config[category][sub_category][check]["name"]
+    if os_info["id"] == "ubuntu" and name == "squashfs":
         # Reporting
         add_to_dd_report(
             config,
@@ -262,7 +256,7 @@ def scan_kernel(mode, config, category, sub_category, check):
             status="SKIP",
         )
         log_status(
-            " " * 4 + f"- [CHECK] - {check_name}: SKIP",
+            " " * 4 + f"- [CHECK] - {name}: SKIP",
             message_color="blue",
             status="SKIP",
             status_color="bright_yellow",
@@ -309,8 +303,8 @@ def scan_kernel(mode, config, category, sub_category, check):
 #         config_path = kernel_param_set(config, param_type, ps, setting)
 #         print(config_path)
 #     """
-#     check_set = config[category][sub_category][check]["check_set"]
-#     if check_set and mode == "harden":
+#     set = config[category][sub_category][check]["set"]
+#     if set and mode == "harden":
 #         try:
 #             config_path = kernel_param_set(config, sub_category, check, setting)
 #             if config_path is not None:

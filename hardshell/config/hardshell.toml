@@ -7,7 +7,7 @@ modprobe_config = "/etc/modprobe.d/"
 # sysctl Configuration Files Location
 sysctl_config = "/etc/sysctl.d/"
 sysctl_config_prefix = "10-"
-# Uncomment the following to check_set your own sysctl config file name
+# Uncomment the following to set your own sysctl config file name
 #sysctl_config_file = "10-denylist.conf"
 [global.commands]
 find_mount = ["findmnt", "-nk"]
@@ -63,11 +63,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [kernel.filesystem.001]
-check_id = "L-KERNEL-FS-001"
-check_name = "cramfs"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "cramfs"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-2"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -77,11 +77,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.002]
-check_id = "L-KERNEL-FS-001"
-check_name = "fat"
-check_skip = false
-check_set = false
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "fat"
+skip = false
+set = false
+type = "filesystem"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -91,11 +91,11 @@ stig = ""
 source = ""
 
 [kernel.filesystem.003]
-check_id = "L-KERNEL-FS-001"
-check_name = "freevxfs"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "freevxfs"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-1"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -105,11 +105,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.004]
-check_id = "L-KERNEL-FS-001"
-check_name = "gfs2"
-check_skip = false
-check_set = false
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "gfs2"
+skip = false
+set = false
+type = "filesystem"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -119,11 +119,11 @@ stig = ""
 source = ""
 
 [kernel.filesystem.005]
-check_id = "L-KERNEL-FS-001"
-check_name = "hfs"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "hfs"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-1"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -133,11 +133,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.006]
-check_id = "L-KERNEL-FS-001"
-check_name = "hfsplus"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "hfsplus"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-1"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -147,11 +147,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.007]
-check_id = "L-KERNEL-FS-001"
-check_name = "jffs2"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "jffs2"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-1"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -161,11 +161,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.008]
-check_id = "L-KERNEL-FS-001"
-check_name = "nfs"
-check_skip = true
-check_set = false
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "nfs"
+skip = true
+set = false
+type = "filesystem"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -175,11 +175,11 @@ stig = ""
 source = ""
 
 [kernel.filesystem.009]
-check_id = "L-KERNEL-FS-001"
-check_name = "nfsv3"
-check_skip = true
-check_set = false
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "nfsv3"
+skip = true
+set = false
+type = "filesystem"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -189,11 +189,11 @@ stig = ""
 source = ""
 
 [kernel.filesystem.010]
-check_id = "L-KERNEL-FS-001"
-check_name = "squashfs"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "squashfs"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-2"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -203,11 +203,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.011]
-check_id = "L-KERNEL-FS-001"
-check_name = "udf"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "udf"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-2"
 disa = ""
 mitre_tec = ["T1005", "T1005.000"]
@@ -217,11 +217,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [kernel.filesystem.012]
-check_id = "L-KERNEL-FS-001"
-check_name = "usb-storage"
-check_skip = false
-check_set = true
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "usb-storage"
+skip = false
+set = true
+type = "filesystem"
 cis = "level-1"
 disa = ""
 mitre_tec = ["T1052", "T1052.001", "T1091", "T1091.000", "T1200", "T1200.000"]
@@ -231,11 +231,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: SI-3"
 
 [kernel.filesystem.013]
-check_id = "L-KERNEL-FS-001"
-check_name = "vfat"
-check_skip = false
-check_set = false
-check_type = "filesystem"
+id = "L-KERNEL-FS-001"
+name = "vfat"
+skip = false
+set = false
+type = "filesystem"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -254,11 +254,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [kernel.module.001]
-check_id = "L-KERNEL-MOD-001"
-check_name = "dccp"
-check_skip = false
-check_set = true
-check_type = "module"
+id = "L-KERNEL-MOD-001"
+name = "dccp"
+skip = false
+set = true
+type = "module"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
@@ -268,11 +268,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
 
 [kernel.module.002]
-check_id = "L-KERNEL-MOD-001"
-check_name = "rds"
-check_skip = false
-check_set = true
-check_type = "module"
+id = "L-KERNEL-MOD-001"
+name = "rds"
+skip = false
+set = true
+type = "module"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
@@ -282,11 +282,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
 
 [kernel.module.003]
-check_id = "L-KERNEL-MOD-001"
-check_name = "sctp"
-check_skip = false
-check_set = true
-check_type = "module"
+id = "L-KERNEL-MOD-001"
+name = "sctp"
+skip = false
+set = true
+type = "module"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
@@ -296,11 +296,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
 
 [kernel.module.004]
-check_id = "L-KERNEL-MOD-001"
-check_name = "tipc"
-check_skip = false
-check_set = true
-check_type = "module"
+id = "L-KERNEL-MOD-001"
+name = "tipc"
+skip = false
+set = true
+type = "module"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
@@ -319,11 +319,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [kernel.parameter.001]
-check_id = "L-KERNEL-PARAM-001"
-check_name = "aslr"
-check_skip = false
-check_set = true
-check_type = "parameter"
+id = "L-KERNEL-PARAM-001"
+name = "aslr"
+skip = false
+set = true
+type = "parameter"
 setting = "kernel.randomize_va_space = 2"
 cis = "level-1"
 disa = "CCI-000366"
@@ -334,11 +334,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6"
 
 [kernel.parameter.002]
-check_id = "L-KERNEL-PARAM-001"
-check_name = "ptrace"
-check_skip = false
-check_set = true
-check_type = "parameter"
+id = "L-KERNEL-PARAM-001"
+name = "ptrace"
+skip = false
+set = true
+type = "parameter"
 setting = "kernel.yama.ptrace_scope = 1"
 cis = "level-1"
 disa = ""
@@ -360,11 +360,11 @@ sub_category_set = true
 
 # IPv4
 [kernel.network.001]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 IP Forward"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 IP Forward"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.ip_forward = 0"
 cis = "level-1"
 disa = ""
@@ -375,11 +375,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.002a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Send Redirects (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Send Redirects (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.send_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -390,11 +390,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.002b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Send Redirects (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Send Redirects (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.send_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -405,11 +405,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.003a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Accept Source Route (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Source Route (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.accept_source_route = 0"
 cis = "level-1"
 disa = ""
@@ -420,11 +420,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.003b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Accept Source Route (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Source Route (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.accept_source_route = 0"
 cis = "level-1"
 disa = ""
@@ -435,11 +435,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.004a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Accept Redirects (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Redirects (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.accept_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -450,11 +450,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.004b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Accept Redirects (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Redirects (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.accept_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -465,11 +465,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.005a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Secure Redirects (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Secure Redirects (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.secure_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -480,11 +480,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.005b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Secure Redirects (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Secure Redirects (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.secure_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -495,11 +495,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.006a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Log Martians (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Log Martians (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.log_martians = 1"
 cis = "level-1"
 disa = ""
@@ -510,11 +510,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3"
 
 [kernel.network.006b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Log Martians (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Log Martians (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.log_martians = 1"
 cis = "level-1"
 disa = ""
@@ -525,11 +525,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3"
 
 [kernel.network.007]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 ICMP Ignore Broadcasts"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 ICMP Ignore Broadcasts"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.icmp_echo_ignore_broadcasts = 1"
 cis = "level-1"
 disa = ""
@@ -540,11 +540,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.008]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Ignore Bogue Responses"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Ignore Bogue Responses"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.icmp_ignore_bogus_error_responses = 1"
 cis = "level-1"
 disa = ""
@@ -555,11 +555,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.009a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Reverse Path Filter (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Reverse Path Filter (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.all.rp_filter = 1"
 cis = "level-1"
 disa = ""
@@ -570,11 +570,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.009b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 Reverse Path Filter (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 Reverse Path Filter (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.conf.default.rp_filter = 1"
 cis = "level-1"
 disa = ""
@@ -585,11 +585,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.010]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv4 TCP Syn Cookies"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv4 TCP Syn Cookies"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv4.tcp_syncookies = 1"
 cis = "level-1"
 disa = ""
@@ -601,11 +601,11 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 # IPv6
 [kernel.network.101]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Forwarding (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Forwarding (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.all.forwarding = 0"
 cis = "level-1"
 disa = ""
@@ -616,11 +616,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.102a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Source Route (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Source Route (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.all.accept_source_route = 0"
 cis = "level-1"
 disa = ""
@@ -631,11 +631,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.102b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Source Route (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Source Route (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.default.accept_source_route = 0"
 cis = "level-1"
 disa = ""
@@ -646,11 +646,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.103a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Redirects (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Redirects (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.all.accept_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -661,11 +661,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.103b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Redirects (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Redirects (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.default.accept_redirects = 0"
 cis = "level-1"
 disa = ""
@@ -676,11 +676,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.104a]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Router Avertisements (All)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Router Avertisements (All)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.all.accept_ra = 0"
 cis = "level-1"
 disa = ""
@@ -691,11 +691,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [kernel.network.104b]
-check_id = "L-KERNEL-NET-001"
-check_name = "IPv6 Accept Router Avertisements (Default)"
-check_skip = false
-check_set = true
-check_type = "network"
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Router Avertisements (Default)"
+skip = false
+set = true
+type = "network"
 setting = "net.ipv6.conf.default.accept_ra = 0"
 cis = "level-1"
 disa = ""
@@ -721,11 +721,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.aide.001a]
-check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-AIDE-001"
+name = "aide"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1565', 'T1565.001']
@@ -735,11 +735,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2"
 
 [system.aide.002a]
-check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide.service"
-check_skip = false
-check_set = true
-check_type = "service"
+id = "L-SYSTEM-AIDE-001"
+name = "aide.service"
+skip = false
+set = true
+type = "service"
 svc_name = "aidecheck.service"
 cis = "level-1"
 disa = ""
@@ -750,11 +750,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2"
 
 [system.aide.002b]
-check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide.timer"
-check_skip = false
-check_set = true
-check_type = "service"
+id = "L-SYSTEM-AIDE-001"
+name = "aide.timer"
+skip = false
+set = true
+type = "service"
 svc_name = "aidecheck.timer"
 cis = "level-1"
 disa = ""
@@ -765,11 +765,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2"
 
 [system.aide.003a]
-check_id = "L-SYSTEM-AIDE-001"
-check_name = "aide scheduled"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-AIDE-001"
+name = "aide scheduled"
+skip = false
+set = true
+type = "command"
 command = "grep -Ers '^([^#]+\\s+)?(/usr/sbin/|/usr/bin/|^\\s*)aide(\\.wrapper)?\\s(--?\\S+\\s)*(--(check|update)|\\$AIDEARGS)\\b' /etc/cron.* /etc/crontab /var/spool/cron/"
 # TODO Get updated setting
 setting = "something"
@@ -788,11 +788,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.audit.001a]
-check_id = "L-SYSTEM-AUDIT-001"
-check_name = "audit"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-AUDIT-001"
+name = "audit"
+skip = false
+set = true
+type = "package"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1562', 'T1562.001']
@@ -802,11 +802,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
 
 [system.audit.001b]
-check_id = "L-SYSTEM-AUDIT-001"
-check_name = "auditd"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-AUDIT-001"
+name = "auditd"
+skip = false
+set = true
+type = "package"
 cis = "level-2"
 disa = ""
 mitre_tec = ['T1562', 'T1562.001']
@@ -816,11 +816,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
 
 [system.audit.002a]
-check_id = "L-SYSTEM-AUDIT-001"
-check_name = "audit"
-check_skip = false
-check_set = true
-check_type = "service"
+id = "L-SYSTEM-AUDIT-001"
+name = "audit"
+skip = false
+set = true
+type = "service"
 svc_name = "auditd.service"
 cis = ""
 disa = ""
@@ -837,11 +837,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.banner.001a]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/motd Configured"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd Configured"
+skip = false
+set = true
+type = "command"
 command = "cat /etc/motd"
 path = "/etc/motd"
 setting = "review"
@@ -854,11 +854,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-3"
 
 [system.banner.001b]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/motd uname Info (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd uname Info (FIX)"
+skip = false
+set = true
+type = "command"
 command = "grep -E -i \"(\\\\\\v|\\\\\\r|\\\\\\m|\\\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/motd"
 path = "/etc/motd"
 setting = "review"
@@ -871,11 +871,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-3"
 
 [system.banner.001c]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/motd Permissions Configured"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd Permissions Configured"
+skip = false
+set = true
+type = "file"
 path = "/etc/motd"
 permissions = "644"
 owner = "0"
@@ -889,11 +889,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.banner.002a]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue Configured"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue Configured"
+skip = false
+set = true
+type = "command"
 command = "cat /etc/issue"
 path = "/etc/issue"
 setting = "review"
@@ -906,11 +906,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6, CM-1, CM-3"
 
 [system.banner.002b]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue uname Info (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue uname Info (FIX)"
+skip = false
+set = true
+type = "command"
 command = "grep -E -i \"(\\\\v|\\\r|\\\\m|\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/issue"
 path = "/etc/issue"
 setting = "review"
@@ -923,11 +923,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.banner.002c]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue Permissions Configured"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue Permissions Configured"
+skip = false
+set = true
+type = "file"
 path = "/etc/issue"
 permissions = "644"
 owner = "0"
@@ -941,11 +941,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.banner.003a]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue.net Configured"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net Configured"
+skip = false
+set = true
+type = "command"
 command = "cat /etc/issue.net"
 path = "/etc/issue.net"
 setting = "review"
@@ -958,11 +958,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6, CM-1, CM-3"
 
 [system.banner.003b]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue.net uname Info (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net uname Info (FIX)"
+skip = false
+set = true
+type = "command"
 command = "grep -E -i \"(\\\\\\v|\\\\\\r|\\\\\\m|\\\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/issue.net"
 path = "/etc/issue.net"
 setting = "review"
@@ -975,11 +975,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.banner.003c]
-check_id = "L-SYSTEM-BANN-001"
-check_name = "/etc/issue.net Permissions Configured"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net Permissions Configured"
+skip = false
+set = true
+type = "file"
 path = "/etc/issue.net"
 permissions = "644"
 owner = "0"
@@ -1000,11 +1000,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.cron.001a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "cron"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-CRON-001"
+name = "cron"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.001']
@@ -1014,11 +1014,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.001b]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "cronie"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-CRON-001"
+name = "cronie"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.001']
@@ -1028,11 +1028,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.002a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "cron"
-check_skip = false
-check_set = true
-check_type = "service"
+id = "L-SYSTEM-CRON-001"
+name = "cron"
+skip = false
+set = true
+type = "service"
 svc_name = "crond"
 cis = "level-1"
 disa = ""
@@ -1043,11 +1043,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.003a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/crontab"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/crontab"
+skip = false
+set = true
+type = "file"
 path = "/etc/crontab"
 permissions = "600"
 owner = "0"
@@ -1061,11 +1061,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.004a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.hourly"
-check_skip = false
-check_set = true
-check_type = "dir"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.hourly"
+skip = false
+set = true
+type = "dir"
 path = "/etc/cron.hourly"
 permissions = "700"
 owner = "0"
@@ -1079,11 +1079,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.005a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.daily"
-check_skip = false
-check_set = true
-check_type = "dir"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.daily"
+skip = false
+set = true
+type = "dir"
 path = "/etc/cron.daily"
 permissions = "700"
 owner = "0"
@@ -1097,11 +1097,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.006a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.weekly"
-check_skip = false
-check_set = true
-check_type = "dir"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.weekly"
+skip = false
+set = true
+type = "dir"
 path = "/etc/cron.weekly"
 permissions = "700"
 owner = "0"
@@ -1115,11 +1115,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.007a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.monthly"
-check_skip = false
-check_set = true
-check_type = "dir"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.monthly"
+skip = false
+set = true
+type = "dir"
 path = "/etc/cron.monthly"
 permissions = "700"
 owner = "0"
@@ -1133,11 +1133,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.008a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.d"
-check_skip = false
-check_set = true
-check_type = "dir"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.d"
+skip = false
+set = true
+type = "dir"
 path = "/etc/cron.d"
 permissions = "700"
 owner = "0"
@@ -1151,11 +1151,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.009a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.allow"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.allow"
+skip = false
+set = true
+type = "file"
 path = "/etc/cron.allow"
 permissions = "700"
 owner = "0"
@@ -1169,11 +1169,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.009b]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/cron.deny"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.deny"
+skip = false
+set = true
+type = "file"
 path = "/etc/cron.deny"
 permissions = "700"
 owner = "0"
@@ -1187,11 +1187,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.010a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "at"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-CRON-001"
+name = "at"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.001']
@@ -1201,11 +1201,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.cron.011a]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/at.allow"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/at.allow"
+skip = false
+set = true
+type = "file"
 path = "/etc/at.allow"
 permissions = "700"
 owner = "0"
@@ -1219,11 +1219,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
 
 [system.cron.011b]
-check_id = "L-SYSTEM-CRON-001"
-check_name = "/etc/at.deny"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-CRON-001"
+name = "/etc/at.deny"
+skip = false
+set = true
+type = "file"
 path = "/etc/at.deny"
 permissions = "700"
 owner = "0"
@@ -1243,11 +1243,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.pam.001a]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "libpam-pwquality"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-PAM-001"
+name = "libpam-pwquality"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = [
@@ -1266,11 +1266,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.001b]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "libpwquality"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-PAM-001"
+name = "libpwquality"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = [
@@ -1289,11 +1289,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002a]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Minimum Length"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Minimum Length"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "minlen = 14"
 cis = "level-1"
@@ -1314,11 +1314,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002b]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Minimum Class"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Minimum Class"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "minclass = 4"
 cis = "level-1"
@@ -1339,11 +1339,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002c]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Character: Digits"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Digits"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "dcredit = -1"
 cis = "level-1"
@@ -1364,11 +1364,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002d]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Character: Lower Case"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Lower Case"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "lcredit = -1"
 cis = "level-1"
@@ -1389,11 +1389,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002e]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Character: Upper Case"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Upper Case"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "ucredit = -1"
 cis = "level-1"
@@ -1414,11 +1414,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.002f]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Password Character: Other"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Other"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/pwquality.conf"
 setting = "ocredit = -1"
 cis = "level-1"
@@ -1439,11 +1439,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
 [system.pam.003a]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Account Lockout Attempts"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Account Lockout Attempts"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/faillock.conf"
 setting = "deny = 3"
 cis = "level-1"
@@ -1455,11 +1455,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
 
 [system.pam.003b]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Account Failure Time"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Account Failure Time"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/faillock.conf"
 setting = "fail_interval = 900"
 cis = "level-1"
@@ -1471,11 +1471,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
 
 [system.pam.003c]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Account Unlock Time"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Account Unlock Time"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/security/faillock.conf"
 setting = "unlock_time = 600"
 cis = "level-1"
@@ -1487,11 +1487,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
 
 [system.pam.004a]
-check_id = "L-SYSTEM-PAM-001"
-check_name = "Account Password History (FIX)"
-check_skip = false
-check_set = true
-check_type = "grep_file"
+id = "L-SYSTEM-PAM-001"
+name = "Account Password History (FIX)"
+skip = false
+set = true
+type = "grep_file"
 default_file = "/etc/pam.d/system-auth"
 ubuntu_file = "/etc/pam.d/common-password"
 setting = "remember=5"
@@ -1511,18 +1511,35 @@ mitre_mit = ['M1027']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: IA-5"
 
+[system.pam.005a]
+id = "L-SYSTEM-PAM-001"
+name = "Password Hashing Algorithm"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "ENCRYPT_METHOD YESCRYPT"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1003', 'T1003.008', 'T1110', 'T1110.002']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1041']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
 [system.ssh]
 sub_category_id = "SSH"
 sub_category_name = "OpenSSH"
 sub_category_skip = false
 sub_category_set = true
+sub_category_file = "/etc/ssh/sshd_config"
 
 [system.ssh.001a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "openssh-server"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-SSH-001"
+name = "openssh-server"
+skip = false
+set = true
+type = "package"
 cis = ""
 disa = ""
 mitre_tec = []
@@ -1532,11 +1549,11 @@ stig = ""
 source = ""
 
 [system.ssh.002a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "/etc/ssh/sshd_config"
-check_skip = false
-check_set = true
-check_type = "file"
+id = "L-SYSTEM-SSH-001"
+name = "File Permissions: sshd_config"
+skip = false
+set = true
+type = "file"
 path = "/etc/ssh/sshd_config"
 permissions = "600"
 owner = "0"
@@ -1550,12 +1567,12 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.003a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Private Host Key Files"
-check_skip = false
-check_set = true
-check_type = "keys"
-check_file_type = "private key"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Private Host Key Files"
+skip = false
+set = true
+type = "keys"
+file_type = "private key"
 path = "/etc/ssh"
 permissions = "600"
 owner = "0"
@@ -1569,12 +1586,12 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.004a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Public Host Key Files"
-check_skip = false
-check_set = true
-check_type = "keys"
-check_file_type = "public key"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Public Host Key Files"
+skip = false
+set = true
+type = "keys"
+file_type = "public key"
 path = "/etc/ssh"
 permissions = "644"
 owner = "0"
@@ -1588,11 +1605,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.005a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Access Limited"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Access Limited"
+skip = false
+set = true
+type = "command"
 command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -Pi '^\\h*(allow|deny)(users|groups)\\h+\\H+(\\h+.*)?$'"
 setting = ""
 cis = "level-1"
@@ -1604,13 +1621,15 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
 [system.ssh.006a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH LogLevel Configured"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
-setting = "LogLevel INFO"                                                                                                              # loglevel INFO or loglevel VERBOSE
+id = "L-SYSTEM-SSH-001"
+name = "SSH LogLevel"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep loglevel"
+pattern = "^(?i:LogLevel)[ \t]+(VERBOSE|INFO)\b"
+setting = "LogLevel INFO"                           # loglevel INFO or loglevel VERBOSE
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1562', 'T1562.006']
@@ -1620,12 +1639,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
 
 [system.ssh.007a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH PAM Enabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
+id = "L-SYSTEM-SSH-001"
+name = "SSH PAM"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
+pattern = "^\\s*(?i:UsePAM)[ \t]*yes\b"
 setting = "UsePAM yes"
 cis = "level-1"
 disa = ""
@@ -1636,12 +1657,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.008a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Root Login Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Root Login"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitrootlogin"
+pattern = "^\\s*(?i:PermitRootLogin)[ \t]*no\b"
 setting = "PermitRootLogin no"
 cis = "level-1"
 disa = ""
@@ -1652,12 +1675,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.ssh.009a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Host Based Auth Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Host Based Auth"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep hostbasedauthentication"
+pattern = "^\\s*(?i:HostbasedAuthentication)[ \t]*no\b"
 setting = "HostbasedAuthentication no"
 cis = "level-1"
 disa = ""
@@ -1668,12 +1693,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.010a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Permit Empty Passwords Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitemptypasswords"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Permit Empty Passwords"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permitemptypasswords"
+pattern = "^\\s*(?i:PermitEmptyPasswords)[ \t]*no\b"
 setting = "PermitEmptyPasswords no"
 cis = "level-1"
 disa = ""
@@ -1684,12 +1711,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.011a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Permit User Environment Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permituserenvironment"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Permit User Environment"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep permituserenvironment"
+pattern = "^\\s*(?i:PermitUserEnvironment)[ \t]*no\b"
 setting = "PermitUserEnvironment no"
 cis = "level-1"
 disa = ""
@@ -1700,12 +1729,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.012a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Ignore Rhosts Enabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep ignorerhosts"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Ignore Rhosts"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep ignorerhosts"
+pattern = "^\\s*(?i:IgnoreRhosts)[ \t]*yes\b"
 setting = "IgnoreRhosts yes"
 cis = "level-1"
 disa = ""
@@ -1716,12 +1747,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.013a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH X11 Forwarding Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i x11forwarding"
+id = "L-SYSTEM-SSH-001"
+name = "SSH X11 Forwarding"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i x11forwarding"
+pattern = "^\\s*(?i:X11Forwarding)[ \t]*no\b"
 setting = "X11Forwarding no"
 cis = "level-2"
 disa = ""
@@ -1732,12 +1765,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-7"
 
 [system.ssh.014a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Allow TCP Forwarding Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i allowtcpforwarding"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Allow TCP Forwarding"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i allowtcpforwarding"
+pattern = "^\\s*(?i:AllowTcpForwarding)[ \t]*no\b"
 setting = "AllowTcpForwarding no"
 cis = "level-2"
 disa = ""
@@ -1748,11 +1783,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.015a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "System Wide Crypto Policy No Override (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "System Wide Crypto Policy No Override (FIX)"
+skip = false
+set = true
+type = "grep_file"
 command = "grep -i '^\\s*CRYPTO_POLICY=' /etc/sysconfig/sshd"
 setting = ""
 cis = "level-1"
@@ -1764,12 +1799,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: SC-8, IA-5, AC-17"
 
 [system.ssh.016a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Warning Banner Configured"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Warning Banner"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep banner"
+pattern = "^\\s*(?i:Banner)[ \t]*/etc/issue\\.net\b"
 setting = "Banner /etc/issue.net"
 cis = "level-1"
 disa = ""
@@ -1780,12 +1817,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.017a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Auth Retries 4 or Less"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep maxauthtries"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Auth Retries 4 or Less"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep maxauthtries"
+pattern = "^(?i:MaxAuthTries)[ \t]+([1-4])\b"
 setting = "MaxAuthTries 4"
 cis = "level-1"
 disa = ""
@@ -1796,12 +1835,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AU-3"
 
 [system.ssh.018a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Startups"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxstartups"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Startups"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxstartups"
+pattern = "^(?i:MaxStartups)[ \t]+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\b"
 setting = "MaxStartups 10:30:60"
 cis = "level-1"
 disa = ""
@@ -1812,12 +1853,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.019a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Max Sessions 10 or Less"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxsessions"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Sessions 10 or Less"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i maxsessions"
+pattern = "^(?i:MaxSessions)[ \t]+([1-9]|10)\b"
 setting = "MaxSessions 10"
 cis = "level-1"
 disa = ""
@@ -1828,12 +1871,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.020a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Login Grace Time 1 min or Less"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep logingracetime"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Login Grace Time 1 min or Less"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep logingracetime"
+pattern = "^(?i:LoginGraceTime)[ \t]+([1-9]|[1-5][0-9]|60)\b"
 setting = "LoginGraceTime 60"
 cis = "level-1"
 disa = ""
@@ -1844,12 +1889,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-6"
 
 [system.ssh.021a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Idle Timeout Interval Configured"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientaliveinterval"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Idle Timeout Interval"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientaliveinterval"
+pattern = "^(?i:ClientAliveInterval)\\s+[1-9][0-9]*\b"
 setting = "ClientAliveInterval 15"
 cis = "level-1"
 disa = ""
@@ -1860,12 +1907,14 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.021b]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "SSH Idle Timeout Max Configured"
-check_skip = false
-check_set = true
-check_type = "command"
-command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientalivecountmax"
+id = "L-SYSTEM-SSH-001"
+name = "SSH Idle Timeout Max"
+skip = false
+set = true
+type = "regex"
+file = "/etc/ssh/sshd_config"
+# command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep clientalivecountmax"
+pattern = "^(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\b"
 setting = "ClientAliveCountMax 3"
 cis = "level-1"
 disa = ""
@@ -1875,7 +1924,6 @@ mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
-
 [system.sudo]
 sub_category_id = "SUDO"
 sub_category_name = "Sudo"
@@ -1883,11 +1931,11 @@ sub_category_skip = false
 sub_category_set = true
 
 [system.sudo.001a]
-check_id = "L-SYSTEM-SUDO-001"
-check_name = "sudo"
-check_skip = false
-check_set = true
-check_type = "package"
+id = "L-SYSTEM-SUDO-001"
+name = "sudo"
+skip = false
+set = true
+type = "package"
 cis = "level-1"
 disa = ""
 mitre_tec = ['T1548']
@@ -1897,11 +1945,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.sudo.002a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo commands use pty"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo commands use pty"
+skip = false
+set = true
+type = "command"
 command = "grep -rPi '^\\h*Defaults\\h+([^#\\n\\r]+,)?use_pty(,\\h*\\h+\\h*)*\\h*(#.*)?$' /etc/sudoers*"
 setting = "use_pty"
 cis = "level-1"
@@ -1912,12 +1960,30 @@ mitre_mit = ['M1026', 'M1038']
 stig = ""
 source = ""
 
+[system.sudo.002b]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo commands use pty (grepdir)"
+skip = false
+set = true
+type = "grep_directory"
+default_directory = "/etc"
+default_file = "sudoers"
+setting1 = "Defaults"
+setting2 = "use_pty"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.003', 'T1548', 'T1548.003']
+mitre_tac = ['TA0001', 'TA0003']
+mitre_mit = ['M1026', 'M1038']
+stig = ""
+source = ""
+
 [system.sudo.003a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo log file exists"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo log file exists"
+skip = false
+set = true
+type = "command"
 command = [
     'grep',
     '-rPsi',
@@ -1934,11 +2000,11 @@ stig = ""
 source = ""
 
 [system.sudo.004a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo Re-Auth Not Global Disabled"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Re-Auth Not Global Disabled"
+skip = false
+set = true
+type = "command"
 command = "grep -r \"^[^#].*\\!authenticate\" /etc/sudoers*"
 setting = ""
 cis = "level-1"
@@ -1950,11 +2016,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.sudo.005a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo Caching Timeout Configured (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Caching Timeout Configured (FIX)"
+skip = false
+set = true
+type = "command"
 command = "grep -roP \"timestamp_timeout=\\K[0-9]*\" /etc/sudoers*"
 setting = "15"
 cis = "level-1"
@@ -1966,11 +2032,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.sudo.005b]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo Session Timeout Configured (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Session Timeout Configured (FIX)"
+skip = false
+set = true
+type = "command"
 command = "sudo -V | grep \"Authentication timestamp timeout:\""
 setting = ""
 cis = "level-1"
@@ -1982,11 +2048,11 @@ stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-6"
 
 [system.sudo.006a]
-check_id = "L-SYSTEM-SSH-001"
-check_name = "Sudo Su Access Restricted (FIX)"
-check_skip = false
-check_set = true
-check_type = "command"
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Su Access Restricted (FIX)"
+skip = false
+set = true
+type = "command"
 command = "grep -Pi '^\\h*auth\\h+(?:required|requisite)\\h+pam_wheel\\.so\\h+(?:[^#\\n\\r]+\\h+)?((?!\\2)(use_uid\\b|group=\\H+\\b))\\h+(?:[^#\\n\\r]+\\h+)?((?!\\1)(use_uid\\b|group=\\H+\\b))(\\h+.*)?$' /etc/pam.d/su"
 setting = "auth required"
 cis = "level-1"
@@ -1996,3 +2062,91 @@ mitre_tac = ['TA0005']
 mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.user]
+sub_category_id = "USER"
+sub_category_name = "User"
+sub_category_skip = false
+sub_category_set = true
+
+[system.user.001a]
+id = "L-SYSTEM-USER-001"
+name = "Password Expiration Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_MAX_DAYS 365"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1078',
+    'T1078.001',
+    'T1078.002',
+    'T1078.003',
+    'T1078.004',
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1110.004',
+]
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.002a]
+id = "L-SYSTEM-USER-001"
+name = "Password Change Interval Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_MIN_DAYS 1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1078',
+    'T1078.001',
+    'T1078.002',
+    'T1078.003',
+    'T1078.004',
+    'T1110.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.003a]
+id = "L-SYSTEM-USER-001"
+name = "Password Age Warning Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_WARN_AGE 7"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.004a]
+id = "L-SYSTEM-USER-001"
+name = "Password Inactive Lock Days"
+skip = false
+set = true
+type = "command"
+command = "useradd -D | grep INACTIVE"
+setting = "INACTIVE=30"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"

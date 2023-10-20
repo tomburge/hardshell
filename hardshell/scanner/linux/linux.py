@@ -17,7 +17,7 @@ def scan_checks(mode, config, category, sub_category):
         None
 
     Example Usage:
-        scan_kernel_modules(mode, config, "kernel filesystems", "filesystems")
+        scan_kernel(mode, config, "kernel filesystems", "filesystems")
     """
     sub_category_name = config[category][sub_category]["sub_category_name"]
     log_status("")
@@ -33,6 +33,7 @@ def scan_checks(mode, config, category, sub_category):
             or check == "sub_category_name"
             or check == "sub_category_skip"
             or check == "sub_category_set"
+            or check == "sub_category_file"
         ):
             if (
                 check == "sub_category_skip"
@@ -77,17 +78,17 @@ def scan_checks(mode, config, category, sub_category):
 
             continue
 
-        check_name = config[category][sub_category][check]["check_name"]
-        check_skip = config[category][sub_category][check]["check_skip"]
-        check_set = config[category][sub_category][check]["check_set"]
+        name = config[category][sub_category][check]["name"]
+        skip = config[category][sub_category][check]["skip"]
+        set = config[category][sub_category][check]["set"]
 
-        if check_skip or not check_set:
-            check_status = "SKIP" if check_skip else "WARN"
+        if skip or not set:
+            status = "SKIP" if skip else "WARN"
 
             log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {check_status}",
+                " " * 4 + f"- [CHECK] - {name}: {status}",
                 message_color="blue",
-                status=check_status,
+                status=status,
                 status_color="bright_yellow",
                 log_level="warning",
             )
@@ -98,7 +99,7 @@ def scan_checks(mode, config, category, sub_category):
                 category=category,
                 sub_category=sub_category,
                 check=check,
-                status=check_status,
+                status=status,
             )
 
         else:
@@ -123,9 +124,10 @@ def scan_checks(mode, config, category, sub_category):
                 # "audit",
                 # "banner",
                 # "cron",
-                "pam",
-                # "ssh",
+                # "pam",
+                "ssh",
                 # "sudo",  # "storage"
+                # "user",
             ]
 
             if sub_category in kernel:
@@ -144,24 +146,6 @@ def scan_checks(mode, config, category, sub_category):
                     sub_category,
                     check,
                 )
-            # elif sub_category == "storage":
-            #     system_storage_check(
-            #         mode,
-            #         config,
-            #         category,
-            #         sub_category,
-            #         check,
-            #     )
-            # elif sub_category in packages:
-            #     process_check(
-            #         mode,
-            #         config,
-            #         category,
-            #         sub_category,
-            #         check,
-            #         system_pkg_check,
-            #         status_map,
-            #     )
 
 
 def scan_linux(mode, config):
