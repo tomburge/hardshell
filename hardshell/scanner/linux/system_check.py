@@ -383,17 +383,17 @@ def check_regex(config, category, sub_category, check):
 
     # result = run_regex(file, pattern)
 
-    click.echo(file1)
-    click.echo(file2)
+    # click.echo(file1)
+    # click.echo(file2)
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
-    click.echo(files1)
-    click.echo(files2)
+    # click.echo(files1)
+    # click.echo(files2)
 
     all_files = files1 + files2
 
-    for file in all_files:
-        print(file)
+    for f in all_files:
+        print(f)
 
 
 def check_service(config, category, sub_category, check):
