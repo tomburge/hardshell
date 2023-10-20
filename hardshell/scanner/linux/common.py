@@ -113,28 +113,29 @@ def get_permissions(path):
         return error.output
 
 
-def run_regex(file_path, pattern):
-    # Decode the pattern if needed (depending on how it's stored in TOML)
-    decoded_pattern = pattern.encode().decode("unicode_escape")
+# def run_regex(file_path, pattern):
+#     # Decode the pattern if needed (depending on how it's stored in TOML)
+#     decoded_pattern = pattern.encode().decode("unicode_escape")
 
-    print(f"Checking file: {file_path} with pattern: {decoded_pattern}")
+#     print(f"Checking file: {file_path} with pattern: {decoded_pattern}")
 
-    with open(file_path, "r") as file:
-        for line_num, line in enumerate(file, 1):
-            print(f"Checking line {line_num}: {line.strip()}")
-            if re.search(decoded_pattern, line.strip()):
-                print(f"Match found on line {line_num}: {line.strip()}")
-                return True  # If a match is found, return True
-
-    return False  # Return False if no matches after iterating through the file
-
-
-# def run_regex(file, pattern):
-#     click.echo(file)
-#     click.echo(pattern)
-#     with open(file, "r") as file:
+#     with open(file_path, "r") as file:
 #         for line_num, line in enumerate(file, 1):
-#             if re.match(pattern, line.strip()):
-#                 return True
-#             else:
-#                 return False
+#             print(f"Checking line {line_num}: {line.strip()}")
+#             if re.search(decoded_pattern, line.strip()):
+#                 print(f"Match found on line {line_num}: {line.strip()}")
+#                 return True  # If a match is found, return True
+
+#     return False  # Return False if no matches after iterating through the file
+
+
+def run_regex(file, pattern):
+    click.echo(file)
+    click.echo(pattern)
+    # pattern = pattern.replace('\\\\', '\\')
+    with open(file, "r") as file:
+        for line_num, line in enumerate(file, 1):
+            if re.match(pattern, line.strip()):
+                return True
+            else:
+                return False
