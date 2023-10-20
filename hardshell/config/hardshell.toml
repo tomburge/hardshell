@@ -1646,7 +1646,7 @@ set = true
 type = "regex"
 file = "/etc/ssh/sshd_config"
 # command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -i usepam"
-pattern = "^\\s*(?i:UsePAM)[ \t]*yes\b"
+pattern = "^\\s*(?i:UsePAM)[ ]*yes\b"
 setting = "UsePAM yes"
 cis = "level-1"
 disa = ""
