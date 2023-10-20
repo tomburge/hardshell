@@ -1799,7 +1799,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.017a]
 id = "L-SYSTEM-SSH-001"
-name = "SSH Max Auth Retries 4 or Less"
+name = "SSH Max Auth Retries"
 skip = false
 set = true
 type = "regex"
@@ -1831,7 +1831,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.019a]
 id = "L-SYSTEM-SSH-001"
-name = "SSH Max Sessions 10 or Less"
+name = "SSH Max Sessions"
 skip = false
 set = true
 type = "regex"
@@ -1847,7 +1847,7 @@ source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
 
 [system.ssh.020a]
 id = "L-SYSTEM-SSH-001"
-name = "SSH Login Grace Time 1 min or Less"
+name = "SSH Login Grace Time"
 skip = false
 set = true
 type = "regex"
