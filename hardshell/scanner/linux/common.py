@@ -117,9 +117,13 @@ def run_regex(file_path, pattern):
     # Decode the pattern if needed (depending on how it's stored in TOML)
     decoded_pattern = pattern.encode().decode("unicode_escape")
 
+    print(f"Checking file: {file_path} with pattern: {decoded_pattern}")
+
     with open(file_path, "r") as file:
         for line_num, line in enumerate(file, 1):
+            print(f"Checking line {line_num}: {line.strip()}")
             if re.search(decoded_pattern, line.strip()):
+                print(f"Match found on line {line_num}: {line.strip()}")
                 return True  # If a match is found, return True
 
     return False  # Return False if no matches after iterating through the file
