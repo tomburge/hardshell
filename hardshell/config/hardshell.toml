@@ -1532,7 +1532,8 @@ sub_category_id = "SSH"
 sub_category_name = "OpenSSH"
 sub_category_skip = false
 sub_category_set = true
-sub_category_file = "/etc/ssh/sshd_config"
+sub_category_file1 = "/etc/ssh/sshd_config"
+sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
 
 [system.ssh.001a]
 id = "L-SYSTEM-SSH-001"

@@ -1,4 +1,4 @@
-import codecs
+import glob
 import os
 import subprocess
 from pathlib import Path
@@ -375,29 +375,25 @@ def check_keys(config, category, sub_category, check):
 
 
 def check_regex(config, category, sub_category, check):
-    # click.echo(config)
-    # click.echo(category)
-    # click.echo(sub_category)
-    # click.echo(check)
-
     name = config[category][sub_category][check]["name"]
-    file = config[category][sub_category][check]["file"]
-    # pattern = codecs.decode(
-    #     config[category][sub_category][check]["pattern"], "unicode_escape"
-    # )
+    file1 = config[category][sub_category]["sub_category_file1"]
+    file2 = config[category][sub_category]["sub_category_file2"]
     pattern = config[category][sub_category][check]["pattern"]
     setting = config[category][sub_category][check]["setting"]
 
-    click.echo(name)
-    click.echo(file)
-    click.echo(pattern)
-    click.echo(setting)
+    # result = run_regex(file, pattern)
 
-    # result, message = run_regex("/etc/ssh/sshd_config", pattern)
-    result = run_regex(file, pattern)
+    click.echo(file1)
+    click.echo(file2)
+    files1 = glob.glob(file1)
+    files2 = glob.glob(file2)
+    click.echo(files1)
+    click.echo(files2)
 
-    click.echo(result)
-    # click.echo(message)
+    all_files = files1 + files2
+
+    for file in all_files:
+        print(file)
 
 
 def check_service(config, category, sub_category, check):

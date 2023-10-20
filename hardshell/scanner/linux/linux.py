@@ -33,7 +33,8 @@ def scan_checks(mode, config, category, sub_category):
             or check == "sub_category_name"
             or check == "sub_category_skip"
             or check == "sub_category_set"
-            or check == "sub_category_file"
+            or check == "sub_category_file1"
+            or check == "sub_category_file2"
         ):
             if (
                 check == "sub_category_skip"
