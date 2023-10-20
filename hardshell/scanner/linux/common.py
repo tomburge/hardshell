@@ -114,6 +114,8 @@ def get_permissions(path):
 
 
 def run_regex(file, pattern):
+    click.echo(file)
+    click.echo(pattern)
     with open(file, "r") as file:
         for line_num, line in enumerate(file, 1):
             if re.match(pattern, line.strip()):
