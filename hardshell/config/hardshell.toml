@@ -388,7 +388,7 @@ check_name = "Package openssh-server"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 package_name = "openssh-server"
-package_install = false
+package_install = true
 
 [packages.service.rpcbind]
 check_audit = true

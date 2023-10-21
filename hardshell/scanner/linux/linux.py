@@ -336,8 +336,7 @@ def scan_linux(mode, config):
                             else:
                                 click.echo("no checks ran")
 
-    # config = GlobalConfig()
-    click.echo(global_status.package_status)
+    # click.echo(global_status.package_status)
 
     log_status("")
 
