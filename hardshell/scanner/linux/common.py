@@ -4,6 +4,24 @@ import subprocess
 
 import click
 
+from hardshell.utils.common import log_status
+
+
+def check_pkg_mgr(config, os_info):
+    """
+    Match the OS to a system package manager.
+    """
+    pkg_mgr = config["global"]["package"]["manager"]
+    if os_info["id"].lower() in pkg_mgr:
+        return os_info["id"].lower()
+    else:
+        log_status(
+            f"System Package Manager not found",
+            log_level="error",
+            log_only=True,
+        )
+        return "ERROR"
+
 
 def run_command(command):
     try:

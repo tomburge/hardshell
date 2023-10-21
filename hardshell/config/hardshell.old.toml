@@ -1,0 +1,2121 @@
+#################################################
+# Global Configuration
+#################################################
+[global]
+# modprobe Configuration File Location
+modprobe_config = "/etc/modprobe.d/"
+# sysctl Configuration Files Location
+sysctl_config = "/etc/sysctl.d/"
+sysctl_config_prefix = "10-"
+# Uncomment the following to set your own sysctl config file name
+#sysctl_config_file = "10-denylist.conf"
+[global.commands]
+find_mount = ["findmnt", "-nk"]
+svc_enable = ["systemctl", "--now", "enable"]
+svc_enabled = ["systemctl", "is-enabled"]
+svc_status = ["systemctl", "status"]
+
+[global.pkg_mgr]
+amzn.manager = 'dnf'
+amzn.installed = ['dnf', 'list', '--installed']
+amzn.uninstall = ['dnf', 'remove']
+
+centos.manager = 'yum'
+centos.installed = ['yum', 'list']
+centos.uninstall = ['yum', 'remove']
+
+debian.manager = 'apt'
+debian.installed = ['apt', 'list']
+debian.uninstall = ['apt', 'remove']
+
+fedora.manager = 'dnf'
+fedora.installed = ['dnf', 'list', '--installed']
+fedora.uninstall = ['dnf', 'remove']
+
+rhel.manager = ''
+rhel.installed = []
+rhel.uninstall = []
+
+sles.manager = ''
+sles.installed = []
+sles.uninstall = []
+
+ubuntu.manager = 'apt'
+ubuntu.installed = ['apt', 'list']
+ubuntu.uninstall = ['apt', 'remove']
+
+#################################################
+# Kernel Hardening
+#################################################
+[kernel]
+category_id = "KERNEL"
+category_name = "Kernel"
+category_skip = false
+category_set = true
+
+#################################################
+# Filesystem Checks
+#################################################
+[kernel.filesystem]
+sub_category_id = "FS"
+sub_category_name = "File System"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.filesystem.001]
+id = "L-KERNEL-FS-001"
+name = "cramfs"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.002]
+id = "L-KERNEL-FS-001"
+name = "fat"
+skip = false
+set = false
+type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[kernel.filesystem.003]
+id = "L-KERNEL-FS-001"
+name = "freevxfs"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.004]
+id = "L-KERNEL-FS-001"
+name = "gfs2"
+skip = false
+set = false
+type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[kernel.filesystem.005]
+id = "L-KERNEL-FS-001"
+name = "hfs"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.006]
+id = "L-KERNEL-FS-001"
+name = "hfsplus"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.007]
+id = "L-KERNEL-FS-001"
+name = "jffs2"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.008]
+id = "L-KERNEL-FS-001"
+name = "nfs"
+skip = true
+set = false
+type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[kernel.filesystem.009]
+id = "L-KERNEL-FS-001"
+name = "nfsv3"
+skip = true
+set = false
+type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[kernel.filesystem.010]
+id = "L-KERNEL-FS-001"
+name = "squashfs"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.011]
+id = "L-KERNEL-FS-001"
+name = "udf"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-2"
+disa = ""
+mitre_tec = ["T1005", "T1005.000"]
+mitre_tac = ["TA0005"]
+mitre_mit = ["M1050"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[kernel.filesystem.012]
+id = "L-KERNEL-FS-001"
+name = "usb-storage"
+skip = false
+set = true
+type = "filesystem"
+cis = "level-1"
+disa = ""
+mitre_tec = ["T1052", "T1052.001", "T1091", "T1091.000", "T1200", "T1200.000"]
+mitre_tac = ["TA0001", "TA0010"]
+mitre_mit = ["M1034"]
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-3"
+
+[kernel.filesystem.013]
+id = "L-KERNEL-FS-001"
+name = "vfat"
+skip = false
+set = false
+type = "filesystem"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+#################################################
+# Module Checks
+#################################################
+[kernel.module]
+sub_category_id = "MOD"
+sub_category_name = "Module"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.module.001]
+id = "L-KERNEL-MOD-001"
+name = "dccp"
+skip = false
+set = true
+type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.002]
+id = "L-KERNEL-MOD-001"
+name = "rds"
+skip = false
+set = true
+type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.003]
+id = "L-KERNEL-MOD-001"
+name = "sctp"
+skip = false
+set = true
+type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+[kernel.module.004]
+id = "L-KERNEL-MOD-001"
+name = "tipc"
+skip = false
+set = true
+type = "module"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1068', 'T1068.000', 'T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SI-4, CM-7"
+
+#################################################
+# Parameter Checks
+#################################################
+[kernel.parameter]
+sub_category_id = "PARAM"
+sub_category_name = "Parameter"
+sub_category_skip = false
+sub_category_set = true
+
+[kernel.parameter.001]
+id = "L-KERNEL-PARAM-001"
+name = "aslr"
+skip = false
+set = true
+type = "parameter"
+setting = "kernel.randomize_va_space = 2"
+cis = "level-1"
+disa = "CCI-000366"
+mitre_tec = ['T1068', 'T1068.000']
+mitre_tac = ['TA0002']
+mitre_mit = ['M1050']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[kernel.parameter.002]
+id = "L-KERNEL-PARAM-001"
+name = "ptrace"
+skip = false
+set = true
+type = "parameter"
+setting = "kernel.yama.ptrace_scope = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1055.008']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1040']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+
+#################################################
+# Network Checks
+#################################################
+[kernel.network]
+sub_category_id = "NET"
+sub_category_name = "Network"
+sub_category_skip = false
+sub_category_set = true
+
+# IPv4
+[kernel.network.001]
+id = "L-KERNEL-NET-001"
+name = "IPv4 IP Forward"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.ip_forward = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.002a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Send Redirects (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.send_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.002b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Send Redirects (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.send_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.003a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Source Route (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.003b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Source Route (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.004a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Redirects (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.004b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Accept Redirects (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.005a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Secure Redirects (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.secure_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.005b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Secure Redirects (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.secure_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.006a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Log Martians (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.log_martians = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
+
+[kernel.network.006b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Log Martians (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.log_martians = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
+
+[kernel.network.007]
+id = "L-KERNEL-NET-001"
+name = "IPv4 ICMP Ignore Broadcasts"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.icmp_echo_ignore_broadcasts = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1498', 'T1498.001']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1037']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.008]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Ignore Bogue Responses"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.icmp_ignore_bogus_error_responses = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1053']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.009a]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Reverse Path Filter (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.all.rp_filter = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.009b]
+id = "L-KERNEL-NET-001"
+name = "IPv4 Reverse Path Filter (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.conf.default.rp_filter = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.010]
+id = "L-KERNEL-NET-001"
+name = "IPv4 TCP Syn Cookies"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv4.tcp_syncookies = 1"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.001']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1037']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+# IPv6
+[kernel.network.101]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Forwarding (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.all.forwarding = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.102a]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Source Route (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.all.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.102b]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Source Route (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.default.accept_source_route = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1590', 'T1590.005']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.103a]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Redirects (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.all.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.103b]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Redirects (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.default.accept_redirects = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.104a]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Router Avertisements (All)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.all.accept_ra = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[kernel.network.104b]
+id = "L-KERNEL-NET-001"
+name = "IPv6 Accept Router Avertisements (Default)"
+skip = false
+set = true
+type = "network"
+setting = "net.ipv6.conf.default.accept_ra = 0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1557', 'T1557.000']
+mitre_tac = ['TA0006', 'TA0009']
+mitre_mit = ['M1030', 'M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+#################################################
+# System Hardening
+#################################################
+[system]
+category_id = "SYSTEM"
+category_name = "System"
+category_skip = false
+category_set = true
+
+[system.aide]
+sub_category_id = "AIDE"
+sub_category_name = "Aide"
+sub_category_skip = false
+sub_category_set = true
+
+[system.aide.001a]
+id = "L-SYSTEM-AIDE-001"
+name = "aide"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1565', 'T1565.001']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2"
+
+[system.aide.002a]
+id = "L-SYSTEM-AIDE-001"
+name = "aide.service"
+skip = false
+set = true
+type = "service"
+svc_name = "aidecheck.service"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1036', 'T1036.005']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2"
+
+[system.aide.002b]
+id = "L-SYSTEM-AIDE-001"
+name = "aide.timer"
+skip = false
+set = true
+type = "service"
+svc_name = "aidecheck.timer"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1036', 'T1036.005']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2"
+
+[system.aide.003a]
+id = "L-SYSTEM-AIDE-001"
+name = "aide scheduled"
+skip = false
+set = true
+type = "command"
+command = "grep -Ers '^([^#]+\\s+)?(/usr/sbin/|/usr/bin/|^\\s*)aide(\\.wrapper)?\\s(--?\\S+\\s)*(--(check|update)|\\$AIDEARGS)\\b' /etc/cron.* /etc/crontab /var/spool/cron/"
+# TODO Get updated setting
+setting = "something"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1036', 'T1036.005']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2"
+
+[system.audit]
+sub_category_id = "AUDIT"
+sub_category_name = "Audit"
+sub_category_skip = false
+sub_category_set = true
+
+[system.audit.001a]
+id = "L-SYSTEM-AUDIT-001"
+name = "audit"
+skip = false
+set = true
+type = "package"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
+
+[system.audit.001b]
+id = "L-SYSTEM-AUDIT-001"
+name = "auditd"
+skip = false
+set = true
+type = "package"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-3, AU-12, SI-5"
+
+[system.audit.002a]
+id = "L-SYSTEM-AUDIT-001"
+name = "audit"
+skip = false
+set = true
+type = "service"
+svc_name = "auditd.service"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.banner]
+sub_category_id = "BANNER"
+sub_category_name = "Banner"
+sub_category_skip = false
+sub_category_set = true
+
+[system.banner.001a]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd Configured"
+skip = false
+set = true
+type = "command"
+command = "cat /etc/motd"
+path = "/etc/motd"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-3"
+
+[system.banner.001b]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd uname Info (FIX)"
+skip = false
+set = true
+type = "command"
+command = "grep -E -i \"(\\\\\\v|\\\\\\r|\\\\\\m|\\\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/motd"
+path = "/etc/motd"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-3"
+
+[system.banner.001c]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/motd Permissions Configured"
+skip = false
+set = true
+type = "file"
+path = "/etc/motd"
+permissions = "644"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1222', 'T1222.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.banner.002a]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue Configured"
+skip = false
+set = true
+type = "command"
+command = "cat /etc/issue"
+path = "/etc/issue"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-1, CM-3"
+
+[system.banner.002b]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue uname Info (FIX)"
+skip = false
+set = true
+type = "command"
+command = "grep -E -i \"(\\\\v|\\\r|\\\\m|\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/issue"
+path = "/etc/issue"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1222', 'T1222.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.banner.002c]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue Permissions Configured"
+skip = false
+set = true
+type = "file"
+path = "/etc/issue"
+permissions = "644"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1222', 'T1222.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.banner.003a]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net Configured"
+skip = false
+set = true
+type = "command"
+command = "cat /etc/issue.net"
+path = "/etc/issue.net"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1018', 'T1018.000', 'T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0007']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6, CM-1, CM-3"
+
+[system.banner.003b]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net uname Info (FIX)"
+skip = false
+set = true
+type = "command"
+command = "grep -E -i \"(\\\\\\v|\\\\\\r|\\\\\\m|\\\\\\s|$(grep '^ID=' /etc/os-release | cut -d= -f2 | sed -e 's/\"//g'))\" /etc/issue.net"
+path = "/etc/issue.net"
+setting = "review"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1222', 'T1222.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.banner.003c]
+id = "L-SYSTEM-BANN-001"
+name = "/etc/issue.net Permissions Configured"
+skip = false
+set = true
+type = "file"
+path = "/etc/issue.net"
+permissions = "644"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1222', 'T1222.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+
+[system.cron]
+sub_category_id = "CRON"
+sub_category_name = "Cron"
+sub_category_skip = false
+sub_category_set = true
+
+[system.cron.001a]
+id = "L-SYSTEM-CRON-001"
+name = "cron"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.001b]
+id = "L-SYSTEM-CRON-001"
+name = "cronie"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.002a]
+id = "L-SYSTEM-CRON-001"
+name = "cron"
+skip = false
+set = true
+type = "service"
+svc_name = "crond"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.003a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/crontab"
+skip = false
+set = true
+type = "file"
+path = "/etc/crontab"
+permissions = "600"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.004a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.hourly"
+skip = false
+set = true
+type = "dir"
+path = "/etc/cron.hourly"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.005a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.daily"
+skip = false
+set = true
+type = "dir"
+path = "/etc/cron.daily"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.006a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.weekly"
+skip = false
+set = true
+type = "dir"
+path = "/etc/cron.weekly"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.007a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.monthly"
+skip = false
+set = true
+type = "dir"
+path = "/etc/cron.monthly"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.008a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.d"
+skip = false
+set = true
+type = "dir"
+path = "/etc/cron.d"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']                        # Why is this one different?
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.009a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.allow"
+skip = false
+set = true
+type = "file"
+path = "/etc/cron.allow"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.009b]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/cron.deny"
+skip = false
+set = true
+type = "file"
+path = "/etc/cron.deny"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.010a]
+id = "L-SYSTEM-CRON-001"
+name = "at"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.001']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.cron.011a]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/at.allow"
+skip = false
+set = true
+type = "file"
+path = "/etc/at.allow"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.cron.011b]
+id = "L-SYSTEM-CRON-001"
+name = "/etc/at.deny"
+skip = false
+set = true
+type = "file"
+path = "/etc/at.deny"
+permissions = "700"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1053', 'T1053.003']
+mitre_tac = ['TA0002', 'TA0007']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3, MP-2"
+
+[system.pam]
+sub_category_id = "PAM"
+sub_category_name = "Pam"
+sub_category_skip = false
+sub_category_set = true
+
+[system.pam.001a]
+id = "L-SYSTEM-PAM-001"
+name = "libpam-pwquality"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.001b]
+id = "L-SYSTEM-PAM-001"
+name = "libpwquality"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002a]
+id = "L-SYSTEM-PAM-001"
+name = "Password Minimum Length"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "minlen = 14"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002b]
+id = "L-SYSTEM-PAM-001"
+name = "Password Minimum Class"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "minclass = 4"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002c]
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Digits"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "dcredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002d]
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Lower Case"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "lcredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002e]
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Upper Case"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "ucredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.002f]
+id = "L-SYSTEM-PAM-001"
+name = "Password Character: Other"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/pwquality.conf"
+setting = "ocredit = -1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1178.001',
+    'T1178.002',
+    'T1178.003',
+    'T1178.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.003a]
+id = "L-SYSTEM-PAM-001"
+name = "Account Lockout Attempts"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/faillock.conf"
+setting = "deny = 3"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
+
+[system.pam.003b]
+id = "L-SYSTEM-PAM-001"
+name = "Account Failure Time"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/faillock.conf"
+setting = "fail_interval = 900"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
+
+[system.pam.003c]
+id = "L-SYSTEM-PAM-001"
+name = "Account Unlock Time"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/security/faillock.conf"
+setting = "unlock_time = 600"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-1, AC-2"
+
+[system.pam.004a]
+id = "L-SYSTEM-PAM-001"
+name = "Account Password History (FIX)"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/pam.d/system-auth"
+ubuntu_file = "/etc/pam.d/common-password"
+setting = "remember=5"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1078',
+    'T1078.001',
+    'T1078.002',
+    'T1078.003',
+    'T1078.004',
+    'T1110',
+    'T1110.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.pam.005a]
+id = "L-SYSTEM-PAM-001"
+name = "Password Hashing Algorithm"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "ENCRYPT_METHOD YESCRYPT"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1003', 'T1003.008', 'T1110', 'T1110.002']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1041']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: IA-5"
+
+[system.ssh]
+sub_category_id = "SSH"
+sub_category_name = "OpenSSH"
+sub_category_skip = false
+sub_category_set = true
+sub_category_file1 = "/etc/ssh/sshd_config"
+sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
+
+[system.ssh.001a]
+id = "L-SYSTEM-SSH-001"
+name = "openssh-server"
+skip = false
+set = true
+type = "package"
+cis = ""
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = ""
+
+[system.ssh.002a]
+id = "L-SYSTEM-SSH-001"
+name = "File Permissions: sshd_config"
+skip = false
+set = true
+type = "file"
+path = "/etc/ssh/sshd_config"
+permissions = "600"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1098', 'T1098.004', 'T1543', 'T1543.002']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.ssh.003a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Private Host Key Files"
+skip = false
+set = true
+type = "keys"
+file_type = "private key"
+path = "/etc/ssh"
+permissions = "600"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1552', 'T1552.004']
+mitre_tac = ['TA0003', 'TA0006']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.ssh.004a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Public Host Key Files"
+skip = false
+set = true
+type = "keys"
+file_type = "public key"
+path = "/etc/ssh"
+permissions = "644"
+owner = "0"
+group = "0"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1552', 'T1552.004']
+mitre_tac = ['TA0003', 'TA0006']
+mitre_mit = ['M1022']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.ssh.005a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Access Limited (FIX)"
+skip = false
+set = true
+type = "command"
+command = "sshd -T -C user=root -C host=\"$(hostname)\" -C addr=\"$(grep $(hostname) /etc/hosts | awk '{print $1}')\" | grep -Pi '^\\h*(allow|deny)(users|groups)\\h+\\H+(\\h+.*)?$'"
+setting = ""
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1021', 'T1021.004']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1018']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.ssh.006a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH LogLevel"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:LogLevel)\\s+(VERBOSE|INFO)\\b"
+setting = "LogLevel INFO"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0005']
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-2, AU-12, SI-5"
+
+[system.ssh.007a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH PAM"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:UsePAM)\\s+yes\\b"
+setting = "UsePAM yes"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1021', 'T1021.004']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1035']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.008a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Root Login"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:PermitRootLogin)\\s+no\\b"
+setting = "PermitRootLogin no"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.ssh.009a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Host Based Auth"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:HostbasedAuthentication)\\s+no\\b"
+setting = "HostbasedAuthentication no"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.010a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Permit Empty Passwords"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:PermitEmptyPasswords)\\s+no\\b"
+setting = "PermitEmptyPasswords no"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1021', 'T1021.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.011a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Permit User Environment"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:PermitUserEnvironment)\\s+no\\b"
+setting = "PermitUserEnvironment no"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1021', 'T1021.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.012a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Ignore Rhosts"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:IgnoreRhosts)\\s+yes\\b"
+setting = "IgnoreRhosts yes"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.001', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.013a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH X11 Forwarding"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
+setting = "X11Forwarding no"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1210', 'T1210.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-7"
+
+[system.ssh.014a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Allow TCP Forwarding"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
+setting = "AllowTcpForwarding no"
+cis = "level-2"
+disa = ""
+mitre_tec = ['T1048', 'T1048.002', 'T1572', 'T1572.000']
+mitre_tac = ['TA0008']
+mitre_mit = ['M1042']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.015a]
+id = "L-SYSTEM-SSH-001"
+name = "System Wide Crypto Policy No Override (FIX)"
+skip = false
+set = true
+type = "grep_file"
+command = "grep -i '^\\s*CRYPTO_POLICY=' /etc/sysconfig/sshd"
+setting = ""
+cis = "level-1"
+disa = ""
+mitre_tec = []
+mitre_tac = []
+mitre_mit = []
+stig = ""
+source = "NIST SP 800-53 Rev. 5: SC-8, IA-5, AC-17"
+
+[system.ssh.016a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Warning Banner"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:Banner)\\s+/etc/issue\\.net\\b"
+setting = "Banner /etc/issue.net"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1082', 'T1082.000', 'T1592', 'T1592.004']
+mitre_tac = ['TA0001', 'TA0007']
+mitre_mit = ['M1035']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.017a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Auth Retries"
+skip = false
+set = true
+type = "regex"
+pattern = "^(?i:MaxAuthTries)\\s+([1-4])\\b"
+setting = "MaxAuthTries 4"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1036']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AU-3"
+
+[system.ssh.018a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Startups"
+skip = false
+set = true
+type = "regex"
+pattern = "^(?i:MaxStartups)\\s+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\\b"
+setting = "MaxStartups 10:30:60"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.002']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1036']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.019a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Max Sessions"
+skip = false
+set = true
+type = "regex"
+pattern = "^(?i:MaxSessions)\\s+([1-9]|10)\\b"
+setting = "MaxSessions 10"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1499', 'T1499.002']
+mitre_tac = ['TA0040']
+mitre_mit = ['M1036']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.020a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Login Grace Time"
+skip = false
+set = true
+type = "regex"
+pattern = "^(?i:LoginGraceTime)\\s+([1-9]|[1-5][0-9]|60)\\b"
+setting = "LoginGraceTime 60"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1110', 'T1110.001', 'T1110.003', 'T1110.004']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1036']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-6"
+
+[system.ssh.021a]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Idle Timeout Interval"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:ClientAliveInterval)\\s+[1-9][0-9]*\\b"
+setting = "ClientAliveInterval 15"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.ssh.021b]
+id = "L-SYSTEM-SSH-001"
+name = "SSH Idle Timeout Max"
+skip = false
+set = true
+type = "regex"
+pattern = "^\\s*(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\\b"
+setting = "ClientAliveCountMax 3"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.001', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1,CM-2, CM-6, CM-7, IA-5"
+
+[system.sudo]
+sub_category_id = "SUDO"
+sub_category_name = "Sudo"
+sub_category_skip = false
+sub_category_set = true
+
+[system.sudo.001a]
+id = "L-SYSTEM-SUDO-001"
+name = "sudo"
+skip = false
+set = true
+type = "package"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.sudo.002a]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo commands use pty"
+skip = false
+set = true
+type = "command"
+command = "grep -rPi '^\\h*Defaults\\h+([^#\\n\\r]+,)?use_pty(,\\h*\\h+\\h*)*\\h*(#.*)?$' /etc/sudoers*"
+setting = "use_pty"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.003', 'T1548', 'T1548.003']
+mitre_tac = ['TA0001', 'TA0003']
+mitre_mit = ['M1026', 'M1038']
+stig = ""
+source = ""
+
+[system.sudo.002b]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo commands use pty (grepdir)"
+skip = false
+set = true
+type = "grep_directory"
+default_directory = "/etc"
+default_file = "sudoers"
+setting1 = "Defaults"
+setting2 = "use_pty"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.003', 'T1548', 'T1548.003']
+mitre_tac = ['TA0001', 'TA0003']
+mitre_mit = ['M1026', 'M1038']
+stig = ""
+source = ""
+
+[system.sudo.003a]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo log file exists"
+skip = false
+set = true
+type = "command"
+command = [
+    'grep',
+    '-rPsi',
+    "\"^\\h*Defaults\\h+([^#]+,\\h*)?logfile\\h*=\\h*(\\\"|\\')?\\H+(\\\"|\\')?(,\\h*\\H+\\h*)*\\h*(#.*)?$\"",
+    '/etc/sudoers*',
+]
+setting = "sudo.log"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1562', 'T1562.006']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = ""
+
+[system.sudo.004a]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Re-Auth Not Global Disabled"
+skip = false
+set = true
+type = "command"
+command = "grep -r \"^[^#].*\\!authenticate\" /etc/sudoers*"
+setting = ""
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.sudo.005a]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Caching Timeout Configured (FIX)"
+skip = false
+set = true
+type = "command"
+command = "grep -roP \"timestamp_timeout=\\K[0-9]*\" /etc/sudoers*"
+setting = "15"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.sudo.005b]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Session Timeout Configured (FIX)"
+skip = false
+set = true
+type = "command"
+command = "sudo -V | grep \"Authentication timestamp timeout:\""
+setting = ""
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1548']
+mitre_tac = ['TA0004']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-6"
+
+[system.sudo.006a]
+id = "L-SYSTEM-SSH-001"
+name = "Sudo Su Access Restricted (FIX)"
+skip = false
+set = true
+type = "command"
+command = "grep -Pi '^\\h*auth\\h+(?:required|requisite)\\h+pam_wheel\\.so\\h+(?:[^#\\n\\r]+\\h+)?((?!\\2)(use_uid\\b|group=\\H+\\b))\\h+(?:[^#\\n\\r]+\\h+)?((?!\\1)(use_uid\\b|group=\\H+\\b))(\\h+.*)?$' /etc/pam.d/su"
+setting = "auth required"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078']
+mitre_tac = ['TA0005']
+mitre_mit = ['M1026']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
+
+[system.user]
+sub_category_id = "USER"
+sub_category_name = "User"
+sub_category_skip = false
+sub_category_set = true
+
+[system.user.001a]
+id = "L-SYSTEM-USER-001"
+name = "Password Expiration Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_MAX_DAYS 365"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1078',
+    'T1078.001',
+    'T1078.002',
+    'T1078.003',
+    'T1078.004',
+    'T1110',
+    'T1110.001',
+    'T1110.002',
+    'T1110.003',
+    'T1110.004',
+]
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.002a]
+id = "L-SYSTEM-USER-001"
+name = "Password Change Interval Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_MIN_DAYS 1"
+cis = "level-1"
+disa = ""
+mitre_tec = [
+    'T1078',
+    'T1078.001',
+    'T1078.002',
+    'T1078.003',
+    'T1078.004',
+    'T1110.004',
+]
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.003a]
+id = "L-SYSTEM-USER-001"
+name = "Password Age Warning Days"
+skip = false
+set = true
+type = "grep_file"
+default_file = "/etc/login.defs"
+setting = "PASS_WARN_AGE 7"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078']
+mitre_tac = ['TA0006']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
+
+[system.user.004a]
+id = "L-SYSTEM-USER-001"
+name = "Password Inactive Lock Days"
+skip = false
+set = true
+type = "command"
+command = "useradd -D | grep INACTIVE"
+setting = "INACTIVE=30"
+cis = "level-1"
+disa = ""
+mitre_tec = ['T1078', 'T1078.002', 'T1078.003']
+mitre_tac = ['TA0001']
+mitre_mit = ['M1027']
+stig = ""
+source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
