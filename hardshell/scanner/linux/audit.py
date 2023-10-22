@@ -146,7 +146,7 @@ def audit_regex(config, category, sub_category, check):
             for file in glob.glob(os.path.join(candidate, "*" + suffix)):
                 path_files.append(file)
 
-    click.echo(f"path files: {path_files}")
+    # click.echo(f"path files: {path_files}")
 
     # files1 = glob.glob(file1)
     # files2 = glob.glob(file2)
@@ -156,7 +156,7 @@ def audit_regex(config, category, sub_category, check):
     if len(path_files) > 0:
         for f in path_files:
             result = run_regex(f, pattern)
-            click.echo(f.split("/"))
+            click.echo(f.split("/")[-1])
 
             if result == True:
                 update_log_and_global_status(
