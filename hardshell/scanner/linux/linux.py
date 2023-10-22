@@ -7,6 +7,7 @@ from hardshell.scanner.linux.audit import (
     audit_denied,
     audit_loaded,
     audit_package,
+    audit_permissions,
     audit_regex,
 )
 from hardshell.scanner.linux.common import (
@@ -49,8 +50,6 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os_version in current_check["check_os"][current_os]
     ):
         global_status[category][sub_category][check] = {}
-        # module_name = current_check["module_name"]
-        # global_status["kernel"][module_name] = {}
         audit_loaded(config, category, sub_category, check)
         audit_denied(config, category, sub_category, check)
     elif (
@@ -59,7 +58,6 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os_version in current_check["check_os"][current_os]
     ):
         global_status[category][sub_category][check] = {}
-        pass
     elif (
         check_type == "package"
         and current_os in current_check["check_os"]
@@ -73,7 +71,8 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os_version in current_check["check_os"][current_os]
     ):
         global_status[category][sub_category][check] = {}
-        pass
+        audit_permissions(config, category, sub_category, check)
+
     elif (
         check_type == "regex"
         and current_os in current_check["check_os"]

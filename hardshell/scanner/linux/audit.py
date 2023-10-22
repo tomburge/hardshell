@@ -19,6 +19,92 @@ from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
 
+def audit_permissions(config, category, sub_category, check):
+    try:
+        check_name = config[category][sub_category][check]["check_name"]
+        check_path = config[category][sub_category][check]["path"]
+        check_permissions = config[category][sub_category][check]["permissions"]
+        check_owner = config[category][sub_category][check]["owner"]
+        check_group = config[category][sub_category][check]["group"]
+
+        file_true = file_exists(check_path)
+
+        if file_true:
+            permissions = get_permissions(check_path)
+            owner = str(os.stat(check_path).st_uid)
+            group = str(os.stat(check_path).st_gid)
+
+            if (
+                check_permissions == permissions
+                and check_owner == owner
+                and check_group == group
+            ):
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+            # if owner == owner:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+            #         message_color="blue",
+            #         status="PASS",
+            #         status_color="bright_green",
+            #         log_level="info",
+            #     )
+            # else:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+            #         message_color="blue",
+            #         status="FAIL",
+            #         status_color="bright_red",
+            #         log_level="info",
+            #     )
+            # if group == group:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+            #         message_color="blue",
+            #         status="PASS",
+            #         status_color="bright_green",
+            #         log_level="info",
+            #     )
+            # else:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+            #         message_color="blue",
+            #         status="FAIL",
+            #         status_color="bright_red",
+            #         log_level="info",
+            #     )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+    except Exception as e:
+        # click.echo(e)
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="error",
+        )
+
+
 def audit_regex(config, category, sub_category, check):
     file1 = config[category][sub_category]["sub_category_file1"]
     file2 = config[category][sub_category]["sub_category_file2"]
@@ -28,21 +114,18 @@ def audit_regex(config, category, sub_category, check):
 
     global_status["system"][sub_category][check] = {}
 
-    # click.echo(check_name)
-
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
     all_files = files1 + files2
     # click.echo(files1)
     # click.echo(files2)
     # click.echo(all_files)
-    # click.echo(len(all_files))
+
     if len(all_files) > 0:
         setting_found = ""
 
         for f in all_files:
             result = run_regex(f, pattern)
-            # click.echo(result)
 
             if result == True:
                 setting_found = "PASS"

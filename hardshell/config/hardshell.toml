@@ -663,6 +663,7 @@ check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Permissions sshd_config"
 check_type = "perms"
+path = "/etc/ssh/sshd_config"
 permissions = "600"
 owner = "0"
 group = "0"
