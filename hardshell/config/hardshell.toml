@@ -668,7 +668,7 @@ sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
 sub_category_file3 = '/etc/ssh/sshd_config.d'
 service_name = "sshd"
 base_dir = "/etc/ssh"
-base_path = "/etc"
+base_path = "/etc/ssh"
 prefix = "sshd_config"
 suffix = ".conf"
 
