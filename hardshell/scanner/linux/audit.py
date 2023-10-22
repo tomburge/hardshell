@@ -127,44 +127,97 @@ def audit_permissions(config, category, sub_category, check):
 def audit_regex(config, category, sub_category, check):
     global_status[category][sub_category][check] = {}
     check_name = config[category][sub_category][check]["check_name"]
+    click.echo(check)
+    click.echo(check_name)
     pattern = config[category][sub_category][check]["pattern"]
-    base_path = config[category][sub_category]["base_path"]
-    prefix = config[category][sub_category]["prefix"]
-    suffix = config[category][sub_category]["suffix"]
 
-    path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
-    path_files = []
+    if config[category][sub_category][check].get("path"):
+        click.echo(f"check with path: {check}")
+        result = run_regex(f, pattern)
 
-    def should_exclude(filename):
-        exclude_prefixes = ["README", "readme", "Readme"]
-        return any(filename.startswith(prefix) for prefix in exclude_prefixes)
+        if result == True:
+            update_log_and_global_status(
+                "PASS",
+                check_name,
+                category,
+                sub_category,
+                check,
+                f.split("/")[-1],
+            )
+        elif result == False:
+            update_log_and_global_status(
+                "FAIL",
+                check_name,
+                category,
+                sub_category,
+                check,
+                f.split("/")[-1],
+            )
+        else:
+            update_log_and_global_status(
+                "ERROR",
+                check_name,
+                category,
+                sub_category,
+                check,
+                f.split("/")[-1],
+            )
+    else:
+        click.echo(f"check with base_path: {check}")
+        base_path = config[category][sub_category]["base_path"]
+        prefix = config[category][sub_category]["prefix"]
+        suffix = config[category][sub_category]["suffix"]
 
-    for candidate in path_candidates:
-        if os.path.isfile(candidate) and not should_exclude(os.path.basename(candidate)):
-            # Add the file directly if it starts with the prefix and isn't excluded
-            path_files.append(candidate)
-        elif os.path.isdir(candidate):
-            # If it's a directory, look for files within it that match the suffix and aren't excluded
-            for file in glob.glob(os.path.join(candidate, "*" + suffix)):
-                if not should_exclude(os.path.basename(file)):
-                    path_files.append(file)
+        path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
+        path_files = []
 
-    if len(path_files) > 0:
-        for f in path_files:
-            result = run_regex(f, pattern)
+        def should_exclude(filename):
+            exclude_prefixes = ["README", "readme", "Readme"]
+            return any(filename.startswith(prefix) for prefix in exclude_prefixes)
 
-            if result == True:
-                update_log_and_global_status(
-                    "PASS", check_name, category, sub_category, check, f.split("/")[-1]
-                )
-            elif result == False:
-                update_log_and_global_status(
-                    "FAIL", check_name, category, sub_category, check, f.split("/")[-1]
-                )
-            else:
-                update_log_and_global_status(
-                    "ERROR", check_name, category, sub_category, check, f.split("/")[-1]
-                )
+        for candidate in path_candidates:
+            if os.path.isfile(candidate) and not should_exclude(
+                os.path.basename(candidate)
+            ):
+                # Add the file directly if it starts with the prefix and isn't excluded
+                path_files.append(candidate)
+            elif os.path.isdir(candidate):
+                # If it's a directory, look for files within it that match the suffix and aren't excluded
+                for file in glob.glob(os.path.join(candidate, "*" + suffix)):
+                    if not should_exclude(os.path.basename(file)):
+                        path_files.append(file)
+
+        if len(path_files) > 0:
+            for f in path_files:
+                result = run_regex(f, pattern)
+
+                if result == True:
+                    update_log_and_global_status(
+                        "PASS",
+                        check_name,
+                        category,
+                        sub_category,
+                        check,
+                        f.split("/")[-1],
+                    )
+                elif result == False:
+                    update_log_and_global_status(
+                        "FAIL",
+                        check_name,
+                        category,
+                        sub_category,
+                        check,
+                        f.split("/")[-1],
+                    )
+                else:
+                    update_log_and_global_status(
+                        "ERROR",
+                        check_name,
+                        category,
+                        sub_category,
+                        check,
+                        f.split("/")[-1],
+                    )
 
 
 def audit_loaded(config, category, sub_category, check):

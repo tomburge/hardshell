@@ -683,9 +683,31 @@ category_name = "System"
 sub_category_audit = true
 sub_category_harden = true
 sub_category_name = "PAM"
-base_path = "/etc"
-prefix = "sudoers"
+base_path = ""
+prefix = ""
 suffix = ""
+
+[system.pam.pwquality_config_sys]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "System Auth Password Quality Config"
+check_type = "regex"
+path = "/etc/pam.d/system-auth"
+pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
+setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
+
+[system.pam.pwquality_config_pass]
+check_audit = true
+check_harden = true
+check_id = "Password Auth Password Quality Config"
+check_os = { amzn = ["2023"] }
+check_name = ""
+check_type = "regex"
+path = "/etc/pam.d/password-auth"
+pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
+setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
 
 [system.ssh]
 sub_category_audit = true
