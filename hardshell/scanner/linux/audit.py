@@ -59,6 +59,7 @@ def audit_regex(config, category, sub_category, check):
                 status_color="bright_green",
                 log_level="info",
             )
+            global_status[category][sub_category][check]["status"] = "PASS"
         elif setting_found == "FAIL":
             log_status(
                 " " * 4 + f"- [CHECK] - {check_name}",
@@ -67,6 +68,7 @@ def audit_regex(config, category, sub_category, check):
                 status_color="bright_red",
                 log_level="info",
             )
+            global_status[category][sub_category][check]["status"] = "FAIL"
         else:
             log_status(
                 " " * 4 + f"- [CHECK] - {check_name}",
@@ -75,6 +77,7 @@ def audit_regex(config, category, sub_category, check):
                 status_color="bright_red",
                 log_level="error",
             )
+            global_status[category][sub_category][check]["status"] = "ERROR"
 
 
 def audit_loaded(config, category, sub_category, check):
