@@ -38,34 +38,43 @@ def audit_regex(config, category, sub_category, check):
     # click.echo(all_files)
     # click.echo(len(all_files))
     if len(all_files) > 0:
+        setting_found = ""
+
         for f in all_files:
             result = run_regex(f, pattern)
             click.echo(result)
 
             if result == True:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                    message_color="blue",
-                    status="PASS",
-                    status_color="bright_green",
-                    log_level="info",
-                )
+                setting_found = "PASS"
             elif result == False:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                    message_color="blue",
-                    status="FAIL",
-                    status_color="bright_red",
-                    log_level="info",
-                )
+                setting_found = "FAIL"
             else:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                    message_color="blue",
-                    status="ERROR",
-                    status_color="bright_red",
-                    log_level="error",
-                )
+                setting_found = "ERROR"
+
+        if setting_found == "PASS":
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}",
+                message_color="blue",
+                status="PASS",
+                status_color="bright_green",
+                log_level="info",
+            )
+        elif setting_found == "FAIL":
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}",
+                message_color="blue",
+                status="FAIL",
+                status_color="bright_red",
+                log_level="info",
+            )
+        else:
+            log_status(
+                " " * 4 + f"- [CHECK] - {check_name}",
+                message_color="blue",
+                status="ERROR",
+                status_color="bright_red",
+                log_level="error",
+            )
 
 
 def audit_loaded(config, category, sub_category, check):
