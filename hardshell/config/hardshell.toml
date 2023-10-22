@@ -475,7 +475,416 @@ check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 package_name = "chrony"
 package_install = true
 
+[kernel]
+category_audit = true
+category_harden = true
+category_name = "Kernel"
+
+[kernel.filesystem]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Filesystem"
+
+[kernel.filesystem.cramfs]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem cramfs"
+check_type = "filesystem"
+module_name = "cramfs"
+
+[kernel.filesystem.fat]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem fat"
+check_type = "filesystem"
+module_name = "fat"
+
+[kernel.filesystem.freevxfs]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem freevxfs"
+check_type = "filesystem"
+module_name = "freevxfs"
+
+[kernel.filesystem.gfs2]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem gfs2"
+check_type = "filesystem"
+module_name = "gfs2"
+
+[kernel.filesystem.hfs]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem hfs"
+check_type = "filesystem"
+module_name = "hfs"
+
+[kernel.filesystem.hfsplus]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem hfsplus"
+check_type = "filesystem"
+module_name = "hfsplus"
+
+[kernel.filesystem.jffs2]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem jffs2"
+check_type = "filesystem"
+module_name = "jffs2"
+
+[kernel.filesystem.nfs]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem nfs"
+check_type = "filesystem"
+module_name = "nfs"
+
+[kernel.filesystem.nfsv3]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem nfsv3"
+check_type = "filesystem"
+module_name = "nfsv3"
+
+[kernel.filesystem.squashfs]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "Filesystem squashfs"
+check_type = "filesystem"
+module_name = "squashfs"
+
+[kernel.filesystem.udf]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem udf"
+check_type = "filesystem"
+module_name = "udf"
+
+[kernel.filesystem.usb-storage]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem usb-storage"
+check_type = "filesystem"
+module_name = "usb-storage"
+
+[kernel.filesystem.vfat]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Filesystem vfat"
+check_type = "filesystem"
+module_name = "vfat"
+
+[kernel.module]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Module"
+
+[kernel.module.dccp]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "dccp"
+check_type = "module"
+module_name = "dccp"
+
+[kernel.module.rds]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "rds"
+check_type = "module"
+module_name = "rds"
+
+[kernel.module.sctp]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "sctp"
+check_type = "module"
+module_name = "sctp"
+
+[kernel.module.tipc]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "tipc"
+check_type = "module"
+module_name = "tipc"
+
 [system]
 category_audit = true
 category_harden = true
 category_name = "System"
+
+[system.ssh]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "SSH"
+sub_category_file1 = "/etc/ssh/sshd_config"
+sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
+sub_category_file3 = '/etc/ssh/sshd_config.d'
+
+[system.ssh.sshd_config]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions sshd_config"
+check_type = "perms"
+permissions = "600"
+owner = "0"
+group = "0"
+
+[system.ssh.private_hosts]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions Private Host key files"
+check_type = "keys"
+permissions = "600"
+owner = "0"
+group = "0"
+
+[system.ssh.public_hosts]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions Public Host key files"
+check_type = "keys"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.ssh.crypto_policy]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Crypto Policy Override"
+check_type = ""
+
+[system.ssh.strong_ciphers]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Strong Ciphers"
+check_type = ""
+
+[system.ssh.strong_mac]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Strong MAC Algorithms"
+check_type = ""
+
+[system.ssh.strong_kex]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Strong Key Exchange Algorithms"
+check_type = ""
+
+[system.ssh.limit_access]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Limit Access"
+check_type = ""
+
+[system.ssh.allow_tcp_forwarding]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "AllowTcpForwarding"
+check_type = "regex"
+pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
+setting = "AllowTcpForwarding no"
+
+[system.ssh.banner]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Banner"
+check_type = "regex"
+pattern = "^\\s*(?i:Banner)\\s+/etc/issue\\.net\\b"
+setting = "Banner /etc/issue.net"
+
+[system.ssh.client_alive_max]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "ClientAliveCountMax"
+check_type = "regex"
+pattern = "^\\s*(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\\b"
+setting = "ClientAliveCountMax 3"
+
+[system.ssh.client_alive_interval]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "ClientAliveInterval"
+check_type = "regex"
+pattern = "^\\s*(?i:ClientAliveInterval)\\s+[1-9][0-9]*\\b"
+setting = "ClientAliveInterval 15"
+
+[system.ssh.host_based_auth]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "HostbasedAuthentication"
+check_type = "regex"
+pattern = "^\\s*(?i:HostbasedAuthentication)\\s+no\\b"
+setting = "HostbasedAuthentication no"
+
+[system.ssh.ignore_rhosts]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "IgnoreRhosts"
+check_type = "regex"
+pattern = "^\\s*(?i:IgnoreRhosts)\\s+yes\\b"
+setting = "IgnoreRhosts yes"
+
+[system.ssh.login_grace_time]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "LoginGraceTime"
+check_type = "regex"
+pattern = "^(?i:LoginGraceTime)\\s+([1-9]|[1-5][0-9]|60)\\b"
+setting = "LoginGraceTime 60"
+
+[system.ssh.log_level]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "LogLevel"
+check_type = "regex"
+pattern = "^\\s*(?i:LogLevel)\\s+(VERBOSE|INFO)\\b"
+setting = "LogLevel INFO"
+
+[system.ssh.max_auth_tries]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "MaxAuthTries"
+check_type = "regex"
+pattern = "^(?i:MaxAuthTries)\\s+([1-4])\\b"
+setting = "MaxAuthTries 4"
+
+[system.ssh.max_sessions]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "MaxSessions"
+check_type = "regex"
+pattern = "^(?i:MaxSessions)\\s+([1-9]|10)\\b"
+setting = "MaxSessions 10"
+
+[system.ssh.max_startups]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "MaxStartups"
+check_type = "regex"
+pattern = "^(?i:MaxStartups)\\s+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\\b"
+setting = "MaxStartups 10:30:60"
+
+[system.ssh.permit_empty_passwords]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "PermitEmptyPasswords"
+check_type = "regex"
+pattern = "^\\s*(?i:PermitEmptyPasswords)\\s+no\\b"
+setting = "PermitEmptyPasswords no"
+
+[system.ssh.permit_root_login]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "PermitRootLogin"
+check_type = "regex"
+pattern = "^\\s*(?i:PermitRootLogin)\\s+no\\b"
+setting = "PermitRootLogin no"
+
+[system.ssh.permit_user_env]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "PermitUserEnvironment"
+check_type = "regex"
+pattern = "^\\s*(?i:PermitUserEnvironment)\\s+no\\b"
+setting = "PermitUserEnvironment no"
+
+[system.ssh.use_pam]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "UsePAM"
+check_type = "regex"
+pattern = "^\\s*(?i:UsePAM)\\s+yes\\b"
+setting = "UsePAM yes"
+
+[system.ssh.x11_forwarding]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "X11Forwarding"
+check_type = "regex"
+pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
+setting = "X11Forwarding no"

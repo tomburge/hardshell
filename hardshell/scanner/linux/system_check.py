@@ -463,7 +463,7 @@ def scan_system(mode, config, category, sub_category, check):
                 # click.echo(f"check type: {check_type}")
                 check_command(config, category, sub_category, check)
 
-            elif check_type == "dir" or type == "file":
+            elif check_type == "dir" or check_type == "file":
                 # pass
                 # click.echo(f"check name: {name}")
                 # click.echo(f"check type: {check_type}")
