@@ -131,24 +131,37 @@ def audit_regex(config, category, sub_category, check):
     prefix = config[category][sub_category]["prefix"]
     suffix = config[category][sub_category]["suffix"]
 
-    # Find files and directories that start with the prefix
-    path_candidates = glob.glob(
-        os.path.join(base_path, "**", prefix + "*"), recursive=True
-    )
+    path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
 
     path_files = []
 
     for candidate in path_candidates:
         if os.path.isfile(candidate):
-            # Add the file directly if it matches the prefix and the optional suffix
-            if candidate.endswith(suffix) or not suffix:
-                path_files.append(candidate)
+            # Add the file directly if it starts with the prefix
+            path_files.append(candidate)
         elif os.path.isdir(candidate):
             # If it's a directory, look for files within it that match the suffix
-            for root, dirs, files in os.walk(candidate):
-                for file in files:
-                    if file.endswith(suffix) or not suffix:
-                        path_files.append(os.path.join(root, file))
+            for file in glob.glob(os.path.join(candidate, "*" + suffix)):
+                path_files.append(file)
+
+    # Find files and directories that start with the prefix
+    # path_candidates = glob.glob(
+    #     os.path.join(base_path, "**", prefix + "*"), recursive=True
+    # )
+
+    # path_files = []
+
+    # for candidate in path_candidates:
+    #     if os.path.isfile(candidate):
+    #         # Add the file directly if it matches the prefix and the optional suffix
+    #         if candidate.endswith(suffix) or not suffix:
+    #             path_files.append(candidate)
+    #     elif os.path.isdir(candidate):
+    #         # If it's a directory, look for files within it that match the suffix
+    #         for root, dirs, files in os.walk(candidate):
+    #             for file in files:
+    #                 if file.endswith(suffix) or not suffix:
+    #                     path_files.append(os.path.join(root, file))
 
     # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
 
