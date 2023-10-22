@@ -132,8 +132,9 @@ def audit_regex(config, category, sub_category, check):
     pattern = config[category][sub_category][check]["pattern"]
 
     if config[category][sub_category][check].get("path"):
+        path = config[category][sub_category][check]["path"]
         click.echo(f"check with path: {check}")
-        result = run_regex(f, pattern)
+        result = run_regex(path, pattern)
 
         if result == True:
             update_log_and_global_status(
@@ -142,7 +143,7 @@ def audit_regex(config, category, sub_category, check):
                 category,
                 sub_category,
                 check,
-                f.split("/")[-1],
+                # f.split("/")[-1],
             )
         elif result == False:
             update_log_and_global_status(
@@ -151,7 +152,7 @@ def audit_regex(config, category, sub_category, check):
                 category,
                 sub_category,
                 check,
-                f.split("/")[-1],
+                # f.split("/")[-1],
             )
         else:
             update_log_and_global_status(
@@ -160,7 +161,7 @@ def audit_regex(config, category, sub_category, check):
                 category,
                 sub_category,
                 check,
-                f.split("/")[-1],
+                # f.split("/")[-1],
             )
     else:
         click.echo(f"check with base_path: {check}")
