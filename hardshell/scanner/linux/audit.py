@@ -84,7 +84,7 @@ def audit_regex(config, category, sub_category, check):
     file2 = config[category][sub_category]["sub_category_file2"]
     check_name = config[category][sub_category][check]["check_name"]
     pattern = config[category][sub_category][check]["pattern"]
-    setting = config[category][sub_category][check]["setting"]
+    # setting = config[category][sub_category][check]["setting"]
 
     global_status["system"][sub_category][check] = {}
 
