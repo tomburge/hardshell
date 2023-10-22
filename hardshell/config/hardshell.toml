@@ -738,7 +738,7 @@ check_harden = true
 check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Limit Access"
-check_type = ""
+check_type = "regex"
 pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
 # setting = "AllowUsers <userlist>"
 # setting = "AllowGroups <grouplist>"
