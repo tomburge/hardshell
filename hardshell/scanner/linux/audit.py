@@ -31,7 +31,11 @@ def update_log_and_global_status(
         status_color="bright_green" if status == "PASS" else "bright_red",
         log_level="info" if status != "ERROR" else "error",
     )
-    global_status[category][sub_category][check]["status"] = status
+    if len(msg) > 0:
+        global_status[category][sub_category][check][msg] = {}
+        global_status[category][sub_category][check][msg]["status"] = status
+    else:
+        global_status[category][sub_category][check]["status"] = status
 
 
 def audit_keys(config, category, sub_category, check):
