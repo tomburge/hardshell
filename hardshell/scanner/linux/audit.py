@@ -131,45 +131,16 @@ def audit_regex(config, category, sub_category, check):
     prefix = config[category][sub_category]["prefix"]
     suffix = config[category][sub_category]["suffix"]
 
-    # Using os.path.join for better path handling
     path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
 
-    # Filtering for files that start with the prefix and end with the suffix (if provided)
     path_files = [
         f
         for f in path_all_files
         if os.path.isfile(f)
         and os.path.basename(f).startswith(prefix)
-        and (not suffix or os.path.basename(f).endswith(suffix))
+        and os.path.basename(f).endswith(suffix)
     ]
 
-    # base_path = config[category][sub_category]["base_path"]
-    # prefix = config[category][sub_category]["prefix"]
-    # suffix = config[category][sub_category]["suffix"]
-    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
-
-    # path_files = [
-    #     f
-    #     for f in path_all_files
-    #     if os.path.isfile(f)
-    #     and os.path.basename(f).startswith(prefix)
-    #     and (not suffix or os.path.basename(f).endswith(suffix))
-    # ]
-
-    # base_path = config[category][sub_category]["base_path"]
-    # prefix = config[category][sub_category]["prefix"]
-    # suffix = config[category][sub_category]["suffix"]
-    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
-    # path_files = [
-    #     f
-    #     for f in path_all_files
-    #     if os.path.basename(f).startswith(prefix)
-    #     and (not suffix or os.path.basename(f).endswith(suffix))
-    # ]
-
-    # base_path = config[category][sub_category]["base_path"]
-    # prefix = config[category][sub_category]["prefix"]
-    # suffix = config[category][sub_category]["suffix"]
     # path_all_files = glob.glob(base_path + "/**/*")
     # path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
     click.echo(f"path all files: {path_all_files}")
@@ -177,7 +148,6 @@ def audit_regex(config, category, sub_category, check):
 
     # path_files = glob.glob(base_path)
     # path_all_files = glob.glob(base_path)
-
     # path_all_files = glob.glob(base_path + "/**/*" + suffix, recursive=True)
 
     files1 = glob.glob(file1)
