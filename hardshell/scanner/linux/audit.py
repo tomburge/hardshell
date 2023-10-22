@@ -36,36 +36,36 @@ def audit_regex(config, category, sub_category, check):
     # click.echo(files1)
     # click.echo(files2)
     # click.echo(all_files)
-    click.echo(len(all_files))
+    # click.echo(len(all_files))
+    if len(all_files) > 0:
+        for f in all_files:
+            result = run_regex(f, pattern)
+            click.echo(result)
 
-    for f in all_files:
-        result = run_regex(f, pattern)
-        # click.echo(result)
-
-        if result == True:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                message_color="blue",
-                status="PASS",
-                status_color="bright_green",
-                log_level="info",
-            )
-        elif result == False:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                message_color="blue",
-                status="FAIL",
-                status_color="bright_red",
-                log_level="info",
-            )
-        else:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}: {f}",
-                message_color="blue",
-                status="ERROR",
-                status_color="bright_red",
-                log_level="error",
-            )
+            if result == True:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            elif result == False:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}: {f}",
+                    message_color="blue",
+                    status="ERROR",
+                    status_color="bright_red",
+                    log_level="error",
+                )
 
 
 def audit_loaded(config, category, sub_category, check):
