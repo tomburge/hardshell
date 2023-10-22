@@ -19,6 +19,74 @@ from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
 
+def audit_keys(config, category, sub_category, check):
+    check_name = config[category][sub_category][check]["name"]
+    file_type = config[category][sub_category][check]["file_type"]
+    check_path = Path(config[category][sub_category]["base_dir"])
+    check_permissions = config[category][sub_category][check]["permissions"]
+    check_owner = config[category][sub_category][check]["owner"]
+    check_group = config[category][sub_category][check]["group"]
+
+    for file in check_path.glob("**/*"):
+        if not file.is_file():
+            continue
+        file_info = subprocess.output(["file", str(file)], text=True)
+        if file_type in file_info:
+            permissions = get_permissions(check_path)
+            owner = str(os.stat(file).st_uid)
+            group = str(os.stat(file).st_gid)
+
+            if check_permissions == permissions:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Permissions: {permissions}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Permissions: {permissions}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+
+            if check_owner == owner:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+            if check_group == group:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+
+
 def audit_permissions(config, category, sub_category, check):
     try:
         check_name = config[category][sub_category][check]["check_name"]

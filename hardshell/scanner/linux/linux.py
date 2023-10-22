@@ -176,6 +176,8 @@ def scan_linux(mode, config):
                             and check != "sub_category_file1"
                             and check != "sub_category_file2"
                             and check != "sub_category_file3"
+                            and check != "service_name"
+                            and check != "base_dir"
                         ):
                             # global_status[category][sub_category][check] = {}
                             os_info = detect_os()
