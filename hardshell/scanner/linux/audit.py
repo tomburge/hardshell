@@ -26,18 +26,18 @@ def audit_regex(config, category, sub_category, check):
     pattern = config[category][sub_category][check]["pattern"]
     setting = config[category][sub_category][check]["setting"]
 
-    click.echo(check_name)
+    # click.echo(check_name)
 
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
     all_files = files1 + files2
-    click.echo(files1)
-    click.echo(files2)
-    click.echo(all_files)
+    # click.echo(files1)
+    # click.echo(files2)
+    # click.echo(all_files)
 
     for f in all_files:
         result = run_regex(f, pattern)
-        click.echo(result)
+        # click.echo(result)
 
         if result == True:
             log_status(
