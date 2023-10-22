@@ -221,7 +221,8 @@ check_harden = true
 check_id = ""
 check_name = "Package crypto-policies"
 check_type = "package"
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_os = { amzn = ["2023"] }
+# check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 package_name = "crypto-policies"
 package_install = true
 
@@ -667,6 +668,7 @@ sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
 sub_category_file3 = '/etc/ssh/sshd_config.d'
 service_name = "sshd"
 base_dir = "/etc/ssh"
+base_path = "/etc/ssh/sshd_config"
 
 [system.ssh.sshd_config]
 check_audit = true
@@ -908,3 +910,24 @@ check_name = "X11Forwarding"
 check_type = "regex"
 pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
 setting = "X11Forwarding no"
+
+[system.sudo]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Sudo"
+# sub_category_file1 = "/etc/ssh/sshd_config"
+# sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
+# sub_category_file3 = '/etc/ssh/sshd_config.d'
+# config = "/etc/sudo.config"
+base_path = "/etc/sudoers"
+
+[system.sudo.use_pty]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Defaults use_pty"
+check_type = "regex"
+path = "/etc/sudoers"
+pattern = "^(?i:Defaults)\\s+use_pty$"
+setting = "Defaults use_pty"
