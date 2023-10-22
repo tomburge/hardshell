@@ -697,6 +697,7 @@ check_type = "regex"
 path = "/etc/pam.d/system-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
+match = true
 
 [system.pam.pwquality_config_pass]
 check_audit = true
@@ -708,6 +709,7 @@ check_type = "regex"
 path = "/etc/pam.d/password-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
+match = true
 
 [system.pam.pw_quality_length]
 check_audit = true
@@ -716,9 +718,13 @@ check_id = ""
 check_os = { amzn = ["2023"] }
 check_name = "Password Length"
 check_type = "regex"
-path = "/etc/security/pwquality.conf"
+base_path = "/etc/security"
+prefix = "pwquality"
+suffix = ".conf"
+# path = "/etc/security/pwquality.conf"
 pattern = "^minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+|[1-9][0-9]{2,})"
 setting = "minlen = 14"
+match = true
 
 [system.pam.pw_quality_class]
 check_audit = true
@@ -727,20 +733,25 @@ check_id = ""
 check_os = { amzn = ["2023"] }
 check_name = "Password Class"
 check_type = "regex"
-path = "/etc/security/pwquality.conf"
+base_path = "/etc/security"
+prefix = "pwquality"
+suffix = ".conf"
+# path = "/etc/security/pwquality.conf"
 pattern = "^minclass\\s*=\\s*4$"
 setting = "minclass = 4"
+match = true
 
 [system.pam.password_lockout]
 check_audit = true
 check_harden = true
 check_id = ""
 check_os = { amzn = ["2023"] }
-check_name = "Password Lockout"
+check_name = "Password Lockout Tries"
 check_type = "regex"
 path = "/etc/security/faillock.conf"
 pattern = "^\\s*deny\\s*=\\s*([1-5])\\s*$"
 setting = "deny = 5"
+match = true
 
 [system.pam.password_unlock_time]
 check_audit = true
@@ -752,6 +763,7 @@ check_type = "regex"
 path = "/etc/security/faillock.conf"
 pattern = "^\\s*unlock_time\\s*=\\s*(0|[9-9][0-9]{2,}|[1-9][0-9]{3,})\\s*$"
 setting = "unlock_time = 900"
+match = true
 
 [system.ssh]
 sub_category_audit = true
@@ -804,7 +816,10 @@ check_harden = true
 check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Crypto Policy Override"
-check_type = ""
+check_type = "regex"
+pattern = "^\\s*CRYPTO_POLICY=.*"
+setting = ""
+match = false
 
 [system.ssh.strong_ciphers]
 check_audit = true
@@ -842,6 +857,7 @@ pattern = "^(?i:AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+\\S+$"
 # setting = "AllowGroups <grouplist>"
 # setting = "DenyUsers <userlist>"
 # setting = "DenyGroups <grouplist>"
+match = true
 
 [system.ssh.allow_tcp_forwarding]
 check_audit = true
@@ -852,6 +868,7 @@ check_name = "AllowTcpForwarding"
 check_type = "regex"
 pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
 setting = "AllowTcpForwarding no"
+match = true
 
 [system.ssh.banner]
 check_audit = true
@@ -862,6 +879,7 @@ check_name = "Banner"
 check_type = "regex"
 pattern = "^\\s*(?i:Banner)\\s+/etc/issue\\.net\\b"
 setting = "Banner /etc/issue.net"
+match = true
 
 [system.ssh.client_alive_max]
 check_audit = true
@@ -872,6 +890,7 @@ check_name = "ClientAliveCountMax"
 check_type = "regex"
 pattern = "^\\s*(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveCountMax 3"
+match = true
 
 [system.ssh.client_alive_interval]
 check_audit = true
@@ -882,6 +901,7 @@ check_name = "ClientAliveInterval"
 check_type = "regex"
 pattern = "^\\s*(?i:ClientAliveInterval)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveInterval 15"
+match = true
 
 [system.ssh.host_based_auth]
 check_audit = true
@@ -892,6 +912,7 @@ check_name = "HostbasedAuthentication"
 check_type = "regex"
 pattern = "^\\s*(?i:HostbasedAuthentication)\\s+no\\b"
 setting = "HostbasedAuthentication no"
+match = true
 
 [system.ssh.ignore_rhosts]
 check_audit = true
@@ -902,6 +923,7 @@ check_name = "IgnoreRhosts"
 check_type = "regex"
 pattern = "^\\s*(?i:IgnoreRhosts)\\s+yes\\b"
 setting = "IgnoreRhosts yes"
+match = true
 
 [system.ssh.login_grace_time]
 check_audit = true
@@ -912,6 +934,7 @@ check_name = "LoginGraceTime"
 check_type = "regex"
 pattern = "^(?i:LoginGraceTime)\\s+([1-9]|[1-5][0-9]|60)\\b"
 setting = "LoginGraceTime 60"
+match = true
 
 [system.ssh.log_level]
 check_audit = true
@@ -922,6 +945,7 @@ check_name = "LogLevel"
 check_type = "regex"
 pattern = "^\\s*(?i:LogLevel)\\s+(VERBOSE|INFO)\\b"
 setting = "LogLevel INFO"
+match = true
 
 [system.ssh.max_auth_tries]
 check_audit = true
@@ -932,6 +956,7 @@ check_name = "MaxAuthTries"
 check_type = "regex"
 pattern = "^(?i:MaxAuthTries)\\s+([1-4])\\b"
 setting = "MaxAuthTries 4"
+match = true
 
 [system.ssh.max_sessions]
 check_audit = true
@@ -942,6 +967,7 @@ check_name = "MaxSessions"
 check_type = "regex"
 pattern = "^(?i:MaxSessions)\\s+([1-9]|10)\\b"
 setting = "MaxSessions 10"
+match = true
 
 [system.ssh.max_startups]
 check_audit = true
@@ -952,6 +978,7 @@ check_name = "MaxStartups"
 check_type = "regex"
 pattern = "^(?i:MaxStartups)\\s+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\\b"
 setting = "MaxStartups 10:30:60"
+match = true
 
 [system.ssh.permit_empty_passwords]
 check_audit = true
@@ -962,6 +989,7 @@ check_name = "PermitEmptyPasswords"
 check_type = "regex"
 pattern = "^\\s*(?i:PermitEmptyPasswords)\\s+no\\b"
 setting = "PermitEmptyPasswords no"
+match = true
 
 [system.ssh.permit_root_login]
 check_audit = true
@@ -972,6 +1000,7 @@ check_name = "PermitRootLogin"
 check_type = "regex"
 pattern = "^\\s*(?i:PermitRootLogin)\\s+no\\b"
 setting = "PermitRootLogin no"
+match = true
 
 [system.ssh.permit_user_env]
 check_audit = true
@@ -982,6 +1011,7 @@ check_name = "PermitUserEnvironment"
 check_type = "regex"
 pattern = "^\\s*(?i:PermitUserEnvironment)\\s+no\\b"
 setting = "PermitUserEnvironment no"
+match = true
 
 [system.ssh.use_pam]
 check_audit = true
@@ -992,6 +1022,7 @@ check_name = "UsePAM"
 check_type = "regex"
 pattern = "^\\s*(?i:UsePAM)\\s+yes\\b"
 setting = "UsePAM yes"
+match = true
 
 [system.ssh.x11_forwarding]
 check_audit = true
@@ -1002,6 +1033,7 @@ check_name = "X11Forwarding"
 check_type = "regex"
 pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
 setting = "X11Forwarding no"
+match = true
 
 [system.sudo]
 sub_category_audit = true
@@ -1020,6 +1052,7 @@ check_name = "Defaults timestamp_timeout"
 check_type = "regex"
 pattern = "^(?<!#)Defaults\\b.*\\btimestamp_timeout=15\\b"
 setting = "Defaults timestamp_timeout=15"
+match = true
 
 [system.sudo.sudo_log]
 check_audit = true
@@ -1030,6 +1063,7 @@ check_name = "Defaults logfile"
 check_type = "regex"
 pattern = "^(?i:Defaults)\\s+logfile=['\"].*?['\"]$"
 setting = "Defaults logfile='/var/log/sudo.log'"
+match = true
 
 [system.sudo.use_pty]
 check_audit = true
@@ -1040,6 +1074,7 @@ check_name = "Defaults use_pty"
 check_type = "regex"
 pattern = "^(?i:Defaults)\\s+use_pty$"
 setting = "Defaults use_pty"
+match = true
 
 [system.sudo.reauth_global]
 check_audit = true
@@ -1050,3 +1085,4 @@ check_name = "Re-Auth Global"
 check_type = "regex"
 pattern = "^[^#].*\\!authenticate"
 setting = ""
+match = true

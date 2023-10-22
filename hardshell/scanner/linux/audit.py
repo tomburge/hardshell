@@ -126,33 +126,35 @@ def audit_permissions(config, category, sub_category, check):
 
 def audit_regex(config, category, sub_category, check):
     global_status[category][sub_category][check] = {}
-    check_name = config[category][sub_category][check]["check_name"]
-    # click.echo(check)
-    # click.echo(check_name)
-    pattern = config[category][sub_category][check]["pattern"]
+    check_data = config[category][sub_category][check]
+    check_name = check_data.get("check_name")
+    pattern = check_data.get("pattern")
+    match = check_data.get("match")
 
-    if config[category][sub_category][check].get("path"):
-        path = config[category][sub_category][check]["path"]
-        # click.echo(f"check with path: {check}")
-        result = run_regex(path, pattern)
-
-        if result == True:
-            update_log_and_global_status(
-                "PASS", check_name, category, sub_category, check
-            )
-        elif result == False:
-            update_log_and_global_status(
-                "FAIL", check_name, category, sub_category, check
-            )
+    def update_status_based_on_result(res, mat):
+        if res == mat:
+            status = "PASS"
         else:
-            update_log_and_global_status(
-                "ERROR", check_name, category, sub_category, check
-            )
+            status = "FAIL"
+        update_log_and_global_status(status, check_name, category, sub_category, check)
+
+    if check_data.get("path"):
+        path = check_data["path"]
+        result = run_regex(path, pattern)
+        update_status_based_on_result(result, match)
     else:
-        # click.echo(f"check with base_path: {check}")
-        base_path = config[category][sub_category]["base_path"]
-        prefix = config[category][sub_category]["prefix"]
-        suffix = config[category][sub_category]["suffix"]
+        if (
+            check_data.get("base_path")
+            and check_data.get("prefix")
+            and check_data.get("suffix")
+        ):
+            base_path = check_data["base_path"]
+            prefix = check_data["prefix"]
+            suffix = check_data["suffix"]
+        else:
+            base_path = config[category][sub_category].get("base_path")
+            prefix = config[category][sub_category].get("prefix")
+            suffix = config[category][sub_category].get("suffix")
 
         path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
         path_files = []
@@ -165,45 +167,16 @@ def audit_regex(config, category, sub_category, check):
             if os.path.isfile(candidate) and not should_exclude(
                 os.path.basename(candidate)
             ):
-                # Add the file directly if it starts with the prefix and isn't excluded
                 path_files.append(candidate)
             elif os.path.isdir(candidate):
-                # If it's a directory, look for files within it that match the suffix and aren't excluded
                 for file in glob.glob(os.path.join(candidate, "*" + suffix)):
                     if not should_exclude(os.path.basename(file)):
                         path_files.append(file)
 
-        if len(path_files) > 0:
+        if path_files:
             for f in path_files:
                 result = run_regex(f, pattern)
-
-                if result == True:
-                    update_log_and_global_status(
-                        "PASS",
-                        check_name,
-                        category,
-                        sub_category,
-                        check,
-                        f.split("/")[-1],
-                    )
-                elif result == False:
-                    update_log_and_global_status(
-                        "FAIL",
-                        check_name,
-                        category,
-                        sub_category,
-                        check,
-                        f.split("/")[-1],
-                    )
-                else:
-                    update_log_and_global_status(
-                        "ERROR",
-                        check_name,
-                        category,
-                        sub_category,
-                        check,
-                        f.split("/")[-1],
-                    )
+                update_status_based_on_result(result, match)
 
 
 def audit_loaded(config, category, sub_category, check):
@@ -329,3 +302,149 @@ def audit_package(os_info, config, category, sub_category, check):
 
 
 # Holding area
+
+# def audit_regex(config, category, sub_category, check):
+#     global_status[category][sub_category][check] = {}
+#     check_name = config[category][sub_category][check]["check_name"]
+#     # click.echo(check)
+#     # click.echo(check_name)
+#     pattern = config[category][sub_category][check]["pattern"]
+#     match = config[category][sub_category][check]["match"]
+
+#     if config[category][sub_category][check].get("path"):
+#         path = config[category][sub_category][check]["path"]
+#         # click.echo(f"check with path: {check}")
+#         result = run_regex(path, pattern)
+#         click.echo(result)
+#         click.echo(match)
+
+#         if result == True and match == True:
+#             update_log_and_global_status(
+#                 "PASS", check_name, category, sub_category, check
+#             )
+#         elif result == False and match == False:
+#             update_log_and_global_status(
+#                 "PASS", check_name, category, sub_category, check
+#             )
+#         elif result == False and match == True:
+#             update_log_and_global_status(
+#                 "FAIL", check_name, category, sub_category, check
+#             )
+#         elif result == True and match == False:
+#             update_log_and_global_status(
+#                 "FAIL", check_name, category, sub_category, check
+#             )
+#         else:
+#             update_log_and_global_status(
+#                 "ERROR", check_name, category, sub_category, check
+#             )
+#     elif (
+#         config[category][sub_category][check].get("base_path")
+#         and config[category][sub_category][check].get("prefix")
+#         and config[category][sub_category][check].get("suffix")
+#     ):
+#         base_path = config[category][sub_category][check]["base_path"]
+#         prefix = config[category][sub_category][check]["prefix"]
+#         suffix = config[category][sub_category][check]["suffix"]
+#     else:
+#         # click.echo(f"check with base_path: {check}")
+#         base_path = config[category][sub_category]["base_path"]
+#         prefix = config[category][sub_category]["prefix"]
+#         suffix = config[category][sub_category]["suffix"]
+
+#         path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
+#         path_files = []
+
+#         def should_exclude(filename):
+#             exclude_prefixes = ["README", "readme", "Readme"]
+#             return any(filename.startswith(prefix) for prefix in exclude_prefixes)
+
+#         for candidate in path_candidates:
+#             if os.path.isfile(candidate) and not should_exclude(
+#                 os.path.basename(candidate)
+#             ):
+#                 # Add the file directly if it starts with the prefix and isn't excluded
+#                 path_files.append(candidate)
+#             elif os.path.isdir(candidate):
+#                 # If it's a directory, look for files within it that match the suffix and aren't excluded
+#                 for file in glob.glob(os.path.join(candidate, "*" + suffix)):
+#                     if not should_exclude(os.path.basename(file)):
+#                         path_files.append(file)
+
+#         if len(path_files) > 0:
+#             for f in path_files:
+#                 result = run_regex(f, pattern)
+
+#                 if result == True and match == True:
+#                     update_log_and_global_status(
+#                         "PASS",
+#                         check_name,
+#                         category,
+#                         sub_category,
+#                         check,
+#                         f.split("/")[-1],
+#                     )
+#                 elif result == False and match == False:
+#                     update_log_and_global_status(
+#                         "PASS",
+#                         check_name,
+#                         category,
+#                         sub_category,
+#                         check,
+#                         f.split("/")[-1],
+#                     )
+#                 elif result == False and match == True:
+#                     update_log_and_global_status(
+#                         "FAIL",
+#                         check_name,
+#                         category,
+#                         sub_category,
+#                         check,
+#                         f.split("/")[-1],
+#                     )
+#                 elif result == True and match == False:
+#                     update_log_and_global_status(
+#                         "FAIL",
+#                         check_name,
+#                         category,
+#                         sub_category,
+#                         check,
+#                         f.split("/")[-1],
+#                     )
+#                 else:
+#                     update_log_and_global_status(
+#                         "ERROR",
+#                         check_name,
+#                         category,
+#                         sub_category,
+#                         check,
+#                         f.split("/")[-1],
+#                     )
+
+# if result == True:
+#     update_log_and_global_status(
+#         "PASS",
+#         check_name,
+#         category,
+#         sub_category,
+#         check,
+#         f.split("/")[-1],
+#     )
+# elif result == False:
+#     update_log_and_global_status(
+#         "FAIL",
+#         check_name,
+#         category,
+#         sub_category,
+#         check,
+#         f.split("/")[-1],
+#     )
+# else:
+#     update_log_and_global_status(
+#         "ERROR",
+#         check_name,
+#         category,
+#         sub_category,
+#         check,
+#         f.split("/")[-1],
+#     )
