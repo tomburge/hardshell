@@ -923,6 +923,7 @@ sub_category_file3 = ''
 # config = "/etc/sudo.config"
 base_path = "/etc"
 prefix = "sudoers"
+suffix = ""
 
 [system.sudo.use_pty]
 check_audit = true
