@@ -130,8 +130,11 @@ def audit_regex(config, category, sub_category, check):
     base_path = config[category][sub_category]["base_path"]
     prefix = config[category][sub_category]["prefix"]
     suffix = config[category][sub_category]["suffix"]
+
+    # Using os.path.join for better path handling
     path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
 
+    # Filtering for files that start with the prefix and end with the suffix (if provided)
     path_files = [
         f
         for f in path_all_files
@@ -139,6 +142,19 @@ def audit_regex(config, category, sub_category, check):
         and os.path.basename(f).startswith(prefix)
         and (not suffix or os.path.basename(f).endswith(suffix))
     ]
+
+    # base_path = config[category][sub_category]["base_path"]
+    # prefix = config[category][sub_category]["prefix"]
+    # suffix = config[category][sub_category]["suffix"]
+    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
+
+    # path_files = [
+    #     f
+    #     for f in path_all_files
+    #     if os.path.isfile(f)
+    #     and os.path.basename(f).startswith(prefix)
+    #     and (not suffix or os.path.basename(f).endswith(suffix))
+    # ]
 
     # base_path = config[category][sub_category]["base_path"]
     # prefix = config[category][sub_category]["prefix"]
