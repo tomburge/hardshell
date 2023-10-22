@@ -20,10 +20,12 @@ from hardshell.utils.core import detect_os
 
 
 # Update Log and Global Status Helper
-def update_log_and_global_status(status, check_name, category, sub_category, check):
+def update_log_and_global_status(
+    status, check_name, category, sub_category, check, msg=""
+):
     # Helper function to consolidate repetitive logging and global status updates
     log_status(
-        " " * 4 + f"- [CHECK] - {check_name}",
+        " " * 4 + f"- [CHECK] - {check_name} + {msg}",
         message_color="blue",
         status=status,
         status_color="bright_green" if status == "PASS" else "bright_red",
@@ -152,25 +154,25 @@ def audit_regex(config, category, sub_category, check):
     # click.echo(f"all files: {all_files}")
 
     if len(path_files) > 0:
-        setting_found = ""
-
         for f in path_files:
             result = run_regex(f, pattern)
+            click.echo(f.split("/"))
 
             if result == True:
-                setting_found = "PASS"
                 update_log_and_global_status(
-                    setting_found, check_name, category, sub_category, check
+                    "PASS",
+                    check_name,
+                    category,
+                    sub_category,
+                    check,
                 )
             elif result == False:
-                setting_found = "FAIL"
                 update_log_and_global_status(
-                    setting_found, check_name, category, sub_category, check
+                    "FAIL", check_name, category, sub_category, check
                 )
             else:
-                setting_found = "ERROR"
                 update_log_and_global_status(
-                    setting_found, check_name, category, sub_category, check
+                    "ERROR", check_name, category, sub_category, check
                 )
 
         # Using the helper function
