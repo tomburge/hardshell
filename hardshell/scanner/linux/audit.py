@@ -30,17 +30,21 @@ def audit_keys(config, category, sub_category, check):
     for file in check_path.glob("**/*"):
         if not file.is_file():
             continue
-        # file_info = subprocess.getoutput(["file", str(file)], text=True)
-        file_info = subprocess.getoutput(["file", str(check_path)])
-        click.echo(file_info)
-        if file_type in file_info:
+        file_info = subprocess.run(
+            ["file", file], check=True, capture_output=True, text=True
+        )
+        if file_type in file_info.stdout:
             permissions = get_permissions(check_path)
             owner = str(os.stat(file).st_uid)
             group = str(os.stat(file).st_gid)
 
-            if check_permissions == permissions:
+            if (
+                check_permissions == permissions
+                and check_owner == owner
+                and check_group == group
+            ):
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Permissions: {permissions}",
+                    " " * 4 + f"- [CHECK] - {check_name}",
                     message_color="blue",
                     status="PASS",
                     status_color="bright_green",
@@ -48,45 +52,45 @@ def audit_keys(config, category, sub_category, check):
                 )
             else:
                 log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Permissions: {permissions}",
+                    " " * 4 + f"- [CHECK] - {check_name}",
                     message_color="blue",
                     status="FAIL",
                     status_color="bright_red",
                     log_level="info",
                 )
 
-            if check_owner == owner:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-                    message_color="blue",
-                    status="PASS",
-                    status_color="bright_green",
-                    log_level="info",
-                )
-            else:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-                    message_color="blue",
-                    status="FAIL",
-                    status_color="bright_red",
-                    log_level="info",
-                )
-            if check_group == group:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-                    message_color="blue",
-                    status="PASS",
-                    status_color="bright_green",
-                    log_level="info",
-                )
-            else:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-                    message_color="blue",
-                    status="FAIL",
-                    status_color="bright_red",
-                    log_level="info",
-                )
+            # if check_owner == owner:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+            #         message_color="blue",
+            #         status="PASS",
+            #         status_color="bright_green",
+            #         log_level="info",
+            #     )
+            # else:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
+            #         message_color="blue",
+            #         status="FAIL",
+            #         status_color="bright_red",
+            #         log_level="info",
+            #     )
+            # if check_group == group:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+            #         message_color="blue",
+            #         status="PASS",
+            #         status_color="bright_green",
+            #         log_level="info",
+            #     )
+            # else:
+            #     log_status(
+            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
+            #         message_color="blue",
+            #         status="FAIL",
+            #         status_color="bright_red",
+            #         log_level="info",
+            #     )
 
 
 def audit_permissions(config, category, sub_category, check):
