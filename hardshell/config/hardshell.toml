@@ -739,7 +739,7 @@ check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Limit Access"
 check_type = "regex"
-pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
+pattern = "^(?i:AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+\\S+$"
 # setting = "AllowUsers <userlist>"
 # setting = "AllowGroups <grouplist>"
 # setting = "DenyUsers <userlist>"
