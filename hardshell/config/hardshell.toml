@@ -717,7 +717,8 @@ check_os = { amzn = ["2023"] }
 check_name = "Password Quality"
 check_type = "regex"
 path = "/etc/security/pwquality.conf"
-pattern = "^(minlen\\s*=\\s*14\\s*minclass\\s*=\\s*4)$|^(dcredit\\s*=\\s*-1\\s*ucredit\\s*=\\s*-1\\s*ocredit\\s*=\\s*-1\\s*lcredit\\s*=\\s*-1)$"
+pattern = "^(?:minlen\\s*=\\s*14|minclass\\s*=\\s*4|dcredit\\s*=\\s*-1|ucredit\\s*=\\s*-1|ocredit\\s*=\\s*-1|lcredit\\s*=\\s*-1)$"
+# pattern = "^(minlen\\s*=\\s*14\\s*minclass\\s*=\\s*4)$|^(dcredit\\s*=\\s*-1\\s*ucredit\\s*=\\s*-1\\s*ocredit\\s*=\\s*-1\\s*lcredit\\s*=\\s*-1)$"
 setting = "minlen = 14\nminclass = 4"
 # setting = "dcredit = -1\nucredit = -1\nocredit = -1\nlcredit = -1"
 
