@@ -132,12 +132,13 @@ def audit_regex(config, category, sub_category, check):
     # path_files = glob.glob(base_path)
     path_all_files = glob.glob(base_path)
     path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
-    click.echo(path_files)
+    click.echo(f"path all files: {path_all_files}")
+    click.echo(f"path files: {path_files}")
 
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
     all_files = files1 + files2
-    click.echo(all_files)
+    click.echo(f"all files: {all_files}")
 
     if len(all_files) > 0:
         setting_found = ""
