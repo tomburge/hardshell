@@ -29,13 +29,13 @@ def audit_keys(config, category, sub_category, check):
 
     for file in check_path.glob("**/*"):
         # click.echo(file)
-        setting_found = ""
         if not file.is_file():
             continue
         file_info = subprocess.run(
             ["file", file], check=True, capture_output=True, text=True
         )
         if file_type in file_info.stdout:
+            setting_found = ""
             permissions = get_permissions(check_path)
             owner = str(os.stat(file).st_uid)
             group = str(os.stat(file).st_gid)
@@ -60,30 +60,30 @@ def audit_keys(config, category, sub_category, check):
                     log_level="info",
                     log_only=True,
                 )
-        if setting_found == "PASS":
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}",
-                message_color="blue",
-                status="PASS",
-                status_color="bright_green",
-                log_level="info",
-            )
-        elif setting_found == "FAIL":
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}",
-                message_color="blue",
-                status="FAIL",
-                status_color="bright_red",
-                log_level="info",
-            )
-        else:
-            log_status(
-                " " * 4 + f"- [CHECK] - {check_name}",
-                message_color="blue",
-                status="ERROR",
-                status_color="bright_red",
-                log_level="error",
-            )
+            if setting_found == "PASS":
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="PASS",
+                    status_color="bright_green",
+                    log_level="info",
+                )
+            elif setting_found == "FAIL":
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="FAIL",
+                    status_color="bright_red",
+                    log_level="info",
+                )
+            else:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="ERROR",
+                    status_color="bright_red",
+                    log_level="error",
+                )
 
 
 def audit_permissions(config, category, sub_category, check):
