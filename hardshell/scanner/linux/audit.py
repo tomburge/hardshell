@@ -20,7 +20,7 @@ from hardshell.utils.core import detect_os
 
 
 def audit_keys(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["name"]
+    check_name = config[category][sub_category][check]["check_name"]
     file_type = config[category][sub_category][check]["file_type"]
     check_path = Path(config[category][sub_category]["base_dir"])
     check_permissions = config[category][sub_category][check]["permissions"]
@@ -30,7 +30,9 @@ def audit_keys(config, category, sub_category, check):
     for file in check_path.glob("**/*"):
         if not file.is_file():
             continue
-        file_info = subprocess.output(["file", str(file)], text=True)
+        # file_info = subprocess.getoutput(["file", str(file)], text=True)
+        file_info = subprocess.getoutput(["file", str(check_path)])
+        click.echo(file_info)
         if file_type in file_info:
             permissions = get_permissions(check_path)
             owner = str(os.stat(file).st_uid)

@@ -5,6 +5,7 @@ import click
 
 from hardshell.scanner.linux.audit import (
     audit_denied,
+    audit_keys,
     audit_loaded,
     audit_package,
     audit_permissions,
@@ -58,6 +59,7 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os_version in current_check["check_os"][current_os]
     ):
         global_status[category][sub_category][check] = {}
+        audit_keys(config, category, sub_category, check)
     elif (
         check_type == "package"
         and current_os in current_check["check_os"]
