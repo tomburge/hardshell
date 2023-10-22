@@ -25,7 +25,7 @@ def update_log_and_global_status(
 ):
     # Helper function to consolidate repetitive logging and global status updates
     log_status(
-        " " * 4 + f"- [CHECK] - {check_name} + {msg}",
+        " " * 4 + f"- [CHECK] - {check_name} {msg}",
         message_color="blue",
         status=status,
         status_color="bright_green" if status == "PASS" else "bright_red",
@@ -137,42 +137,38 @@ def audit_regex(config, category, sub_category, check):
 
     path_files = []
 
+    def should_exclude(filename):
+        exclude_prefixes = ["README", "readme", "Readme"]
+        return any(filename.startswith(prefix) for prefix in exclude_prefixes)
+
     for candidate in path_candidates:
-        if os.path.isfile(candidate):
-            # Add the file directly if it starts with the prefix
+        if os.path.isfile(candidate) and not should_exclude(os.path.basename(candidate)):
+            # Add the file directly if it starts with the prefix and isn't excluded
             path_files.append(candidate)
         elif os.path.isdir(candidate):
-            # If it's a directory, look for files within it that match the suffix
+            # If it's a directory, look for files within it that match the suffix and aren't excluded
             for file in glob.glob(os.path.join(candidate, "*" + suffix)):
-                path_files.append(file)
+                if not should_exclude(os.path.basename(file)):
+                    path_files.append(file)
 
     # click.echo(f"path files: {path_files}")
-
-    # files1 = glob.glob(file1)
-    # files2 = glob.glob(file2)
-    # all_files = files1 + files2
-    # click.echo(f"all files: {all_files}")
 
     if len(path_files) > 0:
         for f in path_files:
             result = run_regex(f, pattern)
-            click.echo(f.split("/")[-1])
+            # click.echo(f.split("/")[-1])
 
             if result == True:
                 update_log_and_global_status(
-                    "PASS",
-                    check_name,
-                    category,
-                    sub_category,
-                    check,
+                    "PASS", check_name, category, sub_category, check, f.split("/")[-1]
                 )
             elif result == False:
                 update_log_and_global_status(
-                    "FAIL", check_name, category, sub_category, check
+                    "FAIL", check_name, category, sub_category, check, f.split("/")[-1]
                 )
             else:
                 update_log_and_global_status(
-                    "ERROR", check_name, category, sub_category, check
+                    "ERROR", check_name, category, sub_category, check, f.split("/")[-1]
                 )
 
         # Using the helper function
