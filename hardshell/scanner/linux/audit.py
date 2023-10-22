@@ -120,12 +120,12 @@ def audit_permissions(config, category, sub_category, check):
 
 def audit_regex(config, category, sub_category, check):
     click.echo(check)
-    file1 = config[category][sub_category]["sub_category_file1"]
-    file2 = config[category][sub_category]["sub_category_file2"]
+    global_status[category][sub_category][check] = {}
+
+    # file1 = config[category][sub_category]["sub_category_file1"]
+    # file2 = config[category][sub_category]["sub_category_file2"]
     check_name = config[category][sub_category][check]["check_name"]
     pattern = config[category][sub_category][check]["pattern"]
-
-    global_status[category][sub_category][check] = {}
 
     base_path = config[category][sub_category]["base_path"]
     prefix = config[category][sub_category]["prefix"]
@@ -144,53 +144,17 @@ def audit_regex(config, category, sub_category, check):
             for file in glob.glob(os.path.join(candidate, "*" + suffix)):
                 path_files.append(file)
 
-    # Find files and directories that start with the prefix
-    # path_candidates = glob.glob(
-    #     os.path.join(base_path, "**", prefix + "*"), recursive=True
-    # )
-
-    # path_files = []
-
-    # for candidate in path_candidates:
-    #     if os.path.isfile(candidate):
-    #         # Add the file directly if it matches the prefix and the optional suffix
-    #         if candidate.endswith(suffix) or not suffix:
-    #             path_files.append(candidate)
-    #     elif os.path.isdir(candidate):
-    #         # If it's a directory, look for files within it that match the suffix
-    #         for root, dirs, files in os.walk(candidate):
-    #             for file in files:
-    #                 if file.endswith(suffix) or not suffix:
-    #                     path_files.append(os.path.join(root, file))
-
-    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
-
-    # path_files = [
-    #     f
-    #     for f in path_all_files
-    #     if os.path.isfile(f)
-    #     and os.path.basename(f).startswith(prefix)
-    #     and os.path.basename(f).endswith(suffix)
-    # ]
-
-    # path_all_files = glob.glob(base_path + "/**/*")
-    # path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
-    # click.echo(f"path all files: {path_all_files}")
     click.echo(f"path files: {path_files}")
 
-    # path_files = glob.glob(base_path)
-    # path_all_files = glob.glob(base_path)
-    # path_all_files = glob.glob(base_path + "/**/*" + suffix, recursive=True)
+    # files1 = glob.glob(file1)
+    # files2 = glob.glob(file2)
+    # all_files = files1 + files2
+    # click.echo(f"all files: {all_files}")
 
-    files1 = glob.glob(file1)
-    files2 = glob.glob(file2)
-    all_files = files1 + files2
-    click.echo(f"all files: {all_files}")
-
-    if len(all_files) > 0:
+    if len(path_files) > 0:
         setting_found = ""
 
-        for f in all_files:
+        for f in path_files:
             result = run_regex(f, pattern)
 
             if result == True:
