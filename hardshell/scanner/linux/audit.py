@@ -26,6 +26,8 @@ def audit_regex(config, category, sub_category, check):
     pattern = config[category][sub_category][check]["pattern"]
     setting = config[category][sub_category][check]["setting"]
 
+    global_status["system"][sub_category][check] = {}
+
     # click.echo(check_name)
 
     files1 = glob.glob(file1)
@@ -34,6 +36,7 @@ def audit_regex(config, category, sub_category, check):
     # click.echo(files1)
     # click.echo(files2)
     # click.echo(all_files)
+    click.echo(len(all_files))
 
     for f in all_files:
         result = run_regex(f, pattern)
@@ -82,7 +85,7 @@ def audit_loaded(config, category, sub_category, check):
     """
     try:
         module_name = config[category][sub_category][check]["module_name"]
-        global_status["kernel"][module_name]["load"] = {}
+        global_status[category][sub_category][module_name]["load"] = {}
 
         loaded = subprocess.getoutput(f"lsmod | grep {module_name}")
 
@@ -94,7 +97,7 @@ def audit_loaded(config, category, sub_category, check):
                 status_color="bright_green",
                 log_level="info",
             )
-            global_status["kernel"][module_name]["load"]["status"] = "PASS"
+            global_status[category][sub_category][module_name]["load"]["status"] = "PASS"
         else:
             log_status(
                 " " * 4 + f"- [CHECK] - Unloaded {module_name}",
@@ -103,7 +106,7 @@ def audit_loaded(config, category, sub_category, check):
                 status_color="bright_red",
                 log_level="info",
             )
-            global_status["kernel"][module_name]["load"]["status"] = "FAIL"
+            global_status[category][sub_category][module_name]["load"]["status"] = "FAIL"
 
     except Exception as error:
         log_status(
@@ -113,7 +116,7 @@ def audit_loaded(config, category, sub_category, check):
             status_color="bright_red",
             log_level="error",
         )
-        global_status["kernel"][module_name]["load"]["status"] = "ERROR"
+        global_status[category][sub_category][module_name]["load"]["status"] = "ERROR"
 
 
 def audit_denied(config, category, sub_category, check):
@@ -133,7 +136,7 @@ def audit_denied(config, category, sub_category, check):
     """
     try:
         module_name = config[category][sub_category][check]["module_name"]
-        global_status["kernel"][module_name]["deny"] = {}
+        global_status[category][sub_category][module_name]["deny"] = {}
         result = subprocess.run(
             ["modprobe", "--showconfig"], check=True, capture_output=True, text=True
         )
@@ -150,7 +153,7 @@ def audit_denied(config, category, sub_category, check):
                 status_color="bright_green",
                 log_level="info",
             )
-            global_status["kernel"][module_name]["deny"]["status"] = "PASS"
+            global_status[category][sub_category][module_name]["deny"]["status"] = "PASS"
         else:
             log_status(
                 " " * 4 + f"- [CHECK] - Denied {module_name}",
@@ -159,7 +162,7 @@ def audit_denied(config, category, sub_category, check):
                 status_color="bright_red",
                 log_level="info",
             )
-            global_status["kernel"][module_name]["deny"]["status"] = "FAIL"
+            global_status[category][sub_category][module_name]["deny"]["status"] = "FAIL"
 
     except subprocess.CalledProcessError as error:
         deny = []
@@ -170,7 +173,7 @@ def audit_denied(config, category, sub_category, check):
             status_color="bright_red",
             log_level="error",
         )
-        global_status["kernel"][module_name]["deny"]["status"] = "ERROR"
+        global_status[category][sub_category][module_name]["deny"]["status"] = "ERROR"
 
 
 def audit_package(os_info, config, category, sub_category, check):
@@ -179,7 +182,7 @@ def audit_package(os_info, config, category, sub_category, check):
     package_name = current_check["package_name"]
     package_install = current_check["package_install"]
 
-    global_status["package"][sub_category][package_name] = {}
+    global_status[category][sub_category][package_name] = {}
 
     pkg_mgr = check_pkg_mgr(config, os_info)
     cmd = config["global"]["package"]["manager"][pkg_mgr]["installed"].copy()
@@ -196,19 +199,19 @@ def audit_package(os_info, config, category, sub_category, check):
             status = "PASS"
             status_color = "bright_green"
             log_level = "info"
-            global_status["package"][sub_category][package_name]["status"] = "PASS"
+            global_status[category][sub_category][package_name]["status"] = "PASS"
         elif (package_install and not is_installed) or (
             not package_install and is_installed
         ):
             status = "FAIL"
             status_color = "bright_red"
             log_level = "info"
-            global_status["package"][sub_category][package_name]["status"] = "FAIL"
+            global_status[category][sub_category][package_name]["status"] = "FAIL"
         else:
             status = "ERROR"
             status_color = "bright_red"
             log_level = "error"
-            global_status["package"][sub_category][package_name]["status"] = "ERROR"
+            global_status[category][sub_category][package_name]["status"] = "ERROR"
 
         log_status(
             " " * 4 + f"- [CHECK] - {check_name}",

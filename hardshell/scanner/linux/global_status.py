@@ -22,4 +22,6 @@
 
 # global_status = GlobalStatus()
 
-global_status = {"package": {}, "kernel": {}}
+# global_status = {"kernel": {}, "packages": {}, "system": {}}
+
+global_status = {}

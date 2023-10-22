@@ -48,8 +48,9 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
     ):
-        module_name = current_check["module_name"]
-        global_status["kernel"][module_name] = {}
+        global_status[category][sub_category][check] = {}
+        # module_name = current_check["module_name"]
+        # global_status["kernel"][module_name] = {}
         audit_loaded(config, category, sub_category, check)
         audit_denied(config, category, sub_category, check)
     elif (
@@ -57,24 +58,28 @@ def audit_check(os_info, config, category, sub_category, check):
         and current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
     ):
+        global_status[category][sub_category][check] = {}
         pass
     elif (
         check_type == "package"
         and current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
     ):
+        global_status[category][sub_category][check] = {}
         audit_package(os_info, config, category, sub_category, check)
     elif (
         check_type == "perms"
         and current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
     ):
+        global_status[category][sub_category][check] = {}
         pass
     elif (
         check_type == "regex"
         and current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
     ):
+        global_status[category][sub_category][check] = {}
         audit_regex(config, category, sub_category, check)
 
 
@@ -105,6 +110,7 @@ def scan_linux(mode, config):
             and category != "category_id"
             and category != "category_name"
         ):
+            global_status[category] = {}
             category_name = config[category]["category_name"]
             log_status("")
             log_status(
@@ -135,7 +141,7 @@ def scan_linux(mode, config):
                     continue
 
                 else:
-                    global_status["package"][sub_category] = {}
+                    global_status[category][sub_category] = {}
                     sub_category_name = config[category][sub_category][
                         "sub_category_name"
                     ]
@@ -172,6 +178,7 @@ def scan_linux(mode, config):
                             and check != "sub_category_file2"
                             and check != "sub_category_file3"
                         ):
+                            # global_status[category][sub_category][check] = {}
                             os_info = detect_os()
 
                             if mode == "audit":
