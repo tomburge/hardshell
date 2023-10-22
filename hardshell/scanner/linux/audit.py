@@ -125,20 +125,14 @@ def audit_permissions(config, category, sub_category, check):
 
 
 def audit_regex(config, category, sub_category, check):
-    click.echo(check)
     global_status[category][sub_category][check] = {}
-
-    # file1 = config[category][sub_category]["sub_category_file1"]
-    # file2 = config[category][sub_category]["sub_category_file2"]
     check_name = config[category][sub_category][check]["check_name"]
     pattern = config[category][sub_category][check]["pattern"]
-
     base_path = config[category][sub_category]["base_path"]
     prefix = config[category][sub_category]["prefix"]
     suffix = config[category][sub_category]["suffix"]
 
     path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
-
     path_files = []
 
     def should_exclude(filename):
@@ -155,12 +149,9 @@ def audit_regex(config, category, sub_category, check):
                 if not should_exclude(os.path.basename(file)):
                     path_files.append(file)
 
-    # click.echo(f"path files: {path_files}")
-
     if len(path_files) > 0:
         for f in path_files:
             result = run_regex(f, pattern)
-            # click.echo(f.split("/")[-1])
 
             if result == True:
                 update_log_and_global_status(
@@ -174,11 +165,6 @@ def audit_regex(config, category, sub_category, check):
                 update_log_and_global_status(
                     "ERROR", check_name, category, sub_category, check, f.split("/")[-1]
                 )
-
-        # Using the helper function
-        # update_log_and_global_status(
-        #     setting_found, check_name, category, sub_category, check
-        # )
 
 
 def audit_loaded(config, category, sub_category, check):
