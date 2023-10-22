@@ -125,10 +125,13 @@ def audit_regex(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     pattern = config[category][sub_category][check]["pattern"]
     base_path = config[category][sub_category]["base_path"]
+    prefix = config[category][sub_category]["prefix"]
 
     global_status[category][sub_category][check] = {}
 
-    path_files = glob.glob(base_path)
+    # path_files = glob.glob(base_path)
+    path_all_files = glob.glob(base_path)
+    path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
     click.echo(path_files)
 
     files1 = glob.glob(file1)

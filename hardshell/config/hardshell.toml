@@ -668,7 +668,8 @@ sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
 sub_category_file3 = '/etc/ssh/sshd_config.d'
 service_name = "sshd"
 base_dir = "/etc/ssh"
-base_path = "/etc/ssh/sshd_config"
+base_path = "/etc/ssh"
+prefix = "sshd_config"
 
 [system.ssh.sshd_config]
 check_audit = true
@@ -919,7 +920,8 @@ sub_category_name = "Sudo"
 # sub_category_file2 = '/etc/ssh/sshd_config.d/*.conf'
 # sub_category_file3 = '/etc/ssh/sshd_config.d'
 # config = "/etc/sudo.config"
-base_path = "/etc/sudoers"
+base_path = "/etc"
+prefix = "sudoers"
 
 [system.sudo.use_pty]
 check_audit = true
