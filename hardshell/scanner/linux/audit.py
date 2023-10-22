@@ -62,11 +62,11 @@ def audit_permissions(config, category, sub_category, check):
             log_status(
                 " " * 4 + f"- [CHECK] - {check_name}",
                 message_color="blue",
-                status="FAIL",
+                status="ERROR",
                 status_color="bright_red",
-                log_level="info",
+                log_level="error",
             )
-            global_status[category][sub_category][check]["status"] = "FAIL"
+            global_status[category][sub_category][check]["status"] = "ERROR"
     except Exception as e:
         # click.echo(e)
         log_status(

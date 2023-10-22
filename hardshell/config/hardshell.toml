@@ -739,6 +739,11 @@ check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Limit Access"
 check_type = ""
+pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
+# setting = "AllowUsers <userlist>"
+# setting = "AllowGroups <grouplist>"
+# setting = "DenyUsers <userlist>"
+# setting = "DenyGroups <grouplist>"
 
 [system.ssh.allow_tcp_forwarding]
 check_audit = true
