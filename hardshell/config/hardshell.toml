@@ -709,19 +709,27 @@ path = "/etc/pam.d/password-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
 
-[system.pam.password_quality]
+[system.pam.pw_quality_length]
 check_audit = true
 check_harden = true
 check_id = ""
 check_os = { amzn = ["2023"] }
-check_name = "Password Quality"
+check_name = "Password Length"
 check_type = "regex"
 path = "/etc/security/pwquality.conf"
-pattern = "^(minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+|[1-9][0-9]{2,}))$|^(minclass\\s*=\\s*4)$|^(dcredit\\s*=\\s*-1)$|^(ucredit\\s*=\\s*-1)$|^(ocredit\\s*=\\s*-1)$|^(lcredit\\s*=\\s*-1)$"
-# pattern = "^(?:minlen\\s*=\\s*14|minclass\\s*=\\s*4|dcredit\\s*=\\s*-1|ucredit\\s*=\\s*-1|ocredit\\s*=\\s*-1|lcredit\\s*=\\s*-1)$"
-# pattern = "^(minlen\\s*=\\s*14\\s*minclass\\s*=\\s*4)$|^(dcredit\\s*=\\s*-1\\s*ucredit\\s*=\\s*-1\\s*ocredit\\s*=\\s*-1\\s*lcredit\\s*=\\s*-1)$"
-setting = "minlen = 14\nminclass = 4"
-# setting = "dcredit = -1\nucredit = -1\nocredit = -1\nlcredit = -1"
+pattern = "^minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+|[1-9][0-9]{2,})"
+setting = "minlen = 14"
+
+[system.pam.pw_quality_class]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "Password Class"
+check_type = "regex"
+path = "/etc/security/pwquality.conf"
+pattern = "^minclass\\s*=\\s*4$"
+setting = "minclass = 4"
 
 [system.ssh]
 sub_category_audit = true
