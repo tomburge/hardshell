@@ -731,6 +731,28 @@ path = "/etc/security/pwquality.conf"
 pattern = "^minclass\\s*=\\s*4$"
 setting = "minclass = 4"
 
+[system.pam.password_lockout]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "Password Lockout"
+check_type = "regex"
+path = "/etc/security/faillock.conf"
+pattern = "^\\s*deny\\s*=\\s*([1-5])\\s*$"
+setting = "deny = 5"
+
+[system.pam.password_unlock_time]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "Password Unlock Time"
+check_type = "regex"
+path = "/etc/security/faillock.conf"
+pattern = "^\\s*unlock_time\\s*=\\s*(0|[9-9][0-9]{2,}|[1-9][0-9]{3,})\\s*$"
+setting = "unlock_time = 900"
+
 [system.ssh]
 sub_category_audit = true
 sub_category_harden = true
