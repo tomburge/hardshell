@@ -130,7 +130,8 @@ def audit_regex(config, category, sub_category, check):
     global_status[category][sub_category][check] = {}
 
     # path_files = glob.glob(base_path)
-    path_all_files = glob.glob(base_path)
+    # path_all_files = glob.glob(base_path)
+    path_all_files = glob.glob(base_path + "/**/*")
     path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
     click.echo(f"path all files: {path_all_files}")
     click.echo(f"path files: {path_files}")
