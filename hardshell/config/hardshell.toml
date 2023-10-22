@@ -226,6 +226,26 @@ check_os = { amzn = ["2023"] }
 package_name = "crypto-policies"
 package_install = true
 
+[packages.security.libpwquality]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Package libpwquality"
+check_type = "package"
+check_os = { amzn = ["2023"] }
+package_name = "libpwquality"
+package_install = true
+
+[packages.security.libpam-pwquality]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Package libpam-pwquality"
+check_type = "package"
+check_os = { ubuntu = ["22.04"] }
+package_name = "libpam-pwquality"
+package_install = true
+
 [packages.service]
 sub_category_audit = true
 sub_category_harden = true
@@ -659,6 +679,14 @@ category_audit = true
 category_harden = true
 category_name = "System"
 
+[system.pam]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "PAM"
+base_path = "/etc"
+prefix = "sudoers"
+suffix = ""
+
 [system.ssh]
 sub_category_audit = true
 sub_category_harden = true
@@ -917,6 +945,26 @@ base_path = "/etc"
 prefix = "sudoers"
 suffix = ""
 
+[system.sudo.auth_timeout]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Defaults timestamp_timeout"
+check_type = "regex"
+pattern = "^(?<!#)Defaults\\b.*\\btimestamp_timeout=15\\b"
+setting = "Defaults timestamp_timeout=15"
+
+[system.sudo.sudo_log]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Defaults logfile"
+check_type = "regex"
+pattern = "^(?i:Defaults)\\s+logfile=['\"].*?['\"]$"
+setting = "Defaults logfile='/var/log/sudo.log'"
+
 [system.sudo.use_pty]
 check_audit = true
 check_harden = true
@@ -924,6 +972,15 @@ check_id = ""
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Defaults use_pty"
 check_type = "regex"
-path = "/etc/sudoers"
 pattern = "^(?i:Defaults)\\s+use_pty$"
 setting = "Defaults use_pty"
+
+[system.sudo.reauth_global]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Re-Auth Global"
+check_type = "regex"
+pattern = "^[^#].*\\!authenticate"
+setting = ""
