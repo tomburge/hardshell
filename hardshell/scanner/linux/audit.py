@@ -124,19 +124,45 @@ def audit_regex(config, category, sub_category, check):
     file2 = config[category][sub_category]["sub_category_file2"]
     check_name = config[category][sub_category][check]["check_name"]
     pattern = config[category][sub_category][check]["pattern"]
-    base_path = config[category][sub_category]["base_path"]
-    prefix = config[category][sub_category]["prefix"]
-    suffix = config[category][sub_category]["suffix"]
 
     global_status[category][sub_category][check] = {}
 
-    # path_files = glob.glob(base_path)
-    # path_all_files = glob.glob(base_path)
+    base_path = config[category][sub_category]["base_path"]
+    prefix = config[category][sub_category]["prefix"]
+    suffix = config[category][sub_category]["suffix"]
+    path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
+
+    path_files = [
+        f
+        for f in path_all_files
+        if os.path.isfile(f)
+        and os.path.basename(f).startswith(prefix)
+        and (not suffix or os.path.basename(f).endswith(suffix))
+    ]
+
+    # base_path = config[category][sub_category]["base_path"]
+    # prefix = config[category][sub_category]["prefix"]
+    # suffix = config[category][sub_category]["suffix"]
+    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
+    # path_files = [
+    #     f
+    #     for f in path_all_files
+    #     if os.path.basename(f).startswith(prefix)
+    #     and (not suffix or os.path.basename(f).endswith(suffix))
+    # ]
+
+    # base_path = config[category][sub_category]["base_path"]
+    # prefix = config[category][sub_category]["prefix"]
+    # suffix = config[category][sub_category]["suffix"]
     # path_all_files = glob.glob(base_path + "/**/*")
-    path_all_files = glob.glob(base_path + "/**/*" + suffix, recursive=True)
-    path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
+    # path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
     click.echo(f"path all files: {path_all_files}")
     click.echo(f"path files: {path_files}")
+
+    # path_files = glob.glob(base_path)
+    # path_all_files = glob.glob(base_path)
+
+    # path_all_files = glob.glob(base_path + "/**/*" + suffix, recursive=True)
 
     files1 = glob.glob(file1)
     files2 = glob.glob(file2)
