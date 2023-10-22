@@ -28,6 +28,7 @@ def audit_keys(config, category, sub_category, check):
     check_group = config[category][sub_category][check]["group"]
 
     for file in check_path.glob("**/*"):
+        click.echo(file)
         if not file.is_file():
             continue
         file_info = subprocess.run(
@@ -58,39 +59,6 @@ def audit_keys(config, category, sub_category, check):
                     status_color="bright_red",
                     log_level="info",
                 )
-
-            # if check_owner == owner:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-            #         message_color="blue",
-            #         status="PASS",
-            #         status_color="bright_green",
-            #         log_level="info",
-            #     )
-            # else:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-            #         message_color="blue",
-            #         status="FAIL",
-            #         status_color="bright_red",
-            #         log_level="info",
-            #     )
-            # if check_group == group:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-            #         message_color="blue",
-            #         status="PASS",
-            #         status_color="bright_green",
-            #         log_level="info",
-            #     )
-            # else:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-            #         message_color="blue",
-            #         status="FAIL",
-            #         status_color="bright_red",
-            #         log_level="info",
-            #     )
 
 
 def audit_permissions(config, category, sub_category, check):
