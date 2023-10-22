@@ -35,7 +35,7 @@ def update_log_and_global_status(status, check_name, category, sub_category, che
 def audit_keys(config, category, sub_category, check):
     check_name = config[category][sub_category][check]["check_name"]
     file_type = config[category][sub_category][check]["file_type"]
-    check_path = Path(config[category][sub_category]["base_dir"])
+    check_path = Path(config[category][sub_category]["base_path"])
     check_permissions = config[category][sub_category][check]["permissions"]
     check_owner = config[category][sub_category][check]["owner"]
     check_group = config[category][sub_category][check]["group"]
