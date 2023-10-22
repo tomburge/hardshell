@@ -27,6 +27,8 @@ def audit_permissions(config, category, sub_category, check):
         check_owner = config[category][sub_category][check]["owner"]
         check_group = config[category][sub_category][check]["group"]
 
+        global_status["system"][sub_category][check] = {}
+
         file_true = file_exists(check_path)
 
         if file_true:
@@ -46,6 +48,7 @@ def audit_permissions(config, category, sub_category, check):
                     status_color="bright_green",
                     log_level="info",
                 )
+                global_status[category][sub_category][check]["status"] = "PASS"
             else:
                 log_status(
                     " " * 4 + f"- [CHECK] - {check_name}",
@@ -54,38 +57,7 @@ def audit_permissions(config, category, sub_category, check):
                     status_color="bright_red",
                     log_level="info",
                 )
-            # if owner == owner:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-            #         message_color="blue",
-            #         status="PASS",
-            #         status_color="bright_green",
-            #         log_level="info",
-            #     )
-            # else:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Owner: {owner}",
-            #         message_color="blue",
-            #         status="FAIL",
-            #         status_color="bright_red",
-            #         log_level="info",
-            #     )
-            # if group == group:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-            #         message_color="blue",
-            #         status="PASS",
-            #         status_color="bright_green",
-            #         log_level="info",
-            #     )
-            # else:
-            #     log_status(
-            #         " " * 4 + f"- [CHECK] - {check_name} Group: {group}",
-            #         message_color="blue",
-            #         status="FAIL",
-            #         status_color="bright_red",
-            #         log_level="info",
-            #     )
+                global_status[category][sub_category][check]["status"] = "FAIL"
         else:
             log_status(
                 " " * 4 + f"- [CHECK] - {check_name}",
@@ -94,6 +66,7 @@ def audit_permissions(config, category, sub_category, check):
                 status_color="bright_red",
                 log_level="info",
             )
+            global_status[category][sub_category][check]["status"] = "FAIL"
     except Exception as e:
         # click.echo(e)
         log_status(
@@ -103,6 +76,7 @@ def audit_permissions(config, category, sub_category, check):
             status_color="bright_red",
             log_level="error",
         )
+        global_status[category][sub_category][check]["status"] = "ERROR"
 
 
 def audit_regex(config, category, sub_category, check):
