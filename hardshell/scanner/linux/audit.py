@@ -131,12 +131,14 @@ def audit_regex(config, category, sub_category, check):
     pattern = check_data.get("pattern")
     match = check_data.get("match")
 
-    def update_status_based_on_result(res, mat):
+    def update_status_based_on_result(res, mat, msg=""):
         if res == mat:
             status = "PASS"
         else:
             status = "FAIL"
-        update_log_and_global_status(status, check_name, category, sub_category, check)
+        update_log_and_global_status(
+            status, check_name, category, sub_category, check, msg
+        )
 
     if check_data.get("path"):
         path = check_data["path"]
@@ -176,7 +178,7 @@ def audit_regex(config, category, sub_category, check):
         if path_files:
             for f in path_files:
                 result = run_regex(f, pattern)
-                update_status_based_on_result(result, match)
+                update_status_based_on_result(result, match, f.split("/")[-1])
 
 
 def audit_loaded(config, category, sub_category, check):
