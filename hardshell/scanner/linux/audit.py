@@ -159,15 +159,24 @@ def audit_regex(config, category, sub_category, check):
 
             if result == True:
                 setting_found = "PASS"
+                update_log_and_global_status(
+                    setting_found, check_name, category, sub_category, check
+                )
             elif result == False:
                 setting_found = "FAIL"
+                update_log_and_global_status(
+                    setting_found, check_name, category, sub_category, check
+                )
             else:
                 setting_found = "ERROR"
+                update_log_and_global_status(
+                    setting_found, check_name, category, sub_category, check
+                )
 
         # Using the helper function
-        update_log_and_global_status(
-            setting_found, check_name, category, sub_category, check
-        )
+        # update_log_and_global_status(
+        #     setting_found, check_name, category, sub_category, check
+        # )
 
 
 def audit_loaded(config, category, sub_category, check):
