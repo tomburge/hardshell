@@ -131,15 +131,34 @@ def audit_regex(config, category, sub_category, check):
     prefix = config[category][sub_category]["prefix"]
     suffix = config[category][sub_category]["suffix"]
 
-    path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
+    # Find files and directories that start with the prefix
+    path_candidates = glob.glob(
+        os.path.join(base_path, "**", prefix + "*"), recursive=True
+    )
 
-    path_files = [
-        f
-        for f in path_all_files
-        if os.path.isfile(f)
-        and os.path.basename(f).startswith(prefix)
-        and os.path.basename(f).endswith(suffix)
-    ]
+    path_files = []
+
+    for candidate in path_candidates:
+        if os.path.isfile(candidate):
+            # Add the file directly if it matches the prefix and the optional suffix
+            if candidate.endswith(suffix) or not suffix:
+                path_files.append(candidate)
+        elif os.path.isdir(candidate):
+            # If it's a directory, look for files within it that match the suffix
+            for root, dirs, files in os.walk(candidate):
+                for file in files:
+                    if file.endswith(suffix) or not suffix:
+                        path_files.append(os.path.join(root, file))
+
+    # path_all_files = glob.glob(os.path.join(base_path, "**", "*"), recursive=True)
+
+    # path_files = [
+    #     f
+    #     for f in path_all_files
+    #     if os.path.isfile(f)
+    #     and os.path.basename(f).startswith(prefix)
+    #     and os.path.basename(f).endswith(suffix)
+    # ]
 
     # path_all_files = glob.glob(base_path + "/**/*")
     # path_files = [f for f in path_all_files if os.path.basename(f).startswith(prefix)]
