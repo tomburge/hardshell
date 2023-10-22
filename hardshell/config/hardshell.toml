@@ -215,6 +215,16 @@ check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 package_name = "sudo"
 package_install = true
 
+[packages.security.crypto_policies]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Package crypto-policies"
+check_type = "package"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+package_name = "crypto-policies"
+package_install = true
+
 [packages.service]
 sub_category_audit = true
 sub_category_harden = true
