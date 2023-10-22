@@ -692,7 +692,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_os = { amzn = ["2023"] }
-check_name = "System Auth Password Quality Config"
+check_name = "System pam_pwquality Config"
 check_type = "regex"
 path = "/etc/pam.d/system-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
@@ -701,13 +701,25 @@ setting = "password    requisite     pam_pwquality.so try_first_pass local_users
 [system.pam.pwquality_config_pass]
 check_audit = true
 check_harden = true
-check_id = "Password Auth Password Quality Config"
+check_id = ""
 check_os = { amzn = ["2023"] }
-check_name = ""
+check_name = "Password pam_pwquality Config"
 check_type = "regex"
 path = "/etc/pam.d/password-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
+
+[system.pam.password_quality]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"] }
+check_name = "Password Quality"
+check_type = "regex"
+path = "/etc/security/pwquality.conf"
+pattern = "^(minlen\\s*=\\s*14\\s*minclass\\s*=\\s*4)$|^(dcredit\\s*=\\s*-1\\s*ucredit\\s*=\\s*-1\\s*ocredit\\s*=\\s*-1\\s*lcredit\\s*=\\s*-1)$"
+setting = "minlen = 14\nminclass = 4"
+# setting = "dcredit = -1\nucredit = -1\nocredit = -1\nlcredit = -1"
 
 [system.ssh]
 sub_category_audit = true

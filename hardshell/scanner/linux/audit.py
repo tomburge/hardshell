@@ -127,44 +127,29 @@ def audit_permissions(config, category, sub_category, check):
 def audit_regex(config, category, sub_category, check):
     global_status[category][sub_category][check] = {}
     check_name = config[category][sub_category][check]["check_name"]
-    click.echo(check)
-    click.echo(check_name)
+    # click.echo(check)
+    # click.echo(check_name)
     pattern = config[category][sub_category][check]["pattern"]
 
     if config[category][sub_category][check].get("path"):
         path = config[category][sub_category][check]["path"]
-        click.echo(f"check with path: {check}")
+        # click.echo(f"check with path: {check}")
         result = run_regex(path, pattern)
 
         if result == True:
             update_log_and_global_status(
-                "PASS",
-                check_name,
-                category,
-                sub_category,
-                check,
-                # f.split("/")[-1],
+                "PASS", check_name, category, sub_category, check
             )
         elif result == False:
             update_log_and_global_status(
-                "FAIL",
-                check_name,
-                category,
-                sub_category,
-                check,
-                # f.split("/")[-1],
+                "FAIL", check_name, category, sub_category, check
             )
         else:
             update_log_and_global_status(
-                "ERROR",
-                check_name,
-                category,
-                sub_category,
-                check,
-                # f.split("/")[-1],
+                "ERROR", check_name, category, sub_category, check
             )
     else:
-        click.echo(f"check with base_path: {check}")
+        # click.echo(f"check with base_path: {check}")
         base_path = config[category][sub_category]["base_path"]
         prefix = config[category][sub_category]["prefix"]
         suffix = config[category][sub_category]["suffix"]
