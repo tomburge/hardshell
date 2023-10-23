@@ -5,12 +5,10 @@ from pathlib import Path
 
 import click
 
-from hardshell.scanner.linux.common import (
+from hardshell.scanner.linux.common import (  # grep_directory,; grep_file,
     check_pkg_mgr,
     file_exists,
     get_permissions,
-    grep_directory,
-    grep_file,
     run_command,
     run_regex,
 )
@@ -36,6 +34,52 @@ def update_log_and_global_status(
         global_status[category][sub_category][check][msg]["status"] = status
     else:
         global_status[category][sub_category][check]["status"] = status
+
+
+def audit_denied(config, category, sub_category, check):
+    """
+    audit mode: Checks if a kernel module is deny listed.
+    harden mode: Add "blacklist mod_name" to the kernel module config file.
+
+    Returns:
+        str: PASS, FAIL, SKIP, WARN, SUDO
+
+    Raises:
+        CalledProcessError: If the command fails.
+
+    Example Usage:
+        deny = kernel_module_deny("audit", config, "fs", "squshfs")
+        print(deny)
+    """
+    try:
+        module_name = config[category][sub_category][check]["module_name"]
+        global_status[category][sub_category][module_name]["deny"] = {}
+        result = subprocess.run(
+            ["modprobe", "--showconfig"], check=True, capture_output=True, text=True
+        )
+        deny = [
+            line
+            for line in result.stdout.split("\n")
+            if f"blacklist {module_name}" in line
+        ]
+
+        if deny:
+            update_log_and_global_status(
+                "PASS", f"Denied {module_name}", category, sub_category, module_name
+            )
+        else:
+            update_log_and_global_status(
+                "FAIL", f"Denied {module_name}", category, sub_category, module_name
+            )
+    except subprocess.CalledProcessError as error:
+        deny = []
+        update_log_and_global_status(
+            "ERROR", f"Denied {module_name}", category, sub_category, module_name
+        )
+
+
+def audit_file(config, category, sub_category, check):
+    pass
 
 
 def audit_keys(config, category, sub_category, check):
@@ -84,6 +128,168 @@ def audit_keys(config, category, sub_category, check):
     update_log_and_global_status(
         setting_found or "ERROR", check_name, category, sub_category, check
     )
+
+
+def audit_loaded(config, category, sub_category, check):
+    """
+    audit mode: Checks if a kernel module is loaded.
+    harden mode: Unloads a kernel module.
+
+    Returns:
+        str: PASS, FAIL, SKIP, WARN, SUDO
+
+    Raises:
+        CalledProcessError: If the command fails.
+
+    Example Usage:
+        loaded = kernel_module_loaded("audit", config, "fs", "squashfs")
+        print(loaded)
+    """
+    try:
+        module_name = config[category][sub_category][check]["module_name"]
+        global_status[category][sub_category][module_name]["load"] = {}
+
+        loaded = subprocess.getoutput(f"lsmod | grep {module_name}")
+
+        if not loaded:
+            update_log_and_global_status(
+                status="PASS",
+                check_name=f"Unloaded {module_name}",
+                category=category,
+                sub_category=sub_category,
+                check=module_name,
+            )
+        else:
+            update_log_and_global_status(
+                status="FAIL",
+                check_name=f"Unloaded {module_name}",
+                category=category,
+                sub_category=sub_category,
+                check=module_name,
+            )
+    except Exception as error:
+        update_log_and_global_status(
+            status="ERROR",
+            check_name=f"Unloaded {module_name}",
+            category=category,
+            sub_category=sub_category,
+            check=module_name,
+        )
+
+
+def audit_package(os_info, config, category, sub_category, check):
+    current_check = config[category][sub_category][check]
+    check_name = current_check["check_name"]
+    package_name = current_check["package_name"]
+    package_install = current_check["package_install"]
+
+    global_status[category][sub_category][package_name] = {}
+
+    pkg_mgr = check_pkg_mgr(config, os_info)
+    cmd = config["global"]["package"]["manager"][pkg_mgr]["installed"].copy()
+
+    if cmd:
+        cmd.append(package_name)
+        result = run_command(cmd).lower()
+
+        is_installed = "installed" in result
+
+        if (package_install and is_installed) or (
+            not package_install and not is_installed
+        ):
+            status = "PASS"
+        elif (package_install and not is_installed) or (
+            not package_install and is_installed
+        ):
+            status = "FAIL"
+        else:
+            status = "ERROR"
+
+        update_log_and_global_status(
+            status, check_name, category, sub_category, package_name
+        )
+
+
+def audit_parameter(config, category, sub_category, check):
+    """
+    audit mode: Checks if a kernel parameter is the expected setting
+    harden mode: Calls kernel_param_set() and reloads sysctl with the new config
+
+    Returns:
+        str: PASS, FAIL, SKIP, WARN, SUDO
+
+    Raises:
+        CalledProcessError: If the command fails.
+
+    Example Usage:
+        param = kernel_param_check(mode, config, param_type, ps)
+        print(param)
+    """
+    try:
+        check_name = config[category][sub_category][check]["check_name"]
+        setting = config[category][sub_category][check]["setting"]
+
+        # log_status("---", log_level="info", log_only=True)
+
+        split_setting = setting.split("=")
+
+        # log_status(
+        #     f" - [CHECK] - Expected Kernel Parameter: {setting}",
+        #     log_level="info",
+        #     log_only=True,
+        # )
+
+        if len(split_setting) == 2:
+            param_name = split_setting[0].strip()
+            param_value = split_setting[1].strip()
+
+            try:
+                result = subprocess.run(
+                    ["sysctl", param_name], capture_output=True, text=True, check=True
+                )
+                current_value = result.stdout.split("=")[1].strip()
+                if current_value == param_value:
+                    log_status(
+                        " " * 4 + f"- [CHECK] - {check_name}",
+                        message_color="blue",
+                        status="PASS",
+                        status_color="bright_green",
+                        log_level="info",
+                    )
+                else:
+                    log_status(
+                        " " * 4 + f"- [CHECK] - {check_name}",
+                        message_color="blue",
+                        status="FAIL",
+                        status_color="bright_red",
+                        log_level="info",
+                    )
+            except subprocess.CalledProcessError as error:
+                log_status(
+                    " " * 4 + f"- [CHECK] - {check_name}",
+                    message_color="blue",
+                    status="ERROR",
+                    status_color="bright_red",
+                    log_level="error",
+                )
+                # log_status(
+                #     f"Failed to retrieve kernel parameter: {error}",
+                #     log_level="error",
+                #     log_only=True,
+                # )
+    except Exception as error:
+        log_status(
+            " " * 4 + f"- [CHECK] - {check_name}: ERROR",
+            message_color="blue",
+            status="ERROR",
+            status_color="bright_red",
+            log_level="error",
+        )
+        # log_status(
+        #     " " * 4 + f"- [CHECK] - {check_name}: {error}",
+        #     log_level="error",
+        #     log_only=True,
+        # )
 
 
 def audit_permissions(config, category, sub_category, check):
@@ -179,274 +385,3 @@ def audit_regex(config, category, sub_category, check):
             for f in path_files:
                 result = run_regex(f, pattern)
                 update_status_based_on_result(result, match, f.split("/")[-1])
-
-
-def audit_loaded(config, category, sub_category, check):
-    """
-    audit mode: Checks if a kernel module is loaded.
-    harden mode: Unloads a kernel module.
-
-    Returns:
-        str: PASS, FAIL, SKIP, WARN, SUDO
-
-    Raises:
-        CalledProcessError: If the command fails.
-
-    Example Usage:
-        loaded = kernel_module_loaded("audit", config, "fs", "squashfs")
-        print(loaded)
-    """
-    try:
-        module_name = config[category][sub_category][check]["module_name"]
-        global_status[category][sub_category][module_name]["load"] = {}
-
-        loaded = subprocess.getoutput(f"lsmod | grep {module_name}")
-
-        if not loaded:
-            update_log_and_global_status(
-                status="PASS",
-                check_name=f"Unloaded {module_name}",
-                category=category,
-                sub_category=sub_category,
-                check=module_name,
-            )
-        else:
-            update_log_and_global_status(
-                status="FAIL",
-                check_name=f"Unloaded {module_name}",
-                category=category,
-                sub_category=sub_category,
-                check=module_name,
-            )
-    except Exception as error:
-        update_log_and_global_status(
-            status="ERROR",
-            check_name=f"Unloaded {module_name}",
-            category=category,
-            sub_category=sub_category,
-            check=module_name,
-        )
-
-
-def audit_denied(config, category, sub_category, check):
-    """
-    audit mode: Checks if a kernel module is deny listed.
-    harden mode: Add "blacklist mod_name" to the kernel module config file.
-
-    Returns:
-        str: PASS, FAIL, SKIP, WARN, SUDO
-
-    Raises:
-        CalledProcessError: If the command fails.
-
-    Example Usage:
-        deny = kernel_module_deny("audit", config, "fs", "squshfs")
-        print(deny)
-    """
-    try:
-        module_name = config[category][sub_category][check]["module_name"]
-        global_status[category][sub_category][module_name]["deny"] = {}
-        result = subprocess.run(
-            ["modprobe", "--showconfig"], check=True, capture_output=True, text=True
-        )
-        deny = [
-            line
-            for line in result.stdout.split("\n")
-            if f"blacklist {module_name}" in line
-        ]
-
-        if deny:
-            update_log_and_global_status(
-                "PASS", f"Denied {module_name}", category, sub_category, module_name
-            )
-        else:
-            update_log_and_global_status(
-                "FAIL", f"Denied {module_name}", category, sub_category, module_name
-            )
-    except subprocess.CalledProcessError as error:
-        deny = []
-        update_log_and_global_status(
-            "ERROR", f"Denied {module_name}", category, sub_category, module_name
-        )
-
-
-def audit_package(os_info, config, category, sub_category, check):
-    current_check = config[category][sub_category][check]
-    check_name = current_check["check_name"]
-    package_name = current_check["package_name"]
-    package_install = current_check["package_install"]
-
-    global_status[category][sub_category][package_name] = {}
-
-    pkg_mgr = check_pkg_mgr(config, os_info)
-    cmd = config["global"]["package"]["manager"][pkg_mgr]["installed"].copy()
-
-    if cmd:
-        cmd.append(package_name)
-        result = run_command(cmd).lower()
-
-        is_installed = "installed" in result
-
-        if (package_install and is_installed) or (
-            not package_install and not is_installed
-        ):
-            status = "PASS"
-        elif (package_install and not is_installed) or (
-            not package_install and is_installed
-        ):
-            status = "FAIL"
-        else:
-            status = "ERROR"
-
-        update_log_and_global_status(
-            status, check_name, category, sub_category, package_name
-        )
-
-
-# Holding area
-
-# def audit_regex(config, category, sub_category, check):
-#     global_status[category][sub_category][check] = {}
-#     check_name = config[category][sub_category][check]["check_name"]
-#     # click.echo(check)
-#     # click.echo(check_name)
-#     pattern = config[category][sub_category][check]["pattern"]
-#     match = config[category][sub_category][check]["match"]
-
-#     if config[category][sub_category][check].get("path"):
-#         path = config[category][sub_category][check]["path"]
-#         # click.echo(f"check with path: {check}")
-#         result = run_regex(path, pattern)
-#         click.echo(result)
-#         click.echo(match)
-
-#         if result == True and match == True:
-#             update_log_and_global_status(
-#                 "PASS", check_name, category, sub_category, check
-#             )
-#         elif result == False and match == False:
-#             update_log_and_global_status(
-#                 "PASS", check_name, category, sub_category, check
-#             )
-#         elif result == False and match == True:
-#             update_log_and_global_status(
-#                 "FAIL", check_name, category, sub_category, check
-#             )
-#         elif result == True and match == False:
-#             update_log_and_global_status(
-#                 "FAIL", check_name, category, sub_category, check
-#             )
-#         else:
-#             update_log_and_global_status(
-#                 "ERROR", check_name, category, sub_category, check
-#             )
-#     elif (
-#         config[category][sub_category][check].get("base_path")
-#         and config[category][sub_category][check].get("prefix")
-#         and config[category][sub_category][check].get("suffix")
-#     ):
-#         base_path = config[category][sub_category][check]["base_path"]
-#         prefix = config[category][sub_category][check]["prefix"]
-#         suffix = config[category][sub_category][check]["suffix"]
-#     else:
-#         # click.echo(f"check with base_path: {check}")
-#         base_path = config[category][sub_category]["base_path"]
-#         prefix = config[category][sub_category]["prefix"]
-#         suffix = config[category][sub_category]["suffix"]
-
-#         path_candidates = glob.glob(os.path.join(base_path, prefix + "*"), recursive=True)
-#         path_files = []
-
-#         def should_exclude(filename):
-#             exclude_prefixes = ["README", "readme", "Readme"]
-#             return any(filename.startswith(prefix) for prefix in exclude_prefixes)
-
-#         for candidate in path_candidates:
-#             if os.path.isfile(candidate) and not should_exclude(
-#                 os.path.basename(candidate)
-#             ):
-#                 # Add the file directly if it starts with the prefix and isn't excluded
-#                 path_files.append(candidate)
-#             elif os.path.isdir(candidate):
-#                 # If it's a directory, look for files within it that match the suffix and aren't excluded
-#                 for file in glob.glob(os.path.join(candidate, "*" + suffix)):
-#                     if not should_exclude(os.path.basename(file)):
-#                         path_files.append(file)
-
-#         if len(path_files) > 0:
-#             for f in path_files:
-#                 result = run_regex(f, pattern)
-
-#                 if result == True and match == True:
-#                     update_log_and_global_status(
-#                         "PASS",
-#                         check_name,
-#                         category,
-#                         sub_category,
-#                         check,
-#                         f.split("/")[-1],
-#                     )
-#                 elif result == False and match == False:
-#                     update_log_and_global_status(
-#                         "PASS",
-#                         check_name,
-#                         category,
-#                         sub_category,
-#                         check,
-#                         f.split("/")[-1],
-#                     )
-#                 elif result == False and match == True:
-#                     update_log_and_global_status(
-#                         "FAIL",
-#                         check_name,
-#                         category,
-#                         sub_category,
-#                         check,
-#                         f.split("/")[-1],
-#                     )
-#                 elif result == True and match == False:
-#                     update_log_and_global_status(
-#                         "FAIL",
-#                         check_name,
-#                         category,
-#                         sub_category,
-#                         check,
-#                         f.split("/")[-1],
-#                     )
-#                 else:
-#                     update_log_and_global_status(
-#                         "ERROR",
-#                         check_name,
-#                         category,
-#                         sub_category,
-#                         check,
-#                         f.split("/")[-1],
-#                     )
-
-# if result == True:
-#     update_log_and_global_status(
-#         "PASS",
-#         check_name,
-#         category,
-#         sub_category,
-#         check,
-#         f.split("/")[-1],
-#     )
-# elif result == False:
-#     update_log_and_global_status(
-#         "FAIL",
-#         check_name,
-#         category,
-#         sub_category,
-#         check,
-#         f.split("/")[-1],
-#     )
-# else:
-#     update_log_and_global_status(
-#         "ERROR",
-#         check_name,
-#         category,
-#         sub_category,
-#         check,
-#         f.split("/")[-1],
-#     )

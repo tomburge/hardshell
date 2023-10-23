@@ -47,8 +47,8 @@ check_id = ""
 check_name = "Package audit"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "audit"
 package_install = true
+package_name = "audit"
 
 [packages.audit.auditd]
 check_audit = true
@@ -57,8 +57,8 @@ check_id = ""
 check_name = "Package auditd"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "auditd"
 package_install = true
+package_name = "auditd"
 
 [packages.audit.audispd-plugins]
 check_audit = true
@@ -82,8 +82,8 @@ check_id = ""
 check_name = "Package openldap-clients"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "openldap-clients"
 package_install = false
+package_name = "openldap-clients"
 
 [packages.client.ldap-utils]
 check_audit = true
@@ -92,8 +92,8 @@ check_id = ""
 check_name = "Package ldap-utils"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "ldap-utils"
 package_install = false
+package_name = "ldap-utils"
 
 [packages.client.telnet]
 check_audit = true
@@ -102,8 +102,8 @@ check_id = ""
 check_name = "Package telnet"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "telnet"
 package_install = false
+package_name = "telnet"
 
 [packages.desktop]
 sub_category_audit = true
@@ -122,8 +122,8 @@ check_id = ""
 check_name = "Package nftables"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "nftables"
 package_install = true
+package_name = "nftables"
 
 [packages.log]
 sub_category_audit = true
@@ -137,8 +137,8 @@ check_id = ""
 check_name = "Package rsyslog"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "rsyslog"
 package_install = true
+package_name = "rsyslog"
 
 [packages.log.systemd-journal-remote]
 check_audit = true
@@ -147,8 +147,8 @@ check_id = ""
 check_name = "Package systemd-journal-remote"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "systemd-journal-remote"
 package_install = true
+package_name = "systemd-journal-remote"
 
 [packages.security]
 sub_category_audit = true
@@ -162,8 +162,8 @@ check_id = ""
 check_name = "Package aide"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "aide"
 package_install = true
+package_name = "aide"
 
 [packages.security.authselect]
 check_audit = true
@@ -172,8 +172,8 @@ check_id = ""
 check_name = "Package authselect"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "authselect"
 package_install = true
+package_name = "authselect"
 
 [packages.security.libselinux]
 check_audit = true
@@ -182,8 +182,8 @@ check_id = ""
 check_name = "Package libselinux"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "libselinux"
 package_install = true
+package_name = "libselinux"
 
 [packages.security.libselinux1]
 check_audit = true
@@ -202,8 +202,8 @@ check_id = ""
 check_name = "Package apparmor"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "apparmor"
 package_install = false
+package_name = "apparmor"
 
 [packages.security.sudo]
 check_audit = true
@@ -212,10 +212,10 @@ check_id = ""
 check_name = "Package sudo"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "sudo"
 package_install = true
+package_name = "sudo"
 
-[packages.security.crypto_policies]
+[packages.security.crypto-policies]
 check_audit = true
 check_harden = true
 check_id = ""
@@ -223,8 +223,8 @@ check_name = "Package crypto-policies"
 check_type = "package"
 check_os = { amzn = ["2023"] }
 # check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "crypto-policies"
 package_install = true
+package_name = "crypto-policies"
 
 [packages.security.libpwquality]
 check_audit = true
@@ -233,8 +233,8 @@ check_id = ""
 check_name = "Package libpwquality"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "libpwquality"
 package_install = true
+package_name = "libpwquality"
 
 [packages.security.libpam-pwquality]
 check_audit = true
@@ -243,8 +243,8 @@ check_id = ""
 check_name = "Package libpam-pwquality"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "libpam-pwquality"
 package_install = true
+package_name = "libpam-pwquality"
 
 [packages.service]
 sub_category_audit = true
@@ -258,8 +258,8 @@ check_id = ""
 check_name = "Package at"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "at"
 package_install = true
+package_name = "at"
 
 [packages.service.avahi]
 check_audit = true
@@ -268,8 +268,8 @@ check_id = ""
 check_name = "Package avahi"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "avahi"
 package_install = false
+package_name = "avahi"
 
 [packages.service.avahi-daemon]
 check_audit = true
@@ -288,8 +288,8 @@ check_id = ""
 check_name = "Package bind"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "bind"
 package_install = false
+package_name = "bind"
 
 [packages.service.bind9]
 check_audit = true
@@ -308,8 +308,8 @@ check_id = ""
 check_name = "Package cronie"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "cronie"
 package_install = true
+package_name = "cronie"
 
 [packages.service.cron]
 check_audit = true
@@ -318,8 +318,8 @@ check_id = ""
 check_name = "Package cron"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "cron"
 package_install = true
+package_name = "cron"
 
 [packages.service.cups]
 check_audit = true
@@ -328,8 +328,8 @@ check_id = ""
 check_name = "Package cups"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "cups"
 package_install = false
+package_name = "cups"
 
 [packages.service.dnsmasq]
 check_audit = true
@@ -338,8 +338,8 @@ check_id = ""
 check_name = "Package dnsmasq"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "dnsmasq"
 package_install = false
+package_name = "dnsmasq"
 
 [packages.service.dovecot]
 check_audit = true
@@ -348,8 +348,8 @@ check_id = ""
 check_name = "Package dovecot"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "dovecot"
 package_install = false
+package_name = "dovecot"
 
 [packages.service.dovecot-pop3d]
 check_audit = true
@@ -368,8 +368,8 @@ check_id = ""
 check_name = "Package httpd"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "httpd"
 package_install = false
+package_name = "httpd"
 
 [packages.service.apache2]
 check_audit = true
@@ -378,8 +378,8 @@ check_id = ""
 check_name = "Package apache2"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "apache2"
 package_install = false
+package_name = "apache2"
 
 [packages.service.mcstrans]
 check_audit = true
@@ -388,8 +388,8 @@ check_id = ""
 check_name = "Package mcstrans"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "mcstrans"
 package_install = false
+package_name = "mcstrans"
 
 [packages.service.net-snmp]
 check_audit = true
@@ -398,8 +398,8 @@ check_id = ""
 check_name = "Package net-snmp"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "net-snmp"
 package_install = false
+package_name = "net-snmp"
 
 [packages.service.snmp]
 check_audit = true
@@ -408,8 +408,8 @@ check_id = ""
 check_name = "Package snmp"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "snmp"
 package_install = false
+package_name = "snmp"
 
 [packages.service.openssh-server]
 check_audit = true
@@ -418,8 +418,8 @@ check_id = ""
 check_name = "Package openssh-server"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "openssh-server"
 package_install = true
+package_name = "openssh-server"
 
 [packages.service.rpcbind]
 check_audit = true
@@ -428,8 +428,8 @@ check_id = ""
 check_name = "Package rpcbind"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "rpcbind"
 package_install = false
+package_name = "rpcbind"
 
 [packages.service.rsync]
 check_audit = true
@@ -438,8 +438,8 @@ check_id = ""
 check_name = "Package rsync"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "rsync"
 package_install = false
+package_name = "rsync"
 
 [packages.service.samba]
 check_audit = true
@@ -448,8 +448,8 @@ check_id = ""
 check_name = "Package samba"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "samba"
 package_install = false
+package_name = "samba"
 
 [packages.service.squid]
 check_audit = true
@@ -458,8 +458,8 @@ check_id = ""
 check_name = "Package squid"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "squid"
 package_install = false
+package_name = "squid"
 
 [packages.service.nginx]
 check_audit = true
@@ -468,8 +468,8 @@ check_id = ""
 check_name = "Package nginx"
 check_type = "package"
 check_os = { amzn = ["2023"] }
-package_name = "nginx"
 package_install = false
+package_name = "nginx"
 
 [packages.service.nginx-core]
 check_audit = true
@@ -478,8 +478,8 @@ check_id = ""
 check_name = "Package nginx-core"
 check_type = "package"
 check_os = { ubuntu = ["22.04"] }
-package_name = "nginx-core"
 package_install = false
+package_name = "nginx-core"
 
 [packages.service.vsftpd]
 check_audit = true
@@ -488,8 +488,8 @@ check_id = ""
 check_name = "Package vsftpd"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "vsftpd"
 package_install = false
+package_name = "vsftpd"
 
 [packages.time]
 sub_category_audit = true
@@ -503,8 +503,8 @@ check_id = ""
 check_name = "Package chrony"
 check_type = "package"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-package_name = "chrony"
 package_install = true
+package_name = "chrony"
 
 [kernel]
 category_audit = true
@@ -514,58 +514,57 @@ category_name = "Kernel"
 [kernel.filesystem]
 sub_category_audit = true
 sub_category_harden = true
-sub_category_name = "Filesystem"
+sub_category_name = "Filesystems"
 
 [kernel.filesystem.cramfs]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem cramfs"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "cramfs"
 
 [kernel.filesystem.fat]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem fat"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "fat"
 
 [kernel.filesystem.freevxfs]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem freevxfs"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "freevxfs"
 
 [kernel.filesystem.gfs2]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem gfs2"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "gfs2"
 
 [kernel.filesystem.hfs]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem hfs"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "hfs"
 
 [kernel.filesystem.hfsplus]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem hfsplus"
 check_type = "filesystem"
 module_name = "hfsplus"
@@ -574,110 +573,570 @@ module_name = "hfsplus"
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem jffs2"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "jffs2"
 
 [kernel.filesystem.nfs]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem nfs"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "nfs"
 
 [kernel.filesystem.nfsv3]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem nfsv3"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "nfsv3"
 
 [kernel.filesystem.squashfs]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Filesystem squashfs"
 check_type = "filesystem"
+check_os = { amzn = ["2023"] }
 module_name = "squashfs"
 
 [kernel.filesystem.udf]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem udf"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "udf"
 
 [kernel.filesystem.usb-storage]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem usb-storage"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "usb-storage"
 
 [kernel.filesystem.vfat]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Filesystem vfat"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "vfat"
 
 [kernel.module]
 sub_category_audit = true
 sub_category_harden = true
-sub_category_name = "Module"
+sub_category_name = "Modules"
 
 [kernel.module.dccp]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "dccp"
 check_type = "module"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "dccp"
 
 [kernel.module.rds]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "rds"
 check_type = "module"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "rds"
 
 [kernel.module.sctp]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "sctp"
 check_type = "module"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "sctp"
 
 [kernel.module.tipc]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "tipc"
 check_type = "module"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "tipc"
+
+[kernel.network]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Network"
+
+[kernel.network.ipv4_forward]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 IP Forward"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.ip_forward = 0"
+
+[kernel.network.ipv4_send_redirects_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Send Redirects (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.send_redirects = 0"
+
+[kernel.network.ipv4_send_redirects_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Send Redirects (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.send_redirects = 0"
+
+[kernel.network.ipv4_accept_source_route_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Accept Source Route (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.accept_source_route = 0"
+
+[kernel.network.ipv4_accept_source_route_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Accept Source Route (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.accept_source_route = 0"
+
+[kernel.network.ipv4_accept_redirects_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Accept Redirects (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.accept_redirects = 0"
+
+[kernel.network.ipv4_accept_redirects_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Accept Redirects (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.accept_redirects = 0"
+
+[kernel.network.ipv4_secure_redirects_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Secure Redirects (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.secure_redirects = 0"
+
+[kernel.network.ipv4_secure_redirects_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Secure Redirects (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.secure_redirects = 0"
+
+[kernel.network.ipv4_log_martians_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Log Martians (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.log_martians = 1"
+
+[kernel.network.ipv4_log_martians_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Log Martians (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.log_martians = 1"
+
+[kernel.network.ipv4_icmp_ignore_broadcasts]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 ICMP Ignore Broadcasts"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.icmp_echo_ignore_broadcasts = 1"
+
+[kernel.network.ipv4_ignore_bogus_responses]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Ignore Bogue Responses"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.icmp_ignore_bogus_error_responses = 1"
+
+[kernel.network.ipv4_reverse_path_filer_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Reverse Path Filter (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.all.rp_filter = 1"
+
+[kernel.network.ipv4_reverse_path_filer_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 Reverse Path Filter (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.conf.default.rp_filter = 1"
+
+[kernel.network.ipv4_tcp_syn_cookies]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv4 TCP Syn Cookies"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv4.tcp_syncookies = 1"
+
+[kernel.network.ipv6_forwarding_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Forwarding (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.all.forwarding = 0"
+
+[kernel.network.ipv6_accept_source_route_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Source Route (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.all.accept_source_route = 0"
+
+[kernel.network.ipv6_accept_source_route_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Source Route (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.default.accept_source_route = 0"
+
+[kernel.network.ipv6_accept_redirects_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Redirects (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.all.accept_redirects = 0"
+
+[kernel.network.ipv6_accept_redirects_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Redirects (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.default.accept_redirects = 0"
+
+[kernel.network.ipv6_accept_router_advertisements_all]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Router Avertisements (All)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.all.accept_ra = 0"
+
+[kernel.network.ipv6_accept_router_advertisements_default]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "IPv6 Accept Router Avertisements (Default)"
+check_type = "network"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "net.ipv6.conf.default.accept_ra = 0"
+
+[kernel.parameter]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Parameters"
+
+[kernel.parameter.ptrace_scope]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Parameter ptrace"
+check_type = "parameter"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "kernel.yama.ptrace_scope = 1"
+
+[kernel.parameter.random_va_space]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Parameter aslr"
+check_type = "parameter"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = "kernel.randomize_va_space = 2"
+
+[storage]
+category_audit = true
+category_harden = true
+category_name = "Storage"
 
 [system]
 category_audit = true
 category_harden = true
 category_name = "System"
+
+[system.aide]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Aide"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.audit]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Aide"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.banner]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Banners"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.banner.perms-motd]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions motd"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/motd"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.banner.perms-issue]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions issue"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/issue"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.banner.perms-issue-net]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions issue.net"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/issue.net"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.bootloader]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Bootloader"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.coredump]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Core Dump"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.cron]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Cron"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.cron.perms-crontab]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions crontab"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/crontab"
+permissions = "600"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-hourly]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.hourly"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.hourly"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-daily]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.daily"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.daily"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-weekly]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.weekly"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.weekly"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-monthly]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.monthly"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.monthly"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-d]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.d"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.d"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-allow]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.allow"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.allow"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-cron-deny]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions cron.deny"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/cron.deny"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-at-allow]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions at.allow"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/at.allow"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.cron.perms-at-deny]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions at.deny"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/at.deny"
+permissions = "700"
+owner = "0"
+group = "0"
+
+[system.firewall]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Firewall"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.logging]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Logging"
+base_path = ""
+prefix = ""
+suffix = ""
 
 [system.pam]
 sub_category_audit = true
@@ -687,83 +1146,228 @@ base_path = ""
 prefix = ""
 suffix = ""
 
-[system.pam.pwquality_config_sys]
+[system.pam.pwquality-config-sys]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "System pam_pwquality Config"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 path = "/etc/pam.d/system-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
 match = true
 
-[system.pam.pwquality_config_pass]
+[system.pam.pwquality-config-pass]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Password pam_pwquality Config"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 path = "/etc/pam.d/password-auth"
 pattern = "^password\\s+requisite\\s+pam_pwquality\\.so\\s+try_first_pass\\s+local_users_only\\s+enforce_for_root\\s+retry=3$"
 setting = "password    requisite     pam_pwquality.so try_first_pass local_users_only enforce_for_root retry=3"
 match = true
 
-[system.pam.pw_quality_length]
+[system.pam.pw-quality-length]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Password Length"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 base_path = "/etc/security"
 prefix = "pwquality"
 suffix = ".conf"
-# path = "/etc/security/pwquality.conf"
 pattern = "^minlen\\s*=\\s*(1[4-9]|[2-9][0-9]+|[1-9][0-9]{2,})"
 setting = "minlen = 14"
 match = true
 
-[system.pam.pw_quality_class]
+[system.pam.pw-quality-class]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Password Class"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 base_path = "/etc/security"
 prefix = "pwquality"
 suffix = ".conf"
-# path = "/etc/security/pwquality.conf"
 pattern = "^minclass\\s*=\\s*4$"
 setting = "minclass = 4"
 match = true
 
-[system.pam.password_lockout]
+[system.pam.password-lockout]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Password Lockout Tries"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 path = "/etc/security/faillock.conf"
 pattern = "^\\s*deny\\s*=\\s*([1-5])\\s*$"
 setting = "deny = 5"
 match = true
 
-[system.pam.password_unlock_time]
+[system.pam.password-unlock-time]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"] }
 check_name = "Password Unlock Time"
 check_type = "regex"
+check_os = { amzn = ["2023"] }
 path = "/etc/security/faillock.conf"
 pattern = "^\\s*unlock_time\\s*=\\s*(0|[9-9][0-9]{2,}|[1-9][0-9]{3,})\\s*$"
 setting = "unlock_time = 900"
 match = true
+
+[system.pam.password-hashing-userconfig]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Password Hashing User Config"
+check_type = "regex"
+check_os = { amzn = ["2023"] }
+path = "/etc/libuser.conf"
+pattern = "^\\s*crypt_style\\s*=\\s*(sha512|yescrypt)\\s*$"
+
+setting = "crypt_style = sha512"
+# setting = "crypt_style = yescrypt"
+match = true
+
+[system.pam.password-hashing-login]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Password Hashing Login Config"
+check_type = "regex"
+check_os = { amzn = ["2023"] }
+path = "/etc/login.defs"
+pattern = "^\\s*ENCRYPT_METHOD\\s+(SHA512|YESCRYPT)\\s*$"
+setting = "ENCRYPT_METHOD SHA512"
+# setting = "ENCRYPT_METHOD YESCRYPT"
+match = true
+
+[system.permissions]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Permissions"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.permissions.passwd]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions passwd"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/passwd"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.permissions.passwd-]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions passwd-"
+check_type = "perms"
+path = "/etc/passwd-"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.permissions.group]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions group"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/group"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.permissions.group-]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions group-"
+check_type = "perms"
+path = "/etc/group-"
+permissions = "644"
+owner = "0"
+group = "0"
+
+[system.permissions.shadow]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions shadow"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/shadow"
+permissions = "0"
+owner = "0"
+group = "0"
+
+[system.permissions.shadow-]
+check_audit = true
+check_harden = true
+check_id = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+check_name = "Permissions shadow-"
+check_type = "perms"
+path = "/etc/shadow-"
+permissions = "0"
+owner = "0"
+group = "0"
+
+[system.permissions.gshadow]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions gshadow"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/gshadow"
+permissions = "0"
+owner = "0"
+group = "0"
+
+[system.permissions.gshadow-]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Permissions gshadow-"
+check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/gshadow-"
+permissions = "0"
+owner = "0"
+group = "0"
+
+[system.shadow]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Shadow"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.selinux]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "SELinux"
+base_path = ""
+prefix = ""
+suffix = ""
 
 [system.ssh]
 sub_category_audit = true
@@ -774,84 +1378,87 @@ base_path = "/etc/ssh"
 prefix = "sshd_config"
 suffix = ".conf"
 
-[system.ssh.sshd_config]
+[system.ssh.sshd-config]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Permissions sshd_config"
 check_type = "perms"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 path = "/etc/ssh/sshd_config"
 permissions = "600"
 owner = "0"
 group = "0"
 
-[system.ssh.private_hosts]
+[system.ssh.private-hosts]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Permissions Private Host key files"
 check_type = "keys"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 file_type = "private key"
 permissions = "600"
 owner = "0"
 group = "0"
 
-[system.ssh.public_hosts]
+[system.ssh.public-hosts]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Permissions Public Host key files"
 check_type = "keys"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 file_type = "public key"
 permissions = "644"
 owner = "0"
 group = "0"
 
-[system.ssh.crypto_policy]
+[system.ssh.crypto-policy]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Crypto Policy Override"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*CRYPTO_POLICY=.*"
 setting = ""
 match = false
 
-[system.ssh.strong_ciphers]
+[system.ssh.strong-ciphers]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Strong Ciphers"
 check_type = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = ""
 
-[system.ssh.strong_mac]
+[system.ssh.strong-mac]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Strong MAC Algorithms"
 check_type = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = ""
 
-[system.ssh.strong_kex]
+[system.ssh.strong-kex]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Strong Key Exchange Algorithms"
 check_type = ""
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+setting = ""
 
-[system.ssh.limit_access]
+[system.ssh.limit-access]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Limit Access"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+\\S+$"
 # setting = "AllowUsers <userlist>"
 # setting = "AllowGroups <grouplist>"
@@ -859,13 +1466,13 @@ pattern = "^(?i:AllowUsers|AllowGroups|DenyUsers|DenyGroups)\\s+\\S+$"
 # setting = "DenyGroups <grouplist>"
 match = true
 
-[system.ssh.allow_tcp_forwarding]
+[system.ssh.allow-tcp-forwarding]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "AllowTcpForwarding"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:AllowTcpForwarding)\\s+no\\b"
 setting = "AllowTcpForwarding no"
 match = true
@@ -874,163 +1481,163 @@ match = true
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Banner"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:Banner)\\s+/etc/issue\\.net\\b"
 setting = "Banner /etc/issue.net"
 match = true
 
-[system.ssh.client_alive_max]
+[system.ssh.client-alive-max]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "ClientAliveCountMax"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:ClientAliveCountMax)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveCountMax 3"
 match = true
 
-[system.ssh.client_alive_interval]
+[system.ssh.client-alive-interval]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "ClientAliveInterval"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:ClientAliveInterval)\\s+[1-9][0-9]*\\b"
 setting = "ClientAliveInterval 15"
 match = true
 
-[system.ssh.host_based_auth]
+[system.ssh.host-based-auth]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "HostbasedAuthentication"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:HostbasedAuthentication)\\s+no\\b"
 setting = "HostbasedAuthentication no"
 match = true
 
-[system.ssh.ignore_rhosts]
+[system.ssh.ignore-rhosts]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "IgnoreRhosts"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:IgnoreRhosts)\\s+yes\\b"
 setting = "IgnoreRhosts yes"
 match = true
 
-[system.ssh.login_grace_time]
+[system.ssh.login-grace-time]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "LoginGraceTime"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:LoginGraceTime)\\s+([1-9]|[1-5][0-9]|60)\\b"
 setting = "LoginGraceTime 60"
 match = true
 
-[system.ssh.log_level]
+[system.ssh.log-level]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "LogLevel"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:LogLevel)\\s+(VERBOSE|INFO)\\b"
 setting = "LogLevel INFO"
 match = true
 
-[system.ssh.max_auth_tries]
+[system.ssh.max-auth-tries]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "MaxAuthTries"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:MaxAuthTries)\\s+([1-4])\\b"
 setting = "MaxAuthTries 4"
 match = true
 
-[system.ssh.max_sessions]
+[system.ssh.max-sessions]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "MaxSessions"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:MaxSessions)\\s+([1-9]|10)\\b"
 setting = "MaxSessions 10"
 match = true
 
-[system.ssh.max_startups]
+[system.ssh.max-startups]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "MaxStartups"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:MaxStartups)\\s+([0-9]|10):([1-2]?[0-9]|30):([1-5]?[0-9]|60)\\b"
 setting = "MaxStartups 10:30:60"
 match = true
 
-[system.ssh.permit_empty_passwords]
+[system.ssh.permit-empty-passwords]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "PermitEmptyPasswords"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:PermitEmptyPasswords)\\s+no\\b"
 setting = "PermitEmptyPasswords no"
 match = true
 
-[system.ssh.permit_root_login]
+[system.ssh.permit-root-login]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "PermitRootLogin"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:PermitRootLogin)\\s+no\\b"
 setting = "PermitRootLogin no"
 match = true
 
-[system.ssh.permit_user_env]
+[system.ssh.permit-user-env]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "PermitUserEnvironment"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:PermitUserEnvironment)\\s+no\\b"
 setting = "PermitUserEnvironment no"
 match = true
 
-[system.ssh.use_pam]
+[system.ssh.use-pam]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "UsePAM"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:UsePAM)\\s+yes\\b"
 setting = "UsePAM yes"
 match = true
 
-[system.ssh.x11_forwarding]
+[system.ssh.x11-forwarding]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "X11Forwarding"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
 setting = "X11Forwarding no"
 match = true
@@ -1043,46 +1650,98 @@ base_path = "/etc"
 prefix = "sudoers"
 suffix = ""
 
-[system.sudo.auth_timeout]
+[system.sudo.auth-timeout]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Defaults timestamp_timeout"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?<!#)Defaults\\b.*\\btimestamp_timeout=15\\b"
 setting = "Defaults timestamp_timeout=15"
 match = true
 
-[system.sudo.sudo_log]
+[system.sudo.sudo-log]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Defaults logfile"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:Defaults)\\s+logfile=['\"].*?['\"]$"
 setting = "Defaults logfile='/var/log/sudo.log'"
 match = true
 
-[system.sudo.use_pty]
+[system.sudo.use-pty]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Defaults use_pty"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^(?i:Defaults)\\s+use_pty$"
 setting = "Defaults use_pty"
 match = true
 
-[system.sudo.reauth_global]
+[system.sudo.reauth-global]
 check_audit = true
 check_harden = true
 check_id = ""
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 check_name = "Re-Auth Global"
 check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 pattern = "^[^#].*\\!authenticate"
 setting = ""
+match = true
+
+[system.time]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Time"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.users_groups]
+sub_category_audit = true
+sub_category_harden = true
+sub_category_name = "Users and Groups"
+base_path = ""
+prefix = ""
+suffix = ""
+
+[system.users_groups.password-expire-system]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Password Expiration"
+check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/login.defs"
+pattern = "^\\s*PASS_MAX_DAYS\\s+([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-5][0-9]|365)\\s*$"
+setting = "PASS_MAX_DAYS 365"
+match = true
+
+[system.users_groups.password-min-days]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Password Change Minimum Days"
+check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/login.defs"
+pattern = "^\\s*PASS_MIN_DAYS\\s+[1-9][0-9]*\\s*$"
+setting = "PASS_MIN_DAYS 1"
+match = true
+
+[system.users_groups.password-expire-warning]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Password Expiration Warning"
+check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+path = "/etc/login.defs"
+pattern = "^\\s*PASS_WARN_AGE\\s+([7-9]|[1-9][0-9]+)\\s*$"
+setting = "PASS_WARN_AGE 7"
 match = true
