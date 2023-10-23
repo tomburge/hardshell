@@ -30,17 +30,17 @@ def scanner(mode, os_info, config):
         scan = scan_windows(mode, config)
         log_status(
             " " * 2 + "-" * 90,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
         log_status(
             " " * 35 + scan,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
         log_status(
             " " * 2 + "-" * 90,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
     elif os_info["type"] == "linux":
@@ -49,17 +49,17 @@ def scanner(mode, os_info, config):
         scan = scan_linux(mode, config)
         log_status(
             " " * 2 + "-" * 90,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
         log_status(
             " " * 35 + scan,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
         log_status(
             " " * 2 + "-" * 90,
-            message_color="green",
+            message_color="bright_green",
             log_level="info",
         )
     else:
