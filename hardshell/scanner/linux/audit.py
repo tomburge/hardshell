@@ -22,7 +22,6 @@ def update_log_and_global_status(
 ):
     log_status(
         " " * 4 + f"- [CHECK] - {check_name}",
-        # " " * 4 + f"- [CHECK] - {check_name} {msg}",
         message_color="blue",
         status=status,
         status_color="bright_green" if status == "PASS" else "bright_red",

@@ -110,7 +110,8 @@ def scan_linux(mode, config):
             log_status("")
             log_status(
                 " " * 2 + f"Scanning Category: {category_name}",
-                message_color="bright_magenta",
+                # message_color="bright_magenta",
+                message_color="bright_cyan",
                 log_level="info",
             )
 

@@ -24,7 +24,6 @@ def scanner(mode, os_info, config):
         click.echo(" " * 2 + "Windows")
         log_status(
             " " * 2 + "- Starting Windows Scanner",
-            message_color="yellow",
             log_level="info",
             log_only=True,
         )
