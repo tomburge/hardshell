@@ -29,7 +29,6 @@ from hardshell.utils.core import detect_os
 def audit_check(os_info, config, category, sub_category, check):
     current_check = config[category][sub_category][check]
     check_name = current_check["check_name"]
-    # click.echo(check_name)
     check_audit = current_check["check_audit"]
     check_type = current_check["check_type"]
 
@@ -46,52 +45,37 @@ def audit_check(os_info, config, category, sub_category, check):
     current_os = os_info["id"]
     current_os_version = os_info["version_id"]
 
-    if (
-        category.lower() == "kernel"
-        and (check_type == "filesystem" or check_type == "module")
-        and current_os in current_check["check_os"]
+    valid_os = (
+        current_os in current_check["check_os"]
         and current_os_version in current_check["check_os"][current_os]
-    ):
+    )
+
+    # Map the check_type to the respective audit function that requires os_info
+    audit_functions_with_os_info = {
+        "package": audit_package,
+    }
+
+    # Map the check_type to the respective audit function that doesn't require os_info
+    audit_functions_without_os_info = {
+        "module": audit_loaded,  # Adjusted as per your input
+        "keys": audit_keys,
+        "parameter": audit_parameter,
+        "perms": audit_permissions,
+        "regex": audit_regex,
+    }
+
+    if category.lower() == "kernel" and check_type == "module" and valid_os:
         global_status[category][sub_category][check] = {}
         audit_loaded(config, category, sub_category, check)
         audit_denied(config, category, sub_category, check)
-    elif (
-        check_type == "keys"
-        and current_os in current_check["check_os"]
-        and current_os_version in current_check["check_os"][current_os]
-    ):
+    elif check_type in audit_functions_with_os_info and valid_os:
         global_status[category][sub_category][check] = {}
-        audit_keys(config, category, sub_category, check)
-    elif (
-        check_type == "package"
-        and current_os in current_check["check_os"]
-        and current_os_version in current_check["check_os"][current_os]
-    ):
+        audit_functions_with_os_info[check_type](
+            os_info, config, category, sub_category, check
+        )
+    elif check_type in audit_functions_without_os_info and valid_os:
         global_status[category][sub_category][check] = {}
-        audit_package(os_info, config, category, sub_category, check)
-    elif (
-        check_type == "parameter"
-        and current_os in current_check["check_os"]
-        and current_os_version in current_check["check_os"][current_os]
-    ):
-        click.echo(check_name)
-        global_status[category][sub_category][check] = {}
-        audit_parameter(config, category, sub_category, check)
-    elif (
-        check_type == "perms"
-        and current_os in current_check["check_os"]
-        and current_os_version in current_check["check_os"][current_os]
-    ):
-        global_status[category][sub_category][check] = {}
-        audit_permissions(config, category, sub_category, check)
-
-    elif (
-        check_type == "regex"
-        and current_os in current_check["check_os"]
-        and current_os_version in current_check["check_os"][current_os]
-    ):
-        global_status[category][sub_category][check] = {}
-        audit_regex(config, category, sub_category, check)
+        audit_functions_without_os_info[check_type](config, category, sub_category, check)
 
 
 def harden_check(os_info, config, category, sub_category, check):
@@ -217,3 +201,69 @@ def scan_linux(mode, config):
 
 
 # Holding Area
+
+
+# def audit_check(os_info, config, category, sub_category, check):
+#     current_check = config[category][sub_category][check]
+#     check_name = current_check["check_name"]
+#     check_audit = current_check["check_audit"]
+#     check_type = current_check["check_type"]
+
+#     if not check_audit:
+#         log_status(
+#             " " * 4 + f"- [CHECK] - {check_name}",
+#             message_color="blue",
+#             status="SKIPPED",
+#             status_color="bright_yellow",
+#             log_level="warning",
+#         )
+#         return
+
+#     current_os = os_info["id"]
+#     current_os_version = os_info["version_id"]
+
+#     if (
+#         category.lower() == "kernel"
+#         and (check_type == "filesystem" or check_type == "module")
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_loaded(config, category, sub_category, check)
+#         audit_denied(config, category, sub_category, check)
+#     elif (
+#         check_type == "keys"
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_keys(config, category, sub_category, check)
+#     elif (
+#         check_type == "package"
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_package(os_info, config, category, sub_category, check)
+#     elif (
+#         check_type == "parameter"
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_parameter(config, category, sub_category, check)
+#     elif (
+#         check_type == "perms"
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_permissions(config, category, sub_category, check)
+
+#     elif (
+#         check_type == "regex"
+#         and current_os in current_check["check_os"]
+#         and current_os_version in current_check["check_os"][current_os]
+#     ):
+#         global_status[category][sub_category][check] = {}
+#         audit_regex(config, category, sub_category, check)

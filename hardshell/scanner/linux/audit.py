@@ -21,7 +21,8 @@ def update_log_and_global_status(
     status, check_name, category, sub_category, check, msg=""
 ):
     log_status(
-        " " * 4 + f"- [CHECK] - {check_name} {msg}",
+        " " * 4 + f"- [CHECK] - {check_name}",
+        # " " * 4 + f"- [CHECK] - {check_name} {msg}",
         message_color="blue",
         status=status,
         status_color="bright_green" if status == "PASS" else "bright_red",
@@ -217,52 +218,28 @@ def audit_parameter(config, category, sub_category, check):
                 )
                 current_value = result.stdout.split("=")[1].strip()
                 if current_value == param_value:
-                    log_status(
-                        " " * 4 + f"- [CHECK] - {check_name}",
-                        message_color="blue",
-                        status="PASS",
-                        status_color="bright_green",
-                        log_level="info",
-                    )
                     update_log_and_global_status(
                         status="PASS",
                         check_name=check_name,
                         category=category,
                         sub_category=sub_category,
                         check=check,
-                        # msg="load",
                     )
                 else:
-                    log_status(
-                        " " * 4 + f"- [CHECK] - {check_name}",
-                        message_color="blue",
-                        status="FAIL",
-                        status_color="bright_red",
-                        log_level="info",
-                    )
                     update_log_and_global_status(
                         status="FAIL",
                         check_name=check_name,
                         category=category,
                         sub_category=sub_category,
                         check=check,
-                        # msg="load",
                     )
             except subprocess.CalledProcessError as error:
-                log_status(
-                    " " * 4 + f"- [CHECK] - {check_name}",
-                    message_color="blue",
-                    status="ERROR",
-                    status_color="bright_red",
-                    log_level="error",
-                )
                 update_log_and_global_status(
                     status="ERROR",
                     check_name=check_name,
                     category=category,
                     sub_category=sub_category,
                     check=check,
-                    # msg="load",
                 )
                 # log_status(
                 #     f"Failed to retrieve kernel parameter: {error}",

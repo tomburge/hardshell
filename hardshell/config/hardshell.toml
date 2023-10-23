@@ -521,7 +521,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem cramfs"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "cramfs"
 
@@ -530,7 +530,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem fat"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "fat"
 
@@ -539,7 +539,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem freevxfs"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "freevxfs"
 
@@ -548,7 +548,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem gfs2"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "gfs2"
 
@@ -557,7 +557,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem hfs"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "hfs"
 
@@ -566,7 +566,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem hfsplus"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "hfsplus"
 
@@ -575,7 +575,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem jffs2"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "jffs2"
 
@@ -584,7 +584,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem nfs"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "nfs"
 
@@ -593,7 +593,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem nfsv3"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "nfsv3"
 
@@ -602,7 +602,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem squashfs"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"] }
 module_name = "squashfs"
 
@@ -611,7 +611,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem udf"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "udf"
 
@@ -620,7 +620,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem usb-storage"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "usb-storage"
 
@@ -629,7 +629,7 @@ check_audit = true
 check_harden = true
 check_id = ""
 check_name = "Filesystem vfat"
-check_type = "filesystem"
+check_type = "module"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "vfat"
 
