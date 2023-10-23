@@ -18,18 +18,18 @@ from hardshell.utils.core import detect_os
 
 
 def update_log_and_global_status(
-    status, check_name, category, sub_category, check, msg=""
+    status, check_name, category, sub_category, check, msg="", ext_status=""
 ):
     log_status(
-        " " * 4 + f"- [CHECK] - {check_name}",
+        " " * 4 + f"- [CHECK] - {check_name} {msg}",
         message_color="blue",
         status=status,
         status_color="bright_green" if status == "PASS" else "bright_red",
         log_level="info" if status != "ERROR" else "error",
     )
     if len(msg) > 0:
-        global_status[category][sub_category][check][msg] = {}
-        global_status[category][sub_category][check][msg]["status"] = status
+        global_status[category][sub_category][check][ext_status] = {}
+        global_status[category][sub_category][check][ext_status]["status"] = status
     else:
         global_status[category][sub_category][check]["status"] = status
 
@@ -54,7 +54,7 @@ def audit_denied(config, category, sub_category, check):
                 category,
                 sub_category,
                 module_name,
-                msg="deny",
+                ext_status="deny",
             )
         else:
             update_log_and_global_status(
@@ -63,12 +63,17 @@ def audit_denied(config, category, sub_category, check):
                 category,
                 sub_category,
                 module_name,
-                msg="deny",
+                ext_status="deny",
             )
     except subprocess.CalledProcessError as error:
         deny = []
         update_log_and_global_status(
-            "ERROR", f"Denied {module_name}", category, sub_category, module_name
+            "ERROR",
+            f"Denied {module_name}",
+            category,
+            sub_category,
+            module_name,
+            ext_status="deny",
         )
 
 
@@ -138,7 +143,7 @@ def audit_loaded(config, category, sub_category, check):
                 category=category,
                 sub_category=sub_category,
                 check=module_name,
-                msg="load",
+                ext_status="load",
             )
         else:
             update_log_and_global_status(
@@ -147,7 +152,7 @@ def audit_loaded(config, category, sub_category, check):
                 category=category,
                 sub_category=sub_category,
                 check=module_name,
-                msg="load",
+                ext_status="load",
             )
     except Exception as error:
         update_log_and_global_status(
@@ -156,6 +161,7 @@ def audit_loaded(config, category, sub_category, check):
             category=category,
             sub_category=sub_category,
             check=module_name,
+            ext_status="load",
         )
 
 
@@ -305,13 +311,13 @@ def audit_regex(config, category, sub_category, check):
     pattern = check_data.get("pattern")
     match = check_data.get("match")
 
-    def update_status_based_on_result(res, mat, msg=""):
+    def update_status_based_on_result(res, mat, ext_status=""):
         if res == mat:
             status = "PASS"
         else:
             status = "FAIL"
         update_log_and_global_status(
-            status, check_name, category, sub_category, check, msg
+            status, check_name, category, sub_category, check, ext_status
         )
 
     if check_data.get("path"):
@@ -352,4 +358,4 @@ def audit_regex(config, category, sub_category, check):
         if path_files:
             for f in path_files:
                 result = run_regex(f, pattern)
-                update_status_based_on_result(result, match, f.split("/")[-1])
+                update_status_based_on_result(result, match, f)
