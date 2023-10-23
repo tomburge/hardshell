@@ -9,8 +9,12 @@ from hardshell import __name__, __version__
 from hardshell.scanner.scanner import scanner
 from hardshell.utils.common import log_status
 from hardshell.utils.config import init_config
-from hardshell.utils.core import (detect_admin, detect_os, shutdown_banner,
-                                  startup_banner)
+from hardshell.utils.core import (
+    detect_admin,
+    detect_os,
+    shutdown_banner,
+    startup_banner,
+)
 
 
 def init(mode, cmode):
