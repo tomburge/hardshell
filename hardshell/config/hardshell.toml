@@ -1746,3 +1746,25 @@ path = "/etc/login.defs"
 pattern = "^\\s*PASS_WARN_AGE\\s+([7-9]|[1-9][0-9]+)\\s*$"
 setting = "PASS_WARN_AGE 7"
 match = true
+
+[system.users_groups.inactive-password-lock]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Inactive Password Lock"
+check_type = "command"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+command = "useradd -D | grep INACTIVE"
+setting = "INACTIVE=30"
+match = true
+
+[system.users_groups.default-user-shell-timeout]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Default User Shell Timeout"
+check_type = "regex"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+patterns = []
+settings = ["TMOUT=900", "readonly TMOUT", "export TMOUT"]
+match = true

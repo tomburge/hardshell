@@ -6,12 +6,7 @@ from pathlib import Path
 import click
 
 from hardshell.scanner.linux.common import (  # grep_directory,; grep_file,
-    check_pkg_mgr,
-    file_exists,
-    get_permissions,
-    run_command,
-    run_regex,
-)
+    check_pkg_mgr, file_exists, get_permissions, run_command, run_regex)
 from hardshell.scanner.linux.global_status import global_status
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
@@ -32,6 +27,23 @@ def update_log_and_global_status(
         global_status[category][sub_category][check][ext_status]["status"] = status
     else:
         global_status[category][sub_category][check]["status"] = status
+
+
+def audit_command(config, category, sub_category, check):
+    check_name = config[category][sub_category][check]["check_name"]
+    command = config[category][sub_category][check]["command"]
+    setting = config[category][sub_category][check]["setting"]
+
+    result = run_command(command.split(" "))
+
+    if result.strip() == setting:
+        status = "PASS"
+    elif result.strip() != setting:
+        status = "FAIL"
+    else:
+        status = "ERROR"
+
+    update_log_and_global_status(status, check_name, category, sub_category, check)
 
 
 def audit_denied(config, category, sub_category, check):
@@ -75,10 +87,6 @@ def audit_denied(config, category, sub_category, check):
             module_name,
             ext_status="deny",
         )
-
-
-def audit_file(config, category, sub_category, check):
-    pass
 
 
 def audit_keys(config, category, sub_category, check):

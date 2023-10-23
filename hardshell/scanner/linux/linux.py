@@ -3,24 +3,13 @@
 #########################################################################################
 import click
 
-from hardshell.scanner.linux.audit import (
-    audit_denied,
-    audit_keys,
-    audit_loaded,
-    audit_package,
-    audit_parameter,
-    audit_permissions,
-    audit_regex,
-)
-from hardshell.scanner.linux.common import (
-    check_pkg_mgr,
-    file_exists,
-    get_permissions,
-    grep_directory,
-    grep_file,
-    run_command,
-    run_regex,
-)
+from hardshell.scanner.linux.audit import (audit_command, audit_denied,
+                                           audit_keys, audit_loaded,
+                                           audit_package, audit_parameter,
+                                           audit_permissions, audit_regex)
+from hardshell.scanner.linux.common import (check_pkg_mgr, file_exists,
+                                            get_permissions, grep_directory,
+                                            grep_file, run_command, run_regex)
 from hardshell.scanner.linux.global_status import global_status
 from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
@@ -57,8 +46,9 @@ def audit_check(os_info, config, category, sub_category, check):
 
     # Map the check_type to the respective audit function that doesn't require os_info
     audit_functions_without_os_info = {
-        "module": audit_loaded,  # Adjusted as per your input
+        "command": audit_command,
         "keys": audit_keys,
+        "module": audit_loaded,
         "parameter": audit_parameter,
         "perms": audit_permissions,
         "regex": audit_regex,
