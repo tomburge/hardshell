@@ -17,11 +17,9 @@ from hardshell.utils.common import log_status
 from hardshell.utils.core import detect_os
 
 
-# Update Log and Global Status Helper
 def update_log_and_global_status(
     status, check_name, category, sub_category, check, msg=""
 ):
-    # Helper function to consolidate repetitive logging and global status updates
     log_status(
         " " * 4 + f"- [CHECK] - {check_name} {msg}",
         message_color="blue",
@@ -37,20 +35,6 @@ def update_log_and_global_status(
 
 
 def audit_denied(config, category, sub_category, check):
-    """
-    audit mode: Checks if a kernel module is deny listed.
-    harden mode: Add "blacklist mod_name" to the kernel module config file.
-
-    Returns:
-        str: PASS, FAIL, SKIP, WARN, SUDO
-
-    Raises:
-        CalledProcessError: If the command fails.
-
-    Example Usage:
-        deny = kernel_module_deny("audit", config, "fs", "squshfs")
-        print(deny)
-    """
     try:
         module_name = config[category][sub_category][check]["module_name"]
         global_status[category][sub_category][module_name]["deny"] = {}
@@ -131,20 +115,6 @@ def audit_keys(config, category, sub_category, check):
 
 
 def audit_loaded(config, category, sub_category, check):
-    """
-    audit mode: Checks if a kernel module is loaded.
-    harden mode: Unloads a kernel module.
-
-    Returns:
-        str: PASS, FAIL, SKIP, WARN, SUDO
-
-    Raises:
-        CalledProcessError: If the command fails.
-
-    Example Usage:
-        loaded = kernel_module_loaded("audit", config, "fs", "squashfs")
-        print(loaded)
-    """
     try:
         module_name = config[category][sub_category][check]["module_name"]
         global_status[category][sub_category][module_name]["load"] = {}
@@ -211,20 +181,6 @@ def audit_package(os_info, config, category, sub_category, check):
 
 
 def audit_parameter(config, category, sub_category, check):
-    """
-    audit mode: Checks if a kernel parameter is the expected setting
-    harden mode: Calls kernel_param_set() and reloads sysctl with the new config
-
-    Returns:
-        str: PASS, FAIL, SKIP, WARN, SUDO
-
-    Raises:
-        CalledProcessError: If the command fails.
-
-    Example Usage:
-        param = kernel_param_check(mode, config, param_type, ps)
-        print(param)
-    """
     try:
         check_name = config[category][sub_category][check]["check_name"]
         setting = config[category][sub_category][check]["setting"]

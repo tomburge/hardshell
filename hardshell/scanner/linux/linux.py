@@ -8,6 +8,7 @@ from hardshell.scanner.linux.audit import (
     audit_keys,
     audit_loaded,
     audit_package,
+    audit_parameter,
     audit_permissions,
     audit_regex,
 )
@@ -28,6 +29,7 @@ from hardshell.utils.core import detect_os
 def audit_check(os_info, config, category, sub_category, check):
     current_check = config[category][sub_category][check]
     check_name = current_check["check_name"]
+    # click.echo(check_name)
     check_audit = current_check["check_audit"]
     check_type = current_check["check_type"]
 
@@ -67,6 +69,14 @@ def audit_check(os_info, config, category, sub_category, check):
     ):
         global_status[category][sub_category][check] = {}
         audit_package(os_info, config, category, sub_category, check)
+    elif (
+        check_type == "parameter"
+        and current_os in current_check["check_os"]
+        and current_os_version in current_check["check_os"][current_os]
+    ):
+        click.echo(check_name)
+        global_status[category][sub_category][check] = {}
+        audit_parameter(config, category, sub_category, check)
     elif (
         check_type == "perms"
         and current_os in current_check["check_os"]

@@ -567,6 +567,7 @@ check_harden = true
 check_id = ""
 check_name = "Filesystem hfsplus"
 check_type = "filesystem"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 module_name = "hfsplus"
 
 [kernel.filesystem.jffs2]
@@ -676,212 +677,212 @@ module_name = "tipc"
 [kernel.network]
 sub_category_audit = true
 sub_category_harden = true
-sub_category_name = "Network"
+sub_category_name = "Network Parameters"
 
-[kernel.network.ipv4_forward]
+[kernel.network.ipv4-forward]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 IP Forward"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.ip_forward = 0"
 
-[kernel.network.ipv4_send_redirects_all]
+[kernel.network.ipv4-send-redirects-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Send Redirects (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.send_redirects = 0"
 
-[kernel.network.ipv4_send_redirects_default]
+[kernel.network.ipv4-send-redirects-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Send Redirects (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.send_redirects = 0"
 
-[kernel.network.ipv4_accept_source_route_all]
+[kernel.network.ipv4-accept-source-route-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Accept Source Route (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.accept_source_route = 0"
 
-[kernel.network.ipv4_accept_source_route_default]
+[kernel.network.ipv4-accept-source-route-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Accept Source Route (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.accept_source_route = 0"
 
-[kernel.network.ipv4_accept_redirects_all]
+[kernel.network.ipv4-accept-redirects-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Accept Redirects (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.accept_redirects = 0"
 
-[kernel.network.ipv4_accept_redirects_default]
+[kernel.network.ipv4-accept-redirects-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Accept Redirects (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.accept_redirects = 0"
 
-[kernel.network.ipv4_secure_redirects_all]
+[kernel.network.ipv4-secure-redirects-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Secure Redirects (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.secure_redirects = 0"
 
-[kernel.network.ipv4_secure_redirects_default]
+[kernel.network.ipv4-secure-redirects-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Secure Redirects (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.secure_redirects = 0"
 
-[kernel.network.ipv4_log_martians_all]
+[kernel.network.ipv4-log-martians-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Log Martians (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.log_martians = 1"
 
-[kernel.network.ipv4_log_martians_default]
+[kernel.network.ipv4-log-martians-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Log Martians (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.log_martians = 1"
 
-[kernel.network.ipv4_icmp_ignore_broadcasts]
+[kernel.network.ipv4-icmp-ignore-broadcasts]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 ICMP Ignore Broadcasts"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.icmp_echo_ignore_broadcasts = 1"
 
-[kernel.network.ipv4_ignore_bogus_responses]
+[kernel.network.ipv4-ignore-bogus-responses]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Ignore Bogue Responses"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.icmp_ignore_bogus_error_responses = 1"
 
-[kernel.network.ipv4_reverse_path_filer_all]
+[kernel.network.ipv4-reverse-path-filer-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Reverse Path Filter (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.all.rp_filter = 1"
 
-[kernel.network.ipv4_reverse_path_filer_default]
+[kernel.network.ipv4-reverse-path-filer-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 Reverse Path Filter (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.conf.default.rp_filter = 1"
 
-[kernel.network.ipv4_tcp_syn_cookies]
+[kernel.network.ipv4-tcp-syn-cookies]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv4 TCP Syn Cookies"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv4.tcp_syncookies = 1"
 
-[kernel.network.ipv6_forwarding_all]
+[kernel.network.ipv6-forwarding-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Forwarding (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.all.forwarding = 0"
 
-[kernel.network.ipv6_accept_source_route_all]
+[kernel.network.ipv6-accept-source-route-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Source Route (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.all.accept_source_route = 0"
 
-[kernel.network.ipv6_accept_source_route_default]
+[kernel.network.ipv6-accept-source-route-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Source Route (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.default.accept_source_route = 0"
 
-[kernel.network.ipv6_accept_redirects_all]
+[kernel.network.ipv6-accept-redirects-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Redirects (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.all.accept_redirects = 0"
 
-[kernel.network.ipv6_accept_redirects_default]
+[kernel.network.ipv6-accept-redirects-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Redirects (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.default.accept_redirects = 0"
 
-[kernel.network.ipv6_accept_router_advertisements_all]
+[kernel.network.ipv6-accept-router-advertisements-all]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Router Avertisements (All)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.all.accept_ra = 0"
 
-[kernel.network.ipv6_accept_router_advertisements_default]
+[kernel.network.ipv6-accept-router-advertisements-default]
 check_audit = true
 check_harden = true
 check_id = ""
 check_name = "IPv6 Accept Router Avertisements (Default)"
-check_type = "network"
+check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "net.ipv6.conf.default.accept_ra = 0"
 
@@ -890,7 +891,7 @@ sub_category_audit = true
 sub_category_harden = true
 sub_category_name = "Parameters"
 
-[kernel.parameter.ptrace_scope]
+[kernel.parameter.ptrace-scope]
 check_audit = true
 check_harden = true
 check_id = ""
@@ -899,7 +900,7 @@ check_type = "parameter"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 setting = "kernel.yama.ptrace_scope = 1"
 
-[kernel.parameter.random_va_space]
+[kernel.parameter.random-va-space]
 check_audit = true
 check_harden = true
 check_id = ""
