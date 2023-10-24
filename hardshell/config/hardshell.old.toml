@@ -345,24 +345,6 @@ mitre_mit = ['M1026']
 stig = ""
 source = "NIST SP 800-53 Rev. 5: AC-3. MP-2"
 
-[system.user]
-sub_category_id = "USER"
-sub_category_name = "User"
-
-[system.user.004a]
-id = "L-SYSTEM-USER-001"
-name = "Password Inactive Lock Days"
-type = "command"
-command = "useradd -D | grep INACTIVE"
-setting = "INACTIVE=30"
-cis = "level-1"
-disa = ""
-mitre_tec = ['T1078', 'T1078.002', 'T1078.003']
-mitre_tac = ['TA0001']
-mitre_mit = ['M1027']
-stig = ""
-source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
-
 
 # HOLDING AREA
 
@@ -1803,6 +1785,23 @@ source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 # stig = ""
 # source = "NIST SP 800-53 Rev. 5: AC-6"
 
+# [system.user]
+# sub_category_id = "USER"
+# sub_category_name = "User"
+
+# [system.user.004a]
+# id = "L-SYSTEM-USER-001"
+# name = "Password Inactive Lock Days"
+# type = "command"
+# command = "useradd -D | grep INACTIVE"
+# setting = "INACTIVE=30"
+# cis = "level-1"
+# disa = ""
+# mitre_tec = ['T1078', 'T1078.002', 'T1078.003']
+# mitre_tac = ['TA0001']
+# mitre_mit = ['M1027']
+# stig = ""
+# source = "NIST SP 800-53 Rev. 5: CM-1, CM-2, CM-6, CM-7, IA-5"
 
 # [system.user.001a]
 # id = "L-SYSTEM-USER-001"

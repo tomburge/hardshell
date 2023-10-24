@@ -58,23 +58,23 @@ def audit_check(os_info, config, category, sub_category, check):
 
     # Map the check_type to the respective audit function that doesn't require os_info
     audit_functions_without_os_info = {
-        "command": audit_command,
-        "keys": audit_keys,
-        "module": audit_loaded,
-        "parameter": audit_parameter,
-        "perms": audit_permissions,
+        # "command": audit_command,
+        # "keys": audit_keys,
+        # "module": audit_loaded,
+        # "parameter": audit_parameter,
+        # "perms": audit_permissions,
         "regex": audit_regex,
     }
 
     if category.lower() == "kernel" and check_type == "module" and valid_os:
         global_status[category][sub_category][check] = {}
-        audit_loaded(config, category, sub_category, check)
-        audit_denied(config, category, sub_category, check)
+        # audit_loaded(config, category, sub_category, check)
+        # audit_denied(config, category, sub_category, check)
     elif check_type in audit_functions_with_os_info and valid_os:
         global_status[category][sub_category][check] = {}
-        audit_functions_with_os_info[check_type](
-            os_info, config, category, sub_category, check
-        )
+        # audit_functions_with_os_info[check_type](
+        #     os_info, config, category, sub_category, check
+        # )
     elif check_type in audit_functions_without_os_info and valid_os:
         global_status[category][sub_category][check] = {}
         audit_functions_without_os_info[check_type](config, category, sub_category, check)

@@ -141,6 +141,6 @@ def run_regex(file_path, pattern):
                     return True
         return False
     except FileNotFoundError as error:
-        return error.output
+        return error.strerror
     except Exception as error:
-        return error.output
+        return error.with_traceback(error.__traceback__)

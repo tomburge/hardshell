@@ -368,7 +368,6 @@ def audit_regex(config, category, sub_category, check):
                     if not should_exclude(os.path.basename(file)):
                         path_files.append(file)
 
-        if path_files:
-            for f in path_files:
-                result = run_regex(f, pattern)
-                update_status_based_on_result(result, match, f)
+        for f in path_files:
+            result = run_regex(f, pattern)
+            update_status_based_on_result(result, match, f)

@@ -1758,13 +1758,20 @@ command = "useradd -D | grep INACTIVE"
 setting = "INACTIVE=30"
 match = true
 
-[system.users_groups.default-user-shell-timeout]
-check_audit = true
-check_harden = true
-check_id = ""
-check_name = "Default User Shell Timeout"
-check_type = "regex"
-check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
-patterns = []
-settings = ["TMOUT=900", "readonly TMOUT", "export TMOUT"]
-match = true
+# [system.users_groups.default-user-shell-timeout]
+# check_audit = true
+# check_harden = true
+# check_id = ""
+# check_name = "Default User Shell Timeout"
+# check_type = "regex"
+# check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+# base_path = "/etc"
+# prefix = "profile"
+# suffix = ""
+# patterns = [
+#     "^\\s*([^#]+\\s+)?TMOUT=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9])\\b",
+#     "^\\s*([^#]+;\\s*)?readonly\\s+TMOUT(\\s+|\\s*;|\\s*$|=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9]))\\b",
+#     "^\\s*([^#]+;\\s*)?export\\s+TMOUT(\\s+|\\s*;|\\s*$|=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9]))\\b",
+# ]
+# settings = ["TMOUT=900", "readonly TMOUT", "export TMOUT"]
+# match = true
