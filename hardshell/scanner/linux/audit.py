@@ -41,7 +41,7 @@ def audit_command(config, category, sub_category, check):
 
     result = run_command(command.split(" "))
 
-    if result.strip() == setting:
+    if result.strip() == setting or setting in result.strip():
         status = "PASS"
     elif result.strip() != setting:
         status = "FAIL"

@@ -1758,6 +1758,28 @@ command = "useradd -D | grep INACTIVE"
 setting = "INACTIVE=30"
 match = true
 
+[system.users_groups.default-root-group]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Default Root Group"
+check_type = "command"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+command = "grep '^root:' /etc/passwd | cut -f4 -d:"
+setting = "0"
+match = true
+
+[system.users_groups.root-password-set]
+check_audit = true
+check_harden = true
+check_id = ""
+check_name = "Root Password Set"
+check_type = "command"
+check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
+command = "passwd -S root"
+setting = "Password set"
+match = true
+
 # [system.users_groups.default-user-shell-timeout]
 # check_audit = true
 # check_harden = true
