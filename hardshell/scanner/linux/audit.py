@@ -35,18 +35,22 @@ def update_log_and_global_status(
 
 
 def audit_command(config, category, sub_category, check):
-    check_name = config[category][sub_category][check]["check_name"]
-    command = config[category][sub_category][check]["command"]
-    setting = config[category][sub_category][check]["setting"]
+    check_config = config[category][sub_category][check]
+    check_name = check_config["check_name"]
+    command = check_config["command"]
+    setting = check_config["setting"]
+    result = run_command(command.split(" ")).strip()
 
-    result = run_command(command.split(" "))
-
-    if result.strip() == setting or setting in result.strip():
-        status = "PASS"
-    elif result.strip() != setting:
+    if isinstance(setting, list):
         status = "FAIL"
+        for s in setting:
+            if s in result:
+                status = "PASS"
+                break
+    elif result == setting or setting in result:
+        status = "PASS"
     else:
-        status = "ERROR"
+        status = "FAIL"
 
     update_log_and_global_status(status, check_name, category, sub_category, check)
 
@@ -371,3 +375,31 @@ def audit_regex(config, category, sub_category, check):
         for f in path_files:
             result = run_regex(f, pattern)
             update_status_based_on_result(result, match, f)
+
+
+# HOLDING AREA
+
+# def audit_command(config, category, sub_category, check):
+#     check_name = config[category][sub_category][check]["check_name"]
+#     command = config[category][sub_category][check]["command"]
+#     setting = config[category][sub_category][check]["setting"]
+#     result = run_command(command.split(" "))
+#     status = ""
+
+#     if type(setting) == list:
+#         for s in setting:
+#             if s in result.strip():
+#                 status = "PASS"
+#             elif s not in result.strip():
+#                 status = "FAIL"
+#             else:
+#                 status = "ERROR"
+
+#     elif result.strip() == setting or setting in result.strip():
+#         status = "PASS"
+#     elif result.strip() != setting:
+#         status = "FAIL"
+#     else:
+#         status = "ERROR"
+
+#     update_log_and_global_status(status, check_name, category, sub_category, check)
