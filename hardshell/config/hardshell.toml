@@ -1777,7 +1777,7 @@ check_name = "Root Password Set"
 check_type = "command"
 check_os = { amzn = ["2023"], ubuntu = ["22.04"] }
 command = "passwd -S root"
-setting = ["Password set", "L", "-1"]
+setting = ["Password set", "L"]
 match = true
 
 # [system.users_groups.default-user-shell-timeout]
