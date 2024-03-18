@@ -21,7 +21,7 @@ def check_modprobe(module):
     print(output)
     if "blacklist" in output:
         return True
-    if "blacklist" not in output:
+    elif len(output) == 0 and "blacklist" not in output:
         return False
 
 
