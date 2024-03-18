@@ -19,18 +19,20 @@ def check_modprobe(module):
     modprobe_process.stdout.close()
     output = grep_process.communicate()[0]
     # print(output)
-    if "blacklist" in output:
+    if "blacklist" in output and module in output:
         return True
     elif len(output) == 0 and "blacklist" not in output:
+        return False
+    else:
         return False
 
 
 def check_lsmod(module):
-    modprobe_process = subprocess.Popen(["lsmod"], stdout=subprocess.PIPE, text=True)
+    lsmod_process = subprocess.Popen(["lsmod"], stdout=subprocess.PIPE, text=True)
     grep_process = subprocess.Popen(
-        ["grep", module], stdin=modprobe_process.stdout, stdout=subprocess.PIPE, text=True
+        ["grep", module], stdin=lsmod_process.stdout, stdout=subprocess.PIPE, text=True
     )
-    modprobe_process.stdout.close()
+    lsmod_process.stdout.close()
     output = grep_process.communicate()[0]
     return False if len(output) > 0 else True
 
