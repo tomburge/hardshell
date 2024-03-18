@@ -18,7 +18,7 @@ def check_modprobe(module):
     )
     modprobe_process.stdout.close()
     output = grep_process.communicate()[0]
-    print(output)
+    # print(output)
     if "blacklist" in output:
         return True
     elif len(output) == 0 and "blacklist" not in output:
