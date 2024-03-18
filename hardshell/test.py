@@ -48,7 +48,7 @@ def load():
         module = linux_config["modules"][fs]["module_name"]
         modprobe = check_modprobe(module)
         lsmod = check_lsmod(module)
-
+        print(modprobe)
         if modprobe == False:
             print(f"{module} failed modprobe")
         elif modprobe == True:
