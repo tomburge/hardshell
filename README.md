@@ -1,4 +1,4 @@
-# hardshell
+# hardshell-next
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hardshell)
 ![PyPI - Version](https://img.shields.io/pypi/v/hardshell)
