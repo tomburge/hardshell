@@ -41,16 +41,10 @@ def load():
     # windows_config = load_config(windows_config_path)
     linux_config = load_config(linux_config_path)
 
-    modules = ["cramfs", "freevxfs", "hfs", "hfsplus", "jffs2", "squashfs", "udf"]
-
-    # for module in modules:
-    #     print(module)
-
     for fs in linux_config["filesystems"]:
         module = linux_config["filesystems"][fs]["module_name"]
         modprobe = check_modprobe(module)
         lsmod = check_lsmod(module)
-        # if len(modprobe) > 0:
         if modprobe == False:
             print(f"{module} failed modprobe")
         else:
@@ -60,26 +54,3 @@ def load():
             print(f"{module} failed lsmod")
         else:
             print(f"{module} passed lsmod")
-
-    # print(linux_config["filesystems"]["cramfs"]["module_name"])
-
-    # for module in modules:
-    #     modprobe = check_modprobe(module)
-    #     lsmod = check_lsmod(module)
-    #     if len(modprobe) > 0:
-    #         print(f"{module} failed modprobe")
-    #     else:
-    #         print(f"{module} passed modprobe")
-
-    #     if len(lsmod) > 0:
-    #         print(f"{module} failed lsmod")
-    #     else:
-    #         print(f"{module} passed lsmod")
-
-    # print(modprobe)
-    # print(type(modprobe))
-    # print(len(modprobe))
-    # print(modprobe.stdout)
-
-    # for mod in modprobe.stdout:
-    #     print(mod)
