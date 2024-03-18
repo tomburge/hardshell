@@ -51,8 +51,10 @@ def load():
 
         if modprobe == False:
             print(f"{module} failed modprobe")
-        else:
+        elif modprobe == True:
             print(f"{module} passed modprobe")
+        else:
+            print(f"{module} unknown condition")
 
         # if lsmod == False:
         #     print(f"{module} failed lsmod")
