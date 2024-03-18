@@ -1,43 +1,25 @@
-[kernel]
-category_audit = true
-category_harden = true
-category_name = "Kernel"
+[modules]
 
-[filesystems]
-# category_name = "Filesystems"
-
-[filesystems.cramfs]
+[modules.cramfs]
 module_name = "cramfs"
 
-[filesystems.freevxfs]
+[modules.freevxfs]
 module_name = "freevxfs"
 
-[filesystems.hfs]
+[modules.hfs]
 module_name = "hfs"
 
-[filesystems.hfsplus]
+[modules.hfsplus]
 module_name = "hfsplus"
 
-[filesystems.jffs2]
+[modules.jffs2]
 module_name = "jffs2"
 
-[filesystems.squashfs]
+[modules.squashfs]
 module_name = "squashfs"
 
-[filesystems.udf]
+[modules.udf]
 module_name = "udf"
 
-[packages]
-category_audit = true
-category_harden = true
-category_name = "Packages"
-
-[storage]
-category_audit = true
-category_harden = true
-category_name = "Storage"
-
-[system]
-category_audit = true
-category_harden = true
-category_name = "System"
+[modules.usbstorage]
+module_name = "usb_storage"

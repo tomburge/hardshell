@@ -18,8 +18,11 @@ def check_modprobe(module):
     )
     modprobe_process.stdout.close()
     output = grep_process.communicate()[0]
-    # print(f"{module}: {output}")
-    return False if len(output) > 0 or "blacklist" not in output else True
+    print(output)
+    if "blacklist" in output:
+        return True
+    if "blacklist" not in output:
+        return False
 
 
 def check_lsmod(module):
@@ -41,16 +44,17 @@ def load():
     # windows_config = load_config(windows_config_path)
     linux_config = load_config(linux_config_path)
 
-    for fs in linux_config["filesystems"]:
-        module = linux_config["filesystems"][fs]["module_name"]
+    for fs in linux_config["modules"]:
+        module = linux_config["modules"][fs]["module_name"]
         modprobe = check_modprobe(module)
         lsmod = check_lsmod(module)
+
         if modprobe == False:
             print(f"{module} failed modprobe")
         else:
             print(f"{module} passed modprobe")
 
-        if lsmod == False:
-            print(f"{module} failed lsmod")
-        else:
-            print(f"{module} passed lsmod")
+        # if lsmod == False:
+        #     print(f"{module} failed lsmod")
+        # else:
+        #     print(f"{module} passed lsmod")
