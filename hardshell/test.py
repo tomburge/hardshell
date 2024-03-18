@@ -35,7 +35,7 @@ def check_lsmod(module):
 def load():
     # global_config_path = "c:\\repos\\tom\\hardshell\\hardshell\\config\\global.toml"
     # windows_config_path = "c:\\repos\\tom\\hardshell\\hardshell\\config\\linux.toml"
-    linux_config_path = "/mnt/c/repos/tom/hardshell/hardshell/config/linux.toml"
+    linux_config_path = "./hardshell/config/linux.toml"
 
     # global_config = load_config(global_config_path)
     # windows_config = load_config(windows_config_path)
