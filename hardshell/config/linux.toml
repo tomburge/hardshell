@@ -23,3 +23,7 @@ module_name = "udf"
 
 [modules.usbstorage]
 module_name = "usb_storage"
+
+[packages]
+
+[packages.aide]

@@ -4,7 +4,7 @@
 import click
 
 from hardshell import __version__
-from hardshell.test import load
+from hardshell.scanner.linux import scan_linux
 
 
 # Package Version
@@ -27,7 +27,7 @@ def system_cli():
 @system_cli.command()
 def audit():
     print("System Audit")
-    load()
+    scan_linux()
 
 
 # Harden Command
