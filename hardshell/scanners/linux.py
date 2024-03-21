@@ -21,7 +21,7 @@ def check_keys(settings):
             file_type = settings[setting].get("file_type")
             # print(files)
             for file in files:
-                print(f"Checking {file}")
+                # print(f"Checking {file}")
                 current_file = os.path.join(path, file)
                 file_info = subprocess.run(
                     ["file", current_file], check=True, capture_output=True, text=True
