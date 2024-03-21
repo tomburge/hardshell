@@ -26,8 +26,8 @@ def check_keys(settings):
                 file_info = subprocess.run(
                     ["file", current_file], check=True, capture_output=True, text=True
                 )
-                print(file_info)
-                if file_type in file_info:
+                # print(file_info)
+                if file_type in file_info.stdout:
                     print(f"{file} is a {file_type}")
                 else:
                     print(f"{file} is not a {file_type}")
