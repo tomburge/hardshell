@@ -948,8 +948,28 @@ name = "X11Forwarding"
 pattern = "^\\s*(?i:X11Forwarding)\\s+no\\b"
 setting = "X11Forwarding no"
 
+[sshkeys]
+
+[sshkeys.private]
+check = true
+file_type = "private key"
+name = "Private Host key files"
+path = "/etc/ssh"
+permissions = "600"
+owner = "0"
+group = "0"
+
+[sshkeys.public]
+check = true
+file_type = "public key"
+name = "Public Host key files"
+path = "/etc/ssh"
+permissions = "644"
+owner = "0"
+group = "0"
+
 [sudo]
-config = "/etc/sudo.conf"
+# config = "/etc/sudo.conf"
 # path = "/etc/sudoers.d"
 
 [sudo.authtimeout]

@@ -10,6 +10,25 @@ import pwd
 import stat
 
 
+def check_keys(settings):
+    for setting in settings:
+        path = settings[setting].get("path")
+        print(f"Checking {setting}")
+        # print(settings[setting])
+        if path_exists(path):
+            # print(f"{path} exists")
+            files = list_directory(path=path)
+            file_type = settings[setting].get("file_type")
+            # print(files)
+            for file in files:
+                print(f"Checking {file}")
+                current_file = os.path.join(path, file)
+                if file_type in current_file:
+                    print(f"{file} is a {file_type}")
+                else:
+                    print(f"{file} is not a {file_type}")
+
+
 def check_lsmod(module):
     lsmod_process = subprocess.Popen(["lsmod"], stdout=subprocess.PIPE, text=True)
     grep_process = subprocess.Popen(
@@ -209,7 +228,7 @@ def check_regex(file_path, pattern):
 def check_ssh(global_config, settings):
     system_config = global_config["sshd"].get("config")
     config_directory = global_config["sshd"].get("path")
-    config_files = filter_directory(path=config_directory, extension=".conf")
+    config_files = list_directory(path=config_directory, extension=".conf")
     config_files.append(system_config)
 
     for setting in settings:
@@ -226,20 +245,26 @@ def check_ssh(global_config, settings):
                     print(f"{setting} failed")
 
 
-def check_sudo(settings):
+def check_sudo(settings):  # TODO finish function
     system_config = settings.get("config")
     config_directory = settings.get("path")
 
 
-def filter_directory(path, extension):
+def list_directory(path, extension=None):
     if path_exists(path) == True:
         files = os.listdir(path)
-        filtered_files = [
-            file
-            for file in files
-            if file.endswith(extension) and os.path.isfile(os.path.join(path, file))
-        ]
-        return filtered_files
+        if extension:
+            filtered_files = [
+                file
+                for file in files
+                if file.endswith(extension) and os.path.isfile(os.path.join(path, file))
+            ]
+            return filtered_files
+        else:
+            directory_files = [
+                file for file in files if os.path.isfile(os.path.join(path, file))
+            ]
+            return directory_files
     else:
         return []
 
@@ -251,30 +276,6 @@ def path_exists(path):
         return False
 
 
-def find_private_keys(directory):
-    for root, dirs, files in os.walk(directory):
-        # print(root)
-        # print(dirs)
-        # print(files)
-        for file in files:
-            # print(file)
-            # print(os.path.join(root, file))
-            # if "private" in file:  # Adjust the condition based on your naming conventions
-            file_path = os.path.join(root, file)
-            file_stat = os.stat(file_path)
-
-            # Extracting owner and group names
-            owner_name = pwd.getpwuid(file_stat.st_uid).pw_name
-            group_name = grp.getgrgid(file_stat.st_gid).gr_name
-
-            # Converting file mode to a readable format
-            file_mode = stat.filemode(file_stat.st_mode)
-
-            print(
-                f"File: {file_path}\nPermissions: {file_mode}, Owner: {owner_name}, Group: {group_name}\n"
-            )
-
-
 def scan_linux(detected_os, global_config, linux_config):
     pkgmgr = global_config["pkgmgr"][detected_os]["installed"]
     modules = linux_config.get("modules")
@@ -284,8 +285,10 @@ def scan_linux(detected_os, global_config, linux_config):
     permissions = linux_config.get("permissions")
     ssh = linux_config.get("ssh")
     sshd = linux_config.get("sshd")
+    sshkeys = linux_config.get("sshkeys")
     sudo = linux_config.get("sudo")
 
+    check_keys(settings=sshkeys)
     # check_modules(modules=modules)
     # check_packages(os=detected_os, packages=packages, pkgmgr=pkgmgr)
     # check_pam(settings=pam)
@@ -294,5 +297,3 @@ def scan_linux(detected_os, global_config, linux_config):
     # check_ssh(global_config=global_config, settings=ssh)
     # check_ssh(global_config=global_config, settings=sshd)
     # check_sudo(settings=sudo_settings)
-
-    find_private_keys("/etc/ssh")
