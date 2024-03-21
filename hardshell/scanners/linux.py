@@ -253,12 +253,12 @@ def path_exists(path):
 
 def find_private_keys(directory):
     for root, dirs, files in os.walk(directory):
-        print(root)
-        print(dirs)
-        print(files)
+        # print(root)
+        # print(dirs)
+        # print(files)
         for file in files:
-            print(file)
-            print(os.path.join(root, file))
+            # print(file)
+            # print(os.path.join(root, file))
             # if "private" in file:  # Adjust the condition based on your naming conventions
             file_path = os.path.join(root, file)
             file_stat = os.stat(file_path)
