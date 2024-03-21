@@ -1,24 +1,23 @@
 [pkgmgr]
 amzn.installed = ['dnf', 'list', '--installed']
 amzn.uninstall = ['dnf', 'remove']
-# amzn.installed = ['apt', 'list', '--installed']
-
-
-# centos.manager = 'yum'
-# centos.installed = ['yum', 'list']
-# centos.uninstall = ['yum', 'remove']
-# debian.manager = 'apt'
-# debian.installed = ['apt', 'list']
-# debian.uninstall = ['apt', 'remove']
-# fedora.manager = 'dnf'
-# fedora.installed = ['dnf', 'list', '--installed']
-# fedora.uninstall = ['dnf', 'remove']
-# rhel.manager = ''
+debian.installed = ['dpkg', '--list']
+debian.uninstall = ['apt', 'remove']
+fedora.installed = ['dnf', 'list', '--installed']
+fedora.uninstall = ['dnf', 'remove']
+kali.installed = ['dpkg', '--list']
+kali.uninstall = ['apt', 'remove']
+ubuntu.installed = ['dpkg', '--list']
+ubuntu.uninstall = ['apt', 'remove']
 # rhel.installed = []
 # rhel.uninstall = []
-# sles.manager = ''
 # sles.installed = []
 # sles.uninstall = []
-# ubuntu.manager = 'apt'
-# ubuntu.installed = ['apt', 'list']
-# ubuntu.uninstall = ['apt', 'remove']
+
+[ssh]
+config = "/etc/ssh/ssh_config"
+path = "/etc/ssh/ssh_config.d"
+
+[sshd]
+config = "/etc/ssh/sshd_config"
+path = "/etc/ssh/sshd_config.d"

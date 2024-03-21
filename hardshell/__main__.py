@@ -2,9 +2,8 @@
 # Imports
 #########################################################################################
 import click
-
 from hardshell import __version__
-from hardshell.scanner.linux import scan_linux
+from hardshell.scanners.scan import start_scanner
 
 
 # Package Version
@@ -27,7 +26,7 @@ def system_cli():
 @system_cli.command()
 def audit():
     print("System Audit")
-    scan_linux()
+    start_scanner()
 
 
 # Harden Command
