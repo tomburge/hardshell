@@ -30,7 +30,8 @@ def check_keys(settings):
                 if file_type in file_info.stdout:
                     print(f"{file} is a {file_type}")
                 else:
-                    print(f"{file} is not a {file_type}")
+                    continue
+                    # print(f"{file} is not a {file_type}")
 
 
 def check_lsmod(module):
