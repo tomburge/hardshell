@@ -259,20 +259,20 @@ def find_private_keys(directory):
         for file in files:
             print(file)
             print(os.path.join(root, file))
-            if "private" in file:  # Adjust the condition based on your naming conventions
-                file_path = os.path.join(root, file)
-                file_stat = os.stat(file_path)
+            # if "private" in file:  # Adjust the condition based on your naming conventions
+            file_path = os.path.join(root, file)
+            file_stat = os.stat(file_path)
 
-                # Extracting owner and group names
-                owner_name = pwd.getpwuid(file_stat.st_uid).pw_name
-                group_name = grp.getgrgid(file_stat.st_gid).gr_name
+            # Extracting owner and group names
+            owner_name = pwd.getpwuid(file_stat.st_uid).pw_name
+            group_name = grp.getgrgid(file_stat.st_gid).gr_name
 
-                # Converting file mode to a readable format
-                file_mode = stat.filemode(file_stat.st_mode)
+            # Converting file mode to a readable format
+            file_mode = stat.filemode(file_stat.st_mode)
 
-                print(
-                    f"File: {file_path}\nPermissions: {file_mode}, Owner: {owner_name}, Group: {group_name}\n"
-                )
+            print(
+                f"File: {file_path}\nPermissions: {file_mode}, Owner: {owner_name}, Group: {group_name}\n"
+            )
 
 
 def scan_linux(detected_os, global_config, linux_config):
